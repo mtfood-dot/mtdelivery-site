@@ -67,7 +67,17 @@ nav.links a.food{opacity:1;color:var(--gold);border:1px solid rgba(242,181,28,.5
 .btn.wa{background:var(--wa);color:#fff}
 .btn.line{border-color:var(--line);color:var(--fg);background:var(--surface)}
 .track{margin-top:26px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:14px;display:grid;gap:8px;max-width:520px}
-.track label{font-weight:600;font-size:.92rem;color:var(--gold)}
+.tmode{display:flex;gap:6px}
+.tmode button{flex:1;background:transparent;border:1px solid rgba(255,255,255,.25);color:#c9d6ea;font:600 .88rem var(--body);border-radius:999px;padding:7px 10px;cursor:pointer}
+.tmode button[aria-selected="true"]{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.tres{display:grid;gap:8px}
+.tres .pc{background:#fff;color:#0d1b30;border-radius:10px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.tres .pc b{font-family:var(--mono);font-size:.92rem;direction:ltr}
+.tres .pc small{display:block;color:#5a6a82}
+.tres .pc a{color:#0a2647;font-weight:700;white-space:nowrap}
+.tres .st{display:inline-block;font-size:.78rem;font-weight:700;border-radius:999px;padding:2px 9px;background:#eef2f8;color:#0a2647;margin-top:3px}
+.tres .st.ok{background:#e3f5ea;color:#1d8a4e}.tres .st.ret{background:#fbeaea;color:#b02a2a}
+.tres p{margin:0;color:#c9d6ea;font-size:.9rem}
 .trow{display:flex;gap:8px}
 .trow input{flex:1;min-width:0;font:inherit;font-size:1rem;border-radius:10px;border:1.5px solid transparent;padding:11px 12px;background:#fff;color:#0d1b30;direction:ltr;text-transform:uppercase}
 .trow input:focus{outline:none;border-color:var(--gold)}
@@ -215,9 +225,13 @@ footer a{color:var(--gold)}
         <a class="btn ghost" href="#tarifs" data-i="cta2">Voir les tarifs</a>
       </div>
       <form class="track" id="fTrack" novalidate>
-        <label for="trkNum" data-i="trkL">Suivre mon colis</label>
+        <div class="tmode" role="tablist">
+          <button type="button" id="mNum" aria-selected="true" data-i="trkL">Numéro de suivi</button>
+          <button type="button" id="mTel" aria-selected="false" data-i="trkT">Mon téléphone</button>
+        </div>
         <div class="trow"><input id="trkNum" name="trk" required autocomplete="off" data-ph="trkPh" placeholder="Numéro de suivi"><button class="btn gold" type="submit" data-i="trkB">Suivre</button></div>
         <a class="trklink" id="trkGo" target="_blank" rel="noopener" hidden></a>
+        <div class="tres" id="trkRes" hidden></div>
       </form>
     </div>
     <div class="label" aria-hidden="true">
@@ -433,7 +447,7 @@ const T={ar:{
 n0:"تتبّع الطرد",n1:"الأسعار",n2:"كن مرسِلًا",n3:"أموالي COD",n4:"الآراء",n5:"شكوى",
 heroEy:"مفتاح · البليدة · الجزائر",heroH:"نوصل طرودك، <em>ونحصّل أموالك.</em>",
 heroP:"MT Delivery تستلم طرودك من عندك، توصلها في مفتاح وضواحيها وإلى الولايات الـ69 عبر شركائنا، تحصّل الدفع عند الاستلام وتعيد لك أموالك.",
-cta1:"📦 كن مرسِلًا",cta2:"شاهد الأسعار",trkL:"تتبّع طردي",trkPh:"رقم التتبع",trkB:"تتبّع",
+cta1:"📦 كن مرسِلًا",cta2:"شاهد الأسعار",trkL:"رقم التتبع",trkT:"رقم هاتفي",telPh:"رقم هاتفك (05 / 06 / 07)",trkPh:"رقم التتبع",trkB:"تتبّع",
 svEy:"توصيل الطرود",svH:"ماذا تقدم MT Delivery لمحلك",
 p1:"الاستلام من المنزل",p1s:"نمر لأخذ طرودك.",p2:"مفتاح وضواحيها",p2s:"توصيل محلي سريع.",p3:"69 ولاية",p3s:"عبر شركائنا.",p4:"رقم تتبع",p4s:"لكل طرد.",p5:"دفع عند الاستلام وإرجاع مجاني",p5s:"الدفع عند الاستلام، والإرجاع بلا مصاريف.",
 fbH:"جائع؟",fbP:"اطلب الوجبات والأكل السريع والحلويات على MT Food.",fbBtn:"اذهب إلى MT Food",
@@ -451,12 +465,12 @@ const M={fr:{
 doneSend:"Formulaire prêt. Appuyez sur le bouton pour l'envoyer sur WhatsApp :",waSend:"Envoyer sur WhatsApp",copyMsg:"Copier le message",copied:"Copié",
 fill:"Merci de remplir les champs en rouge.",starsReq:"Choisissez une note de 1 à 5 étoiles.",
 avisOk:"Merci ! Votre avis est publié.",avisWa:"Votre avis n'a pas pu être publié ici. Envoyez-le-nous sur WhatsApp :",
-count:n=>n+(n>1?" avis":" avis"),grille:"Bonjour MT Delivery, je voudrais recevoir votre grille de tarifs pour les 69 wilayas.",hello:"Bonjour MT Delivery",trkGo:"Ouvrir le suivi du colis →",trkErr:"Entrez votre numéro de suivi.",
+count:n=>n+(n>1?" avis":" avis"),grille:"Bonjour MT Delivery, je voudrais recevoir votre grille de tarifs pour les 69 wilayas.",hello:"Bonjour MT Delivery",trkGo:"Ouvrir le suivi du colis →",trkErr:"Entrez votre numéro de suivi.",telPh:"Votre numéro de téléphone (05 / 06 / 07)",telErr:"Entrez un numéro de téléphone valide, par exemple 0555 12 34 56.",telNone:"Aucun colis trouvé pour ce numéro. Vérifiez le numéro ou utilisez votre numéro de suivi.",telFail:"Recherche impossible pour le moment. Réessayez dans un instant.",telSee:"Suivre →",telUpd:"Liste mise à jour le ",telWait:"Recherche…",
 tExp:"Nouvelle inscription expéditeur",tCod:"Demande de versement COD",tRec:"Réclamation",tAv:"Avis client",onDemand:"Selon la wilaya",free:"Gratuit"},
 ar:{doneSend:"الاستمارة جاهزة. اضغط على الزر لإرسالها عبر واتساب:",waSend:"أرسل عبر واتساب",copyMsg:"انسخ الرسالة",copied:"تم النسخ",
 fill:"يرجى ملء الخانات باللون الأحمر.",starsReq:"اختر تقييمًا من 1 إلى 5 نجوم.",
 avisOk:"شكرًا! تم نشر رأيك.",avisWa:"تعذر نشر رأيك هنا. أرسله لنا عبر واتساب:",
-count:n=>n+" رأي",grille:"السلام عليكم، أريد جدول أسعار التوصيل إلى 69 ولاية.",hello:"السلام عليكم",trkGo:"افتح تتبّع الطرد ←",trkErr:"أدخل رقم التتبع.",
+count:n=>n+" رأي",grille:"السلام عليكم، أريد جدول أسعار التوصيل إلى 69 ولاية.",hello:"السلام عليكم",trkGo:"افتح تتبّع الطرد ←",trkErr:"أدخل رقم التتبع.",telPh:"رقم هاتفك (05 / 06 / 07)",telErr:"أدخل رقم هاتف صحيح، مثلًا 0555 12 34 56.",telNone:"لا يوجد طرد بهذا الرقم. تحقق من الرقم أو استعمل رقم التتبع.",telFail:"تعذر البحث حاليًا. أعد المحاولة بعد قليل.",telSee:"تتبّع ←",telUpd:"آخر تحديث للقائمة: ",telWait:"جارٍ البحث…",
 tExp:"تسجيل مرسِل جديد",tCod:"طلب تحويل أموال COD",tRec:"شكوى",tAv:"رأي زبون",onDemand:"حسب الولاية",free:"مجاني"}};
 
 const FR={},FRH={},FRPH={};
@@ -481,12 +495,41 @@ function renderWil(){
 }
 document.getElementById("wSearch").addEventListener("input",renderWil);
 const TRACK_URL="https://suivi.ecotrack.dz/suivi/";
-document.getElementById("fTrack").addEventListener("submit",e=>{
+let trkMode="num";
+function setMode(m){
+  trkMode=m;const inp=document.getElementById("trkNum");
+  document.getElementById("mNum").setAttribute("aria-selected",m==="num");
+  document.getElementById("mTel").setAttribute("aria-selected",m==="tel");
+  inp.placeholder=m==="tel"?M[lang].telPh:(lang==="ar"?T.ar.trkPh:FRPH.trkPh);
+  inp.inputMode=m==="tel"?"tel":"text";inp.style.textTransform=m==="tel"?"none":"uppercase";
+  inp.value="";document.getElementById("trkGo").hidden=true;document.getElementById("trkRes").hidden=true;
+}
+document.getElementById("mNum").onclick=()=>setMode("num");
+document.getElementById("mTel").onclick=()=>setMode("tel");
+document.getElementById("fTrack").addEventListener("submit",async e=>{
   e.preventDefault();
-  const n=document.getElementById("trkNum").value.trim().replace(/\s+/g,"").toUpperCase();
-  const a=document.getElementById("trkGo");a.hidden=false;
-  if(!/^[A-Z0-9-]{4,40}$/.test(n)){a.removeAttribute("href");a.textContent=M[lang].trkErr;return}
-  a.href=TRACK_URL+encodeURIComponent(n);a.textContent=M[lang].trkGo;try{window.open(a.href,"_blank","noopener")}catch(err){}
+  const a=document.getElementById("trkGo"),res=document.getElementById("trkRes"),m=M[lang];
+  const raw=document.getElementById("trkNum").value;
+  if(trkMode==="num"){
+    res.hidden=true;
+    const n=raw.trim().replace(/\s+/g,"").toUpperCase();a.hidden=false;
+    if(!/^[A-Z0-9-]{4,40}$/.test(n)){a.removeAttribute("href");a.textContent=m.trkErr;return}
+    a.href=TRACK_URL+encodeURIComponent(n);a.textContent=m.trkGo;try{window.open(a.href,"_blank","noopener")}catch(err){}
+    return;
+  }
+  a.hidden=true;res.hidden=false;
+  let t=raw.replace(/\D/g,"");if(t.startsWith("213"))t=t.slice(3);if(t.length===9)t="0"+t;
+  if(!/^0[5-7]\d{8}$/.test(t)){res.innerHTML=`<p>${esc(m.telErr)}</p>`;return}
+  res.innerHTML=`<p>${esc(m.telWait)}</p>`;
+  try{
+    const r=await fetch("/api/suivi",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({tel:t})});
+    const j=await r.json();
+    if(!j.ok)throw 0;
+    if(!j.colis.length){res.innerHTML=`<p>${esc(m.telNone)}</p>`;return}
+    const cls=s=>/livr[ée]/i.test(s)&&!/en livraison/i.test(s)?"ok":/retour/i.test(s)?"ret":"";
+    const upd=j.updatedAt?`<p>${esc(m.telUpd)}${new Date(j.updatedAt).toLocaleString(lang==="ar"?"ar-DZ":"fr-DZ",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</p>`:"";
+    res.innerHTML=j.colis.map(c=>`<div class="pc"><div><b>${esc(c.id)}</b><small>${esc(c.wilaya)}${c.date?" · "+esc(c.date.slice(0,10)):""}</small><span class="st ${cls(c.etat)}">${esc(c.etat)}</span></div><a href="${TRACK_URL+encodeURIComponent(c.id)}" target="_blank" rel="noopener">${esc(m.telSee)}</a></div>`).join("")+upd;
+  }catch(err){res.innerHTML=`<p>${esc(m.telFail)}</p>`}
 });
 function apply(){
   const ar=lang==="ar";
@@ -497,6 +540,7 @@ function apply(){
   document.getElementById("lang").textContent=ar?"Français":"العربية";
     document.getElementById("ctaWa").href=wa(M[lang].hello);
   renderTarifs();renderReviews();
+  if(typeof trkMode!=="undefined"&&trkMode==="tel")document.getElementById("trkNum").placeholder=M[lang].telPh;
 }
 document.getElementById("lang").onclick=()=>{lang=lang==="fr"?"ar":"fr";try{localStorage.setItem("mtd_lang",lang)}catch(e){}apply()};
 try{if(localStorage.getItem("mtd_lang")==="ar")lang="ar"}catch(e){}

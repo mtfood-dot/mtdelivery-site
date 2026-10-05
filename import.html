@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Import Ecotrack – MT Delivery</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap">
+<style>
+:root{--navy:#0a2647;--gold:#f2b51c;--bg:#f5f7fb;--surface:#fff;--fg:#0d1b30;--muted:#5a6a82;--line:#d9e0eb;--ok:#1d8a4e;--err:#b02a2a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 "Readex Pro",system-ui,sans-serif}
+header{background:var(--navy);color:#fff;padding:16px 20px}
+header b{color:var(--gold)}
+main{max-width:640px;margin:0 auto;padding:28px 16px}
+h1{font-size:1.5rem;margin:0 0 6px}
+p.lead{color:var(--muted);margin:0 0 22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:16px}
+label{font-weight:600;font-size:.9rem;display:block;margin-bottom:6px}
+input{font:inherit;width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:#f8fafd}
+input:focus{outline:none;border-color:var(--gold)}
+.drop{border:2px dashed var(--line);border-radius:12px;padding:22px;text-align:center;color:var(--muted);cursor:pointer}
+.drop.on{border-color:var(--gold);background:#fff9e8}
+button{font:600 1rem "Readex Pro",sans-serif;background:var(--gold);color:var(--navy);border:0;border-radius:12px;padding:13px 20px;cursor:pointer}
+button:disabled{opacity:.5;cursor:default}
+.msg{border-radius:10px;padding:12px 14px;font-weight:600}
+.msg.ok{background:#e8f6ee;color:var(--ok)}.msg.err{background:#fbeaea;color:var(--err)}
+.msg.info{background:#eef2f8;color:var(--navy)}
+ol{color:var(--muted);padding-inline-start:20px;margin:22px 0 0}
+</style>
+</head>
+<body>
+<header><b>MT Delivery</b> · Import des colis Ecotrack</header>
+<main>
+  <h1>Mettre à jour la recherche par téléphone</h1>
+  <p class="lead">Déposez l'export Excel « Station – Colis en traitements » d'Ecotrack. Seuls le numéro de suivi, les téléphones, la wilaya, l'état et la date sont envoyés. Les noms, adresses, produits et montants restent sur votre appareil.</p>
+  <form class="card" id="f">
+    <div><label for="pw">Mot de passe admin</label><input id="pw" type="password" autocomplete="current-password" required></div>
+    <div>
+      <label for="file">Fichier Excel Ecotrack</label>
+      <div class="drop" id="drop">Touchez ici pour choisir le fichier, ou glissez-le ici</div>
+      <input id="file" type="file" accept=".xlsx,.xls,.csv" hidden>
+    </div>
+    <div class="msg info" id="info" hidden></div>
+    <button type="submit" id="go" disabled>Envoyer les colis</button>
+    <div class="msg" id="res" hidden></div>
+  </form>
+  <ol>
+    <li>Dans imir.ecotrack.dz, exportez la liste des colis en Excel.</li>
+    <li>Déposez le fichier ici et envoyez. Les nouveaux colis s'ajoutent, ceux déjà connus sont mis à jour.</li>
+    <li>Les colis absents des imports depuis 60 jours sont retirés automatiquement.</li>
+  </ol>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+/* Extrait les colonnes utiles d'un export Ecotrack (la ligne d'en-têtes est repérée automatiquement). */
+function extractRows(table){
+  const norm=s=>String(s??"").normalize("NFD").replace(/[̀-ͯ]/g,"").trim().toLowerCase();
+  const h=table.findIndex(r=>r&&r.some(c=>norm(c)==="id")&&r.some(c=>norm(c)==="tel 1"));
+  if(h<0)return null;
+  const head=table[h].map(norm),col=n=>head.indexOf(n);
+  const c={id:col("id"),t1:col("tel 1"),t2:col("tel 2"),w:col("wilaya"),e:col("etat"),d:col("date creation")};
+  const rows=[];
+  for(const r of table.slice(h+1)){
+    if(!r||!r[c.id])continue;
+    rows.push({id:String(r[c.id]).trim(),tel1:r[c.t1]??"",tel2:c.t2>=0?(r[c.t2]??""):"",wilaya:c.w>=0?(r[c.w]??""):"",etat:c.e>=0?(r[c.e]??""):"",date:c.d>=0?String(r[c.d]??""):""});
+  }
+  return rows;
+}
+if(typeof module!=="undefined")module.exports={extractRows};
+</script>
+<script>
+let ROWS=null;
+const $=id=>document.getElementById(id);
+function show(el,cls,txt){el.className="msg "+cls;el.textContent=txt;el.hidden=false}
+async function readFile(f){
+  $("res").hidden=true;ROWS=null;$("go").disabled=true;
+  try{
+    const wb=XLSX.read(await f.arrayBuffer(),{type:"array"});
+    const table=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,raw:false,defval:null});
+    const rows=extractRows(table);
+    if(!rows||!rows.length){show($("info"),"err","Ce fichier ne ressemble pas à un export Ecotrack (colonnes « ID » et « Tel 1 » introuvables).");return}
+    ROWS=rows;$("go").disabled=false;
+    show($("info"),"info",f.name+" : "+rows.length+" colis prêts à être envoyés.");
+  }catch(e){show($("info"),"err","Impossible de lire ce fichier. Vérifiez que c'est bien le fichier Excel exporté d'Ecotrack.")}
+}
+$("drop").onclick=()=>$("file").click();
+$("file").onchange=e=>e.target.files[0]&&readFile(e.target.files[0]);
+["dragover","dragenter"].forEach(t=>$("drop").addEventListener(t,e=>{e.preventDefault();$("drop").classList.add("on")}));
+["dragleave","drop"].forEach(t=>$("drop").addEventListener(t,e=>{e.preventDefault();$("drop").classList.remove("on")}));
+$("drop").addEventListener("drop",e=>e.dataTransfer.files[0]&&readFile(e.dataTransfer.files[0]));
+$("f").onsubmit=async e=>{
+  e.preventDefault();
+  if(!ROWS)return;
+  if(!$("pw").value){show($("res"),"err","Entrez le mot de passe admin.");return}
+  $("go").disabled=true;$("go").textContent="Envoi…";
+  try{
+    const r=await fetch("/api/import",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({password:$("pw").value,rows:ROWS})});
+    const j=await r.json();
+    if(j.ok)show($("res"),"ok",`Import réussi : ${j.added} nouveaux colis, ${j.updated} mis à jour. ${j.total} colis consultables par téléphone.`);
+    else show($("res"),"err",j.error||"L'import a échoué.");
+  }catch(err){show($("res"),"err","Connexion impossible. Vérifiez internet et réessayez.")}
+  $("go").disabled=false;$("go").textContent="Envoyer les colis";
+};
+</script>
+</body>
+</html>
