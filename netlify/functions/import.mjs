@@ -6,8 +6,8 @@ const KEEP_DAYS = 60;
 
 export default async (req) => {
   if (req.method !== "POST") return json({ ok: false, error: "Méthode non autorisée." }, 405);
-  const expected = process.env.ADMIN_PASSWORD;
-  if (!expected) return json({ ok: false, error: "Mot de passe admin non configuré sur Netlify (ADMIN_PASSWORD)." }, 503);
+  const expected = process.env.ADMIN_PASSWORD || process.env.ADMIN_MT;
+  if (!expected) return json({ ok: false, error: "Mot de passe admin non configuré sur Netlify (ADMIN_MT)." }, 503);
 
   let body;
   try { body = await req.json(); } catch { return json({ ok: false, error: "Données illisibles." }, 400); }
