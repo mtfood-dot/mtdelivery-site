@@ -1,14 +1,15 @@
 // Demandes envoyées depuis le site (nouvel expéditeur, argent COD, réclamation, avis).
-// POST public  {type, champs…}                      -> enregistre la demande
-// POST admin   {password, action:"list"}             -> liste des demandes
+// POST public  {categorie, champs…}                   -> enregistre la demande (Cloudflare + Google Sheet)
+// POST admin   {password, action:"list"}              -> liste des demandes
 // POST admin   {password, action:"statut", id, statut} -> change le statut
 // Chaque demande est une clé KV « dem:<horodatage>-<aléa> », sans risque d'écrasement entre deux envois.
+// Copie dans Google Sheet : variables Cloudflare SHEET_URL (adresse de l'Apps Script) et SHEET_TOKEN (secret partagé).
 import { json } from "./_lib.js";
 
 const FIELDS = {
   expediteur: ["nom", "prenom", "adresse", "email", "tel", "boutique", "secteur"],
   cod: ["boutique", "tel", "suivis", "montant"],
-  reclamation: ["nom", "tel", "suivi", "type", "desc"],
+  reclamation: ["nom", "tel", "suivi", "type", "desc"], // « type » = motif choisi dans le formulaire
   avis: ["prenom", "texte", "note"],
 };
 const STATUTS = ["nouveau", "en cours", "réglé"];
@@ -19,7 +20,25 @@ async function isAdmin(env, pw) {
   return !!expected && pw === expected;
 }
 
-export async function onRequestPost({ request, env }) {
+// Envoie la demande à l'Apps Script de la Google Sheet. Ne bloque jamais l'enregistrement.
+async function toSheet(env, demande) {
+  if (!env.SHEET_URL || !env.SHEET_TOKEN) return "non configurée";
+  try {
+    const r = await fetch(env.SHEET_URL, {
+      method: "POST",
+      headers: { "content-type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ token: env.SHEET_TOKEN, demande }),
+      redirect: "follow",
+    });
+    const j = await r.json().catch(() => ({}));
+    return j.ok ? "ok" : "erreur: " + (j.error || r.status);
+  } catch (e) {
+    return "erreur: " + (e && e.message || e);
+  }
+}
+
+export async function onRequestPost(context) {
+  const { request, env } = context;
   if (!env.COLIS) return json({ ok: false, error: "stockage" }, 503);
   let b;
   try { b = await request.json(); } catch { return json({ ok: false, error: "Données illisibles." }, 400); }
@@ -39,7 +58,7 @@ export async function onRequestPost({ request, env }) {
         cursor = page.list_complete ? null : page.cursor;
       } while (cursor);
       out.sort((a, b2) => (b2.date || 0) - (a.date || 0));
-      return json({ ok: true, demandes: out });
+      return json({ ok: true, demandes: out, sheet: !!(env.SHEET_URL && env.SHEET_TOKEN) });
     }
 
     if (b.action === "statut") {
@@ -52,11 +71,17 @@ export async function onRequestPost({ request, env }) {
       await env.COLIS.put(b.id, JSON.stringify(d));
       return json({ ok: true });
     }
+
+    if (b.action === "testSheet") {
+      const res = await toSheet(env, { id: "test", type: "test", date: Date.now(), statut: "test", data: {} });
+      return json({ ok: res === "ok", sheet: res });
+    }
     return json({ ok: false, error: "Action inconnue." }, 400);
   }
 
   // --- Envoi public d'une demande ---
-  const fields = FIELDS[b.type];
+  const cat = b.categorie || (FIELDS[b.type] ? b.type : null);
+  const fields = FIELDS[cat];
   if (!fields) return json({ ok: false, error: "Type de demande inconnu." }, 400);
   if (b.site) return json({ ok: true }); // champ piège rempli par les robots : on ignore sans le dire
 
@@ -69,6 +94,7 @@ export async function onRequestPost({ request, env }) {
 
   const data = {};
   for (const f of fields) {
+    if (f === "type" && !b.categorie) continue; // ancien format : « type » était la catégorie
     const v = String(b[f] ?? "").trim().slice(0, MAX_LEN);
     if (v) data[f] = v;
   }
@@ -76,6 +102,12 @@ export async function onRequestPost({ request, env }) {
 
   const now = Date.now();
   const id = `dem:${now}-${Math.random().toString(36).slice(2, 8)}`;
-  await env.COLIS.put(id, JSON.stringify({ id, type: b.type, data, date: now, statut: "nouveau" }));
+  const demande = { id, type: cat, data, date: now, statut: "nouveau" };
+  await env.COLIS.put(id, JSON.stringify(demande));
+
+  // Copie dans la Google Sheet en arrière-plan (le client n'attend pas).
+  const job = toSheet(env, demande);
+  if (context.waitUntil) context.waitUntil(job); else await job;
+
   return json({ ok: true, id });
 }

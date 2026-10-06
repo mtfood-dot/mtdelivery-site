@@ -591,7 +591,7 @@ const TYPES={fExp:"expediteur",fCod:"cod",fRec:"reclamation"};
 /* Enregistre la demande sur le site (page admin) ; renvoie true si c'est fait. */
 async function saveDemande(type,data){
   try{
-    const r=await fetch("/api/demandes",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(Object.assign({type},data))});
+    const r=await fetch("/api/demandes",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(Object.assign({},data,{categorie:type}))});
     return !!(await r.json()).ok;
   }catch(e){return false}
 }
