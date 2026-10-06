@@ -319,7 +319,7 @@ footer a{color:var(--gold)}
       </ul>
     </div>
     <form class="f" id="fExp" novalidate>
-      <input name="site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input name="site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0;pointer-events:none">
       <div class="fld"><label for="exNom" data-i="lNom">Nom</label><input id="exNom" name="nom" required autocomplete="family-name"></div>
       <div class="fld"><label for="exPrenom" data-i="lPrenom">Prénom</label><input id="exPrenom" name="prenom" required autocomplete="given-name"></div>
       <div class="fld full"><label for="exAdr" data-i="lAdr">Adresse</label><input id="exAdr" name="adresse" required autocomplete="street-address"></div>
@@ -366,7 +366,7 @@ footer a{color:var(--gold)}
       </ul>
     </div>
     <form class="f" id="fCod" novalidate>
-      <input name="site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input name="site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0;pointer-events:none">
       <div class="fld"><label for="cdBout" data-i="lBout">Nom de la boutique</label><input id="cdBout" name="boutique" required></div>
       <div class="fld"><label for="cdTel" data-i="lTel">Numéro de téléphone</label><input id="cdTel" name="tel" type="tel" required pattern="0[5-7][0-9 ]{8,11}" placeholder="05 XX XX XX XX" class="num"></div>
       <div class="fld full"><label for="cdSuivi" data-i="lSuivis">Numéros de suivi des colis livrés</label><textarea id="cdSuivi" name="suivis" required data-ph="phSuivis" placeholder="Un numéro par ligne"></textarea></div>
@@ -412,7 +412,7 @@ footer a{color:var(--gold)}
       </div>
     </div>
     <form class="f" id="fRec" novalidate>
-      <input name="site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input name="site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0;pointer-events:none">
       <div class="fld"><label for="rcNom" data-i="lNomComplet">Nom et prénom</label><input id="rcNom" name="nom" required></div>
       <div class="fld"><label for="rcTel" data-i="lTel">Numéro de téléphone</label><input id="rcTel" name="tel" type="tel" required pattern="0[5-7][0-9 ]{8,11}" placeholder="05 XX XX XX XX" class="num"></div>
       <div class="fld"><label for="rcSuivi" data-i-html="lSuivi">Numéro de suivi <span class="opt">si concerné</span></label><input id="rcSuivi" name="suivi" class="num"></div>
