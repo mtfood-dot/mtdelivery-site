@@ -158,7 +158,7 @@ form.f .full{grid-column:1/-1}
 .fld .aide{color:var(--muted);font-size:.82rem}
 .fld .err{color:var(--err);font-size:.85rem;font-weight:600}
 .fld .err:empty{display:none}
-.fld .apercu{max-width:100%;width:220px;border-radius:10px;border:1px solid var(--line)}
+.fld .apercu{font-size:.88rem;font-weight:600;overflow-wrap:anywhere}
 .fld input,.fld select,.fld textarea{font:inherit;font-size:1rem;color:var(--fg);background:var(--field);border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;width:100%}
 .fld textarea{min-height:96px;resize:vertical}
 .fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--gold);outline:none}
@@ -339,10 +339,10 @@ footer a{color:var(--gold)}
           <option data-i="o8">Autre</option>
         </select></div>
       <div class="fld full">
-        <label for="exPiece" data-i="lPiece">Photo de la pièce d'identité</label>
-        <input id="exPiece" name="piece" type="file" accept="image/jpeg,image/png,image/webp" required aria-describedby="exPieceAide exPieceErr">
-        <small class="aide" id="exPieceAide" data-i="lPieceAide">Carte d'identité ou permis, recto lisible. Formats JPG, PNG ou WebP, 10 Mo maximum.</small>
-        <img class="apercu" id="exPieceApercu" alt="" hidden>
+        <label for="exPiece" data-i="lPiece">Pièce d'identité (PDF)</label>
+        <input id="exPiece" name="piece" type="file" accept="application/pdf,.pdf" required aria-describedby="exPieceAide exPieceErr">
+        <small class="aide" id="exPieceAide" data-i="lPieceAide">Carte d'identité ou permis, recto et verso lisibles, en un seul fichier PDF de 5 Mo maximum.</small>
+        <small class="apercu" id="exPieceApercu" hidden></small>
         <small class="err" id="exPieceErr" role="alert"></small>
       </div>
       <div class="full"><button class="btn gold" type="submit" data-i="bExp">Envoyer mon inscription</button></div>
@@ -473,7 +473,7 @@ fbH:"جائع؟",fbP:"اطلب الوجبات والأكل السريع والح
 tEy:"قائمة الأسعار",tH:"أسعار التوصيل",tP:"السعر لكل طرد انطلاقًا من البليدة. إرجاع الطرد المرفوض مجاني.",tLoc:"التوصيل المحلي (مفتاح)",
 tInfo:"معلومات مفيدة",ti1:"الانطلاق من البليدة (الولاية 09)",ti2:"إلى المنزل: يُسلَّم في عنوان الزبون",ti3:"ستوب ديسك: يستلم الزبون من المكتب، بسعر أقل",ti4:"إرجاع الطرد المرفوض: مجاني",tNat:"التوصيل إلى الولايات",tSearchL:"ابحث عن ولاية",tSearch:"ابحث عن ولاية أو رمز…",thCode:"الرمز",thW:"الولاية",thDom:"إلى المنزل",thSd:"ستوب ديسك",tNone:"لم نجد هذه الولاية. اتصل بنا عبر واتساب لهذه الوجهة.",tNote:"الأسعار لكل طرد انطلاقًا من البليدة، بالدينار الجزائري. ولاية غير مذكورة: اتصل بنا.",onDemand:"حسب الولاية",free:"مجاني",
 eEy:"المرسِلون الجدد",eH:"افتح حسابك كمرسِل",eP:"تبيع عبر الإنترنت أو في محل؟ سجّل ونتصل بك لتنظيم أول استلام.",e1:"التسجيل مجاني",e2:"الاستلام من عندك",e3:"نحصّل دفع زبائنك عند التوصيل",
-lNom:"اللقب",lPrenom:"الاسم",lAdr:"العنوان",lMail:"البريد الإلكتروني",lTel:"رقم الهاتف",lBout:"اسم المحل",lSect:"قطاع النشاط",lPiece:"صورة بطاقة التعريف",lPieceAide:"بطاقة التعريف الوطنية أو رخصة السياقة، الوجه الأمامي واضح. الصيغ JPG أو PNG أو WebP، بحد أقصى 10 ميغابايت.",
+lNom:"اللقب",lPrenom:"الاسم",lAdr:"العنوان",lMail:"البريد الإلكتروني",lTel:"رقم الهاتف",lBout:"اسم المحل",lSect:"قطاع النشاط",lPiece:"بطاقة التعريف (PDF)",lPieceAide:"بطاقة التعريف الوطنية أو رخصة السياقة، الوجهان واضحان، في ملف PDF واحد بحد أقصى 5 ميغابايت.",
 o0:"اختر…",o1:"ملابس وموضة",o2:"مستحضرات تجميل",o3:"إلكترونيات وإكسسوارات",o4:"المنزل والديكور",o5:"مواد غذائية",o6:"صحة وشبه صيدلية",o7:"أطفال وألعاب",o8:"أخرى",bExp:"أرسل تسجيلي",
 cEy:"فضاء المرسِل",cH:"اطلب أموالي COD",cP:"تم توصيل طرودك؟ أدخل أرقام التتبع ونجهز لك المبلغ المحصّل لتستلمه من المكتب.",c1:"استمارة واحدة لعدة طرود",c2:"نؤكد لك المبلغ قبل الدفع",c3:"الدفع نقدًا في المكتب، بمفتاح",
 lSuivis:"أرقام تتبع الطرود الموصّلة",phSuivis:"رقم في كل سطر",lMont:'المبلغ المنتظر (دج) <span class="opt">اختياري</span>',bCod:"أرسل طلبي",
@@ -484,12 +484,12 @@ const M={fr:{
 doneSend:"Formulaire prêt. Appuyez sur le bouton pour l'envoyer sur WhatsApp :",saved:"✅ Demande enregistrée. Nous vous recontactons rapidement. Vous pouvez aussi nous l'envoyer sur WhatsApp :",avisSaved:"✅ Merci ! Votre avis a bien été transmis à MT Delivery.",sending:"Envoi…",waSend:"Envoyer sur WhatsApp",copyMsg:"Copier le message",copied:"Copié",
 fill:"Merci de remplir les champs en rouge.",starsReq:"Choisissez une note de 1 à 5 étoiles.",
 avisOk:"Merci ! Votre avis est publié.",avisWa:"Votre avis n'a pas pu être publié ici. Envoyez-le-nous sur WhatsApp :",
-count:n=>n+(n>1?" avis":" avis"),grille:"Bonjour MT Delivery, je voudrais recevoir votre grille de tarifs pour les 69 wilayas.",hello:"Bonjour MT Delivery",trkGo:"Ouvrir le suivi du colis →",trkErr:"Entrez votre numéro de suivi.",telPh:"Votre numéro de téléphone (05 / 06 / 07)",pieceType:"Format non accepté. Choisissez une photo JPG, PNG ou WebP.",pieceTaille:"Photo trop lourde (10 Mo maximum).",pieceLire:"Impossible de lire cette photo. Essayez une autre image.",pieceManque:"Ajoutez la photo de votre pièce d'identité.",telErr:"Entrez un numéro de téléphone valide, par exemple 0555 12 34 56.",telNone:"Aucun colis trouvé pour ce numéro. Vérifiez le numéro ou utilisez votre numéro de suivi.",telFail:"Recherche impossible pour le moment. Réessayez dans un instant.",telSee:"Suivre →",telUpd:"Liste mise à jour le ",telWait:"Recherche…",
+count:n=>n+(n>1?" avis":" avis"),grille:"Bonjour MT Delivery, je voudrais recevoir votre grille de tarifs pour les 69 wilayas.",hello:"Bonjour MT Delivery",trkGo:"Ouvrir le suivi du colis →",trkErr:"Entrez votre numéro de suivi.",telPh:"Votre numéro de téléphone (05 / 06 / 07)",pieceType:"Format non accepté : la pièce d'identité doit être un fichier PDF.",pieceTaille:"Fichier trop lourd (5 Mo maximum).",pieceLire:"Impossible de lire ce fichier PDF. Essayez un autre fichier.",pieceManque:"Ajoutez votre pièce d'identité en PDF.",telErr:"Entrez un numéro de téléphone valide, par exemple 0555 12 34 56.",telNone:"Aucun colis trouvé pour ce numéro. Vérifiez le numéro ou utilisez votre numéro de suivi.",telFail:"Recherche impossible pour le moment. Réessayez dans un instant.",telSee:"Suivre →",telUpd:"Liste mise à jour le ",telWait:"Recherche…",
 tExp:"Nouvelle inscription expéditeur",tCod:"Demande de versement COD",tRec:"Réclamation",tAv:"Avis client",onDemand:"Selon la wilaya",free:"Gratuit"},
 ar:{doneSend:"الاستمارة جاهزة. اضغط على الزر لإرسالها عبر واتساب:",saved:"✅ تم تسجيل طلبك. سنتصل بك قريبًا. يمكنك أيضًا إرساله لنا عبر واتساب:",avisSaved:"✅ شكرًا! تم إرسال رأيك إلى MT Delivery.",sending:"جارٍ الإرسال…",waSend:"أرسل عبر واتساب",copyMsg:"انسخ الرسالة",copied:"تم النسخ",
 fill:"يرجى ملء الخانات باللون الأحمر.",starsReq:"اختر تقييمًا من 1 إلى 5 نجوم.",
 avisOk:"شكرًا! تم نشر رأيك.",avisWa:"تعذر نشر رأيك هنا. أرسله لنا عبر واتساب:",
-count:n=>n+" رأي",grille:"السلام عليكم، أريد جدول أسعار التوصيل إلى 69 ولاية.",hello:"السلام عليكم",trkGo:"افتح تتبّع الطرد ←",trkErr:"أدخل رقم التتبع.",telPh:"رقم هاتفك (05 / 06 / 07)",pieceType:"صيغة غير مقبولة. اختر صورة JPG أو PNG أو WebP.",pieceTaille:"الصورة كبيرة جدًا (10 ميغابايت كحد أقصى).",pieceLire:"تعذرت قراءة هذه الصورة. جرّب صورة أخرى.",pieceManque:"أضف صورة بطاقة التعريف.",telErr:"أدخل رقم هاتف صحيح، مثلًا 0555 12 34 56.",telNone:"لا يوجد طرد بهذا الرقم. تحقق من الرقم أو استعمل رقم التتبع.",telFail:"تعذر البحث حاليًا. أعد المحاولة بعد قليل.",telSee:"تتبّع ←",telUpd:"آخر تحديث للقائمة: ",telWait:"جارٍ البحث…",
+count:n=>n+" رأي",grille:"السلام عليكم، أريد جدول أسعار التوصيل إلى 69 ولاية.",hello:"السلام عليكم",trkGo:"افتح تتبّع الطرد ←",trkErr:"أدخل رقم التتبع.",telPh:"رقم هاتفك (05 / 06 / 07)",pieceType:"صيغة غير مقبولة: يجب أن تكون بطاقة التعريف ملف PDF.",pieceTaille:"الملف كبير جدًا (5 ميغابايت كحد أقصى).",pieceLire:"تعذرت قراءة ملف PDF هذا. جرّب ملفًا آخر.",pieceManque:"أضف بطاقة التعريف بصيغة PDF.",telErr:"أدخل رقم هاتف صحيح، مثلًا 0555 12 34 56.",telNone:"لا يوجد طرد بهذا الرقم. تحقق من الرقم أو استعمل رقم التتبع.",telFail:"تعذر البحث حاليًا. أعد المحاولة بعد قليل.",telSee:"تتبّع ←",telUpd:"آخر تحديث للقائمة: ",telWait:"جارٍ البحث…",
 tExp:"تسجيل مرسِل جديد",tCod:"طلب تحويل أموال COD",tRec:"شكوى",tAv:"رأي زبون",onDemand:"حسب الولاية",free:"مجاني"}};
 
 const FR={},FRH={},FRPH={};
@@ -613,30 +613,24 @@ function formData(f){
   f.querySelectorAll("input,select,textarea").forEach(el=>{if(!el.name||el.type==="file")return;o[el.name]=el.tagName==="SELECT"?(el.value?el.options[el.selectedIndex].text:""):el.value.trim()});
   return o;
 }
-/* Pièce d'identité : contrôle du fichier puis réduction en JPEG (1600 px max) avant envoi. */
-const PIECE_TYPES=["image/jpeg","image/png","image/webp"],PIECE_MAX=10*1024*1024;
+/* Pièce d'identité : fichier PDF uniquement (signature « %PDF- » vérifiée), 5 Mo maximum. */
+const PIECE_MAX=5*1024*1024;
 let pieceData=null;
 async function preparePiece(file){
-  if(!PIECE_TYPES.includes(file.type))throw "pieceType";
+  if(!(file.type==="application/pdf"||/\.pdf$/i.test(file.name||"")))throw "pieceType";
   if(file.size>PIECE_MAX)throw "pieceTaille";
-  const url=URL.createObjectURL(file);
-  try{
-    const img=await new Promise((ok,ko)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=ko;i.src=url});
-    const k=Math.min(1,1600/Math.max(img.naturalWidth,img.naturalHeight));
-    const c=document.createElement("canvas");c.width=Math.round(img.naturalWidth*k);c.height=Math.round(img.naturalHeight*k);
-    c.getContext("2d").drawImage(img,0,0,c.width,c.height);
-    let q=.85,d=c.toDataURL("image/jpeg",q);
-    while(d.length>1.9e6&&q>.4){q-=.15;d=c.toDataURL("image/jpeg",q)}
-    if(d.length>1.9e6)throw "pieceTaille";
-    return d;
-  }catch(e){throw typeof e==="string"?e:"pieceLire"}finally{URL.revokeObjectURL(url)}
+  let buf;try{buf=await file.arrayBuffer()}catch(e){throw "pieceLire"}
+  const u=new Uint8Array(buf);
+  if(u.length<100||String.fromCharCode(...u.slice(0,5))!=="%PDF-")throw "pieceType";
+  let bin="";for(let i=0;i<u.length;i+=32768)bin+=String.fromCharCode.apply(null,u.subarray(i,i+32768));
+  return "data:application/pdf;base64,"+btoa(bin);
 }
 (function(){
   const inp=document.getElementById("exPiece"),err=document.getElementById("exPieceErr"),ap=document.getElementById("exPieceApercu");
   inp.addEventListener("change",async()=>{
     pieceData=null;err.textContent="";ap.hidden=true;inp.removeAttribute("aria-invalid");inp.style.borderColor="";
     const f=inp.files&&inp.files[0];if(!f)return;
-    try{pieceData=await preparePiece(f);ap.src=pieceData;ap.alt=f.name;ap.hidden=false}
+    try{pieceData=await preparePiece(f);ap.textContent="📄 "+f.name+" · "+(f.size/1048576).toFixed(1).replace(".",lang==="ar"?".":",")+" Mo";ap.hidden=false}
     catch(k){err.textContent=M[lang][k]||M[lang].pieceLire;inp.setAttribute("aria-invalid","true");inp.style.borderColor="var(--err)";inp.value=""}
   });
 })();
@@ -651,7 +645,7 @@ Object.keys(titles).forEach(id=>{
     const ok=await saveDemande(TYPES[id],id==="fExp"?Object.assign(formData(f),{piece:pieceData}):formData(f));
     btn.disabled=false;btn.textContent=label;
     showDone(f,buildMessage(f,M[lang][titles[id]]),ok?M[lang].saved:null);
-    if(ok){if(id==="fExp"){pieceData=null;const ap=document.getElementById("exPieceApercu");ap.hidden=true;ap.removeAttribute("src")}f.querySelectorAll("input:not([name=site]),textarea").forEach(el=>el.value="");f.querySelectorAll("select").forEach(el=>el.selectedIndex=0)}
+    if(ok){if(id==="fExp"){pieceData=null;const ap=document.getElementById("exPieceApercu");ap.hidden=true;ap.textContent=""}f.querySelectorAll("input:not([name=site]),textarea").forEach(el=>el.value="");f.querySelectorAll("select").forEach(el=>el.selectedIndex=0)}
   });
 });
 

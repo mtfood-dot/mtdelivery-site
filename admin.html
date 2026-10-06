@@ -42,7 +42,8 @@ dt{color:var(--muted);font-size:.85rem}
 dd{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
 .acts{display:flex;flex-wrap:wrap;gap:8px}
 .acts a{font-weight:600;font-size:.88rem;text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--navy)}
-.piece img{display:block;max-width:100%;width:420px;border-radius:10px;border:1px solid var(--line);margin-top:6px}
+.piece a{font-weight:600;color:var(--navy)}
+.piece iframe{display:block;width:100%;height:520px;border:1px solid var(--line);border-radius:10px;margin-top:8px}
 .acts button{font-size:.88rem;padding:5px 12px;border-radius:999px}
 .empty{color:var(--muted);text-align:center;border:1.5px dashed var(--line);border-radius:14px;padding:30px}
 @media (max-width:520px){dl{grid-template-columns:1fr}dt{margin-top:4px}}
@@ -111,8 +112,14 @@ function render(){
     if(!box.hidden){box.hidden=true;b.setAttribute("aria-expanded","false");b.textContent="Voir la pièce d'identité";return}
     b.disabled=true;const j=await api({action:"piece",id:b.dataset.piece});b.disabled=false;
     box.innerHTML="";
-    if(j.ok){const img=new Image();img.src=j.image;img.alt="Pièce d'identité de l'expéditeur";box.appendChild(img)}
-    else{const p=document.createElement("p");p.className="msg err";p.textContent=j.error||"Photo introuvable.";box.appendChild(p)}
+    if(j.ok){
+      const bin=atob(j.fichier.split(",")[1]),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+      const url=URL.createObjectURL(new Blob([u],{type:"application/pdf"}));
+      const a=document.createElement("a");a.href=url;a.target="_blank";a.rel="noopener";a.textContent="Ouvrir le PDF dans un nouvel onglet";
+      const fr=document.createElement("iframe");fr.src=url;fr.title="Pièce d'identité de l'expéditeur (PDF)";
+      box.append(a,fr);
+    }
+    else{const p=document.createElement("p");p.className="msg err";p.textContent=j.error||"Pièce introuvable.";box.appendChild(p)}
     box.hidden=false;b.setAttribute("aria-expanded","true");b.textContent="Masquer la pièce d'identité";
   });
   $("list").querySelectorAll("select[data-id]").forEach(sel=>sel.onchange=async()=>{
