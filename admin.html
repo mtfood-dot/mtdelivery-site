@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="/favicon.png">
+<title>Demandes – MT Delivery</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap">
+<style>
+:root{--navy:#0a2647;--gold:#f2b51c;--bg:#f5f7fb;--surface:#fff;--fg:#0d1b30;--muted:#5a6a82;--line:#d9e0eb;--ok:#1d8a4e;--err:#b02a2a;--warn:#a86400}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 "Readex Pro",system-ui,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header b{color:var(--gold)}
+header a{color:#c9d6ea;font-size:.9rem}
+main{max-width:980px;margin:0 auto;padding:22px 16px 40px}
+.login{max-width:420px;margin:40px auto;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:14px}
+label{font-weight:600;font-size:.9rem}
+input,select{font:inherit;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:#f8fafd;width:100%}
+input:focus,select:focus{outline:none;border-color:var(--gold)}
+button{font:600 .95rem "Readex Pro",sans-serif;background:var(--gold);color:var(--navy);border:0;border-radius:10px;padding:11px 18px;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.msg{border-radius:10px;padding:10px 12px;font-weight:600}
+.msg.err{background:#fbeaea;color:var(--err)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.tab{background:var(--surface);color:var(--fg);border:1.5px solid var(--line);border-radius:999px;padding:7px 14px;font-weight:600}
+.tab[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.tab .n{display:inline-block;min-width:20px;margin-inline-start:6px;border-radius:999px;background:var(--gold);color:var(--navy);font-size:.75rem;padding:0 6px}
+.bar .sp{flex:1}
+.bar select{width:auto}
+.list{display:grid;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:10px;border-inline-start:5px solid var(--line)}
+.card.nouveau{border-inline-start-color:var(--gold)}.card.encours{border-inline-start-color:#3b74c4}.card.regle{border-inline-start-color:var(--ok);opacity:.75}
+.top{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.type{font-weight:700}
+.date{color:var(--muted);font-size:.85rem}
+.top .sp{flex:1}
+.top select{width:auto;padding:6px 10px}
+dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:0}
+dt{color:var(--muted);font-size:.85rem}
+dd{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.acts a{font-weight:600;font-size:.88rem;text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--navy)}
+.empty{color:var(--muted);text-align:center;border:1.5px dashed var(--line);border-radius:14px;padding:30px}
+@media (max-width:520px){dl{grid-template-columns:1fr}dt{margin-top:4px}}
+</style>
+</head>
+<body>
+<header><span><b>MT Delivery</b> · Demandes reçues sur le site</span><a href="/import.html">Import des colis</a></header>
+<main>
+  <form class="login" id="login">
+    <label for="pw">Mot de passe admin</label>
+    <input id="pw" type="password" autocomplete="current-password" required>
+    <button type="submit">Voir les demandes</button>
+    <div class="msg err" id="lerr" hidden></div>
+  </form>
+
+  <section id="app" hidden>
+    <div class="bar" id="tabs"></div>
+    <div class="bar">
+      <label for="fStat" style="margin:0">Statut</label>
+      <select id="fStat"><option value="">Tous</option><option value="actifs" selected>À traiter (nouveau + en cours)</option><option>nouveau</option><option>en cours</option><option>réglé</option></select>
+      <span class="sp"></span>
+      <button type="button" id="refresh">Actualiser</button>
+    </div>
+    <div class="list" id="list"></div>
+  </section>
+</main>
+<script>
+const TYPES={expediteur:"Nouvel expéditeur",cod:"Argent COD",reclamation:"Réclamation",avis:"Avis"};
+const LABELS={nom:"Nom",prenom:"Prénom",adresse:"Adresse",email:"E-mail",tel:"Téléphone",boutique:"Boutique",secteur:"Secteur",suivis:"N° de suivi",montant:"Montant (DA)",suivi:"N° de suivi",type:"Motif",desc:"Description",texte:"Avis",note:"Note"};
+const $=id=>document.getElementById(id);
+let PW="",ALL=[],curType="";
+try{PW=sessionStorage.getItem("mtd_admin")||""}catch(e){}
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+async function api(body){
+  const r=await fetch("/api/demandes",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(Object.assign({password:PW},body))});
+  return r.json();
+}
+async function load(){
+  const j=await api({action:"list"});
+  if(!j.ok){$("app").hidden=true;$("login").hidden=false;$("lerr").textContent=j.error||"Erreur.";$("lerr").hidden=false;try{sessionStorage.removeItem("mtd_admin")}catch(e){}return}
+  try{sessionStorage.setItem("mtd_admin",PW)}catch(e){}
+  ALL=j.demandes;$("login").hidden=true;$("app").hidden=false;render();
+}
+function waLink(t){let d=String(t).replace(/\D/g,"");if(d.startsWith("0"))d="213"+d.slice(1);return "https://wa.me/"+d}
+function render(){
+  const active=d=>d.statut!=="réglé";
+  const counts={};Object.keys(TYPES).forEach(k=>counts[k]=ALL.filter(d=>d.type===k&&d.statut==="nouveau").length);
+  $("tabs").innerHTML=[["","Toutes",ALL.filter(d=>d.statut==="nouveau").length],...Object.entries(TYPES).map(([k,v])=>[k,v,counts[k]])]
+    .map(([k,v,n])=>`<button type="button" class="tab" data-t="${k}" aria-pressed="${k===curType}">${v}${n?`<span class="n">${n}</span>`:""}</button>`).join("");
+  $("tabs").querySelectorAll(".tab").forEach(b=>b.onclick=()=>{curType=b.dataset.t;render()});
+  const st=$("fStat").value;
+  const rows=ALL.filter(d=>(!curType||d.type===curType)&&(!st||(st==="actifs"?active(d):d.statut===st)));
+  if(!rows.length){$("list").innerHTML=`<div class="empty">Aucune demande ici pour l'instant.</div>`;return}
+  const fmt=new Intl.DateTimeFormat("fr-DZ",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+  $("list").innerHTML=rows.map(d=>{
+    const cls=d.statut==="réglé"?"regle":d.statut==="en cours"?"encours":"nouveau";
+    const fields=Object.entries(d.data||{}).map(([k,v])=>`<dt>${esc(LABELS[k]||k)}</dt><dd>${k==="note"?"★".repeat(+v||0):esc(v)}</dd>`).join("");
+    const tel=d.data&&d.data.tel;
+    return `<article class="card ${cls}"><div class="top"><span class="type">${esc(TYPES[d.type]||d.type)}</span><span class="date">${fmt.format(new Date(d.date))}</span><span class="sp"></span>
+      <label class="date" for="s-${esc(d.id)}">Statut</label><select id="s-${esc(d.id)}" data-id="${esc(d.id)}">${["nouveau","en cours","réglé"].map(s=>`<option${s===d.statut?" selected":""}>${s}</option>`).join("")}</select></div>
+      <dl>${fields}</dl>${tel?`<div class="acts"><a href="${waLink(tel)}" target="_blank" rel="noopener">WhatsApp</a><a href="tel:${esc(tel)}">Appeler ${esc(tel)}</a></div>`:""}</article>`;
+  }).join("");
+  $("list").querySelectorAll("select[data-id]").forEach(sel=>sel.onchange=async()=>{
+    sel.disabled=true;const j=await api({action:"statut",id:sel.dataset.id,statut:sel.value});sel.disabled=false;
+    if(j.ok){const d=ALL.find(x=>x.id===sel.dataset.id);d.statut=sel.value;render()}else alert(j.error||"Échec.");
+  });
+}
+$("login").onsubmit=e=>{e.preventDefault();PW=$("pw").value;$("lerr").hidden=true;load()};
+$("fStat").onchange=render;$("refresh").onclick=load;
+if(PW)load();
+</script>
+</body>
+</html>

@@ -1,2 +1,4 @@
 /import.html
   X-Robots-Tag: noindex, nofollow
+/admin.html
+  X-Robots-Tag: noindex, nofollow

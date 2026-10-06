@@ -313,6 +313,7 @@ footer a{color:var(--gold)}
       </ul>
     </div>
     <form class="f" id="fExp" novalidate>
+      <input name="site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div class="fld"><label for="exNom" data-i="lNom">Nom</label><input id="exNom" name="nom" required autocomplete="family-name"></div>
       <div class="fld"><label for="exPrenom" data-i="lPrenom">Prénom</label><input id="exPrenom" name="prenom" required autocomplete="given-name"></div>
       <div class="fld full"><label for="exAdr" data-i="lAdr">Adresse</label><input id="exAdr" name="adresse" required autocomplete="street-address"></div>
@@ -352,6 +353,7 @@ footer a{color:var(--gold)}
       </ul>
     </div>
     <form class="f" id="fCod" novalidate>
+      <input name="site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div class="fld"><label for="cdBout" data-i="lBout">Nom de la boutique</label><input id="cdBout" name="boutique" required></div>
       <div class="fld"><label for="cdTel" data-i="lTel">Numéro de téléphone</label><input id="cdTel" name="tel" type="tel" required pattern="0[5-7][0-9 ]{8,11}" placeholder="05 XX XX XX XX" class="num"></div>
       <div class="fld full"><label for="cdSuivi" data-i="lSuivis">Numéros de suivi des colis livrés</label><textarea id="cdSuivi" name="suivis" required data-ph="phSuivis" placeholder="Un numéro par ligne"></textarea></div>
@@ -397,6 +399,7 @@ footer a{color:var(--gold)}
       </div>
     </div>
     <form class="f" id="fRec" novalidate>
+      <input name="site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div class="fld"><label for="rcNom" data-i="lNomComplet">Nom et prénom</label><input id="rcNom" name="nom" required></div>
       <div class="fld"><label for="rcTel" data-i="lTel">Numéro de téléphone</label><input id="rcTel" name="tel" type="tel" required pattern="0[5-7][0-9 ]{8,11}" placeholder="05 XX XX XX XX" class="num"></div>
       <div class="fld"><label for="rcSuivi" data-i-html="lSuivi">Numéro de suivi <span class="opt">si concerné</span></label><input id="rcSuivi" name="suivi" class="num"></div>
@@ -465,12 +468,12 @@ aEy:"آراؤكم",aH:"آراؤكم حول MT Delivery",aEmpty:"لا توجد آ
 rEy:"خدمة الزبائن",rH:"تقديم شكوى",rP:"مشكلة مع طرد أو موصّل أو دفع؟ صفها لنا ونتكفل بها.",lNomComplet:"الاسم واللقب",lSuivi:'رقم التتبع <span class="opt">إن وجد</span>',lType:"السبب",r1:"تأخر التوصيل",r2:"طرد متضرر",r3:"طرد ضائع",r4:"دفع COD",r5:"سلوك الموصّل",lDesc:"وصف المشكلة",bRec:"أرسل الشكوى",
 kEy:"اتصل بنا",kH:"شركة محلية قريبة منك",kP:"زورونا، اتصلوا بنا أو راسلونا على واتساب.",kAd:"العنوان",adr:"حي النصر (Les HLM) – مفتاح – البليدة",kTel:"الهاتف / واتساب",cp:"نسخ",cp2:"نسخ",fLiv:"كن موصّلًا"}};
 const M={fr:{
-doneSend:"Formulaire prêt. Appuyez sur le bouton pour l'envoyer sur WhatsApp :",waSend:"Envoyer sur WhatsApp",copyMsg:"Copier le message",copied:"Copié",
+doneSend:"Formulaire prêt. Appuyez sur le bouton pour l'envoyer sur WhatsApp :",saved:"✅ Demande enregistrée. Nous vous recontactons rapidement. Vous pouvez aussi nous l'envoyer sur WhatsApp :",avisSaved:"✅ Merci ! Votre avis a bien été transmis à MT Delivery.",sending:"Envoi…",waSend:"Envoyer sur WhatsApp",copyMsg:"Copier le message",copied:"Copié",
 fill:"Merci de remplir les champs en rouge.",starsReq:"Choisissez une note de 1 à 5 étoiles.",
 avisOk:"Merci ! Votre avis est publié.",avisWa:"Votre avis n'a pas pu être publié ici. Envoyez-le-nous sur WhatsApp :",
 count:n=>n+(n>1?" avis":" avis"),grille:"Bonjour MT Delivery, je voudrais recevoir votre grille de tarifs pour les 69 wilayas.",hello:"Bonjour MT Delivery",trkGo:"Ouvrir le suivi du colis →",trkErr:"Entrez votre numéro de suivi.",telPh:"Votre numéro de téléphone (05 / 06 / 07)",telErr:"Entrez un numéro de téléphone valide, par exemple 0555 12 34 56.",telNone:"Aucun colis trouvé pour ce numéro. Vérifiez le numéro ou utilisez votre numéro de suivi.",telFail:"Recherche impossible pour le moment. Réessayez dans un instant.",telSee:"Suivre →",telUpd:"Liste mise à jour le ",telWait:"Recherche…",
 tExp:"Nouvelle inscription expéditeur",tCod:"Demande de versement COD",tRec:"Réclamation",tAv:"Avis client",onDemand:"Selon la wilaya",free:"Gratuit"},
-ar:{doneSend:"الاستمارة جاهزة. اضغط على الزر لإرسالها عبر واتساب:",waSend:"أرسل عبر واتساب",copyMsg:"انسخ الرسالة",copied:"تم النسخ",
+ar:{doneSend:"الاستمارة جاهزة. اضغط على الزر لإرسالها عبر واتساب:",saved:"✅ تم تسجيل طلبك. سنتصل بك قريبًا. يمكنك أيضًا إرساله لنا عبر واتساب:",avisSaved:"✅ شكرًا! تم إرسال رأيك إلى MT Delivery.",sending:"جارٍ الإرسال…",waSend:"أرسل عبر واتساب",copyMsg:"انسخ الرسالة",copied:"تم النسخ",
 fill:"يرجى ملء الخانات باللون الأحمر.",starsReq:"اختر تقييمًا من 1 إلى 5 نجوم.",
 avisOk:"شكرًا! تم نشر رأيك.",avisWa:"تعذر نشر رأيك هنا. أرسله لنا عبر واتساب:",
 count:n=>n+" رأي",grille:"السلام عليكم، أريد جدول أسعار التوصيل إلى 69 ولاية.",hello:"السلام عليكم",trkGo:"افتح تتبّع الطرد ←",trkErr:"أدخل رقم التتبع.",telPh:"رقم هاتفك (05 / 06 / 07)",telErr:"أدخل رقم هاتف صحيح، مثلًا 0555 12 34 56.",telNone:"لا يوجد طرد بهذا الرقم. تحقق من الرقم أو استعمل رقم التتبع.",telFail:"تعذر البحث حاليًا. أعد المحاولة بعد قليل.",telSee:"تتبّع ←",telUpd:"آخر تحديث للقائمة: ",telWait:"جارٍ البحث…",
@@ -584,12 +587,30 @@ function validate(form){
   return ok;
 }
 const titles={fExp:"tExp",fCod:"tCod",fRec:"tRec"};
+const TYPES={fExp:"expediteur",fCod:"cod",fRec:"reclamation"};
+/* Enregistre la demande sur le site (page admin) ; renvoie true si c'est fait. */
+async function saveDemande(type,data){
+  try{
+    const r=await fetch("/api/demandes",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(Object.assign({type},data))});
+    return !!(await r.json()).ok;
+  }catch(e){return false}
+}
+function formData(f){
+  const o={};
+  f.querySelectorAll("input,select,textarea").forEach(el=>{if(!el.name)return;o[el.name]=el.tagName==="SELECT"?(el.value?el.options[el.selectedIndex].text:""):el.value.trim()});
+  return o;
+}
 Object.keys(titles).forEach(id=>{
   const f=document.getElementById(id);
-  f.addEventListener("submit",e=>{
+  f.addEventListener("submit",async e=>{
     e.preventDefault();
     if(!validate(f)){const b=f.querySelector(".done");b.hidden=false;b.innerHTML=`<p style="color:var(--err)">${M[lang].fill}</p>`;return}
-    showDone(f,buildMessage(f,M[lang][titles[id]]));
+    const btn=f.querySelector('button[type="submit"]'),label=btn.textContent;
+    btn.disabled=true;btn.textContent=M[lang].sending;
+    const ok=await saveDemande(TYPES[id],formData(f));
+    btn.disabled=false;btn.textContent=label;
+    showDone(f,buildMessage(f,M[lang][titles[id]]),ok?M[lang].saved:null);
+    if(ok){f.querySelectorAll("input:not([name=site]),textarea").forEach(el=>el.value="");f.querySelectorAll("select").forEach(el=>el.selectedIndex=0)}
   });
 });
 
@@ -631,6 +652,7 @@ document.getElementById("fAvis").addEventListener("submit",async e=>{
   if(db&&uid){
     try{await db.collection("avis").doc(uid).set(rec);box.hidden=false;box.innerHTML=`<p>${M[lang].avisOk}</p>`;f.reset();note=0;paintRate();return}catch(err){}
   }
+  if(await saveDemande("avis",{prenom:rec.prenom,texte:rec.texte,note:String(note)})){box.hidden=false;box.innerHTML=`<p>${esc(M[lang].avisSaved)}</p>`;f.reset();note=0;paintRate();return}
   showDone(f,"*"+M[lang].tAv+"*\n"+"★".repeat(note)+"\n"+rec.prenom+" : "+rec.texte,M[lang].avisWa);
 });
 
