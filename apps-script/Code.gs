@@ -25,7 +25,7 @@ const ONGLETS = {
   expediteur: {
     nom: 'Expéditeurs',
     colonnes: ['Date', 'N° demande', 'Statut', 'Nom', 'Prénom', 'Téléphone', 'E-mail', 'Boutique', 'Secteur', 'Adresse', "Pièce d'identité reçue", 'Remarques'],
-    valeurs: d => [d.nom, d.prenom, d.tel, d.email, d.boutique, d.secteur, d.adresse, false, ''],
+    valeurs: d => [d.nom, d.prenom, d.tel, d.email, d.boutique, d.secteur, d.adresse, d.piece === 'oui', ''], // case cochée si une photo a été jointe (visible dans la page admin)
     caseACocher: 11, // colonne « Pièce d'identité reçue »
   },
   cod: {

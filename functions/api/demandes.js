@@ -13,6 +13,19 @@ const FIELDS = {
   avis: ["prenom", "texte", "note"],
 };
 const STATUTS = ["nouveau", "en cours", "réglé"];
+// Photo de pièce d'identité (formulaire expéditeur) : JPEG produit par le navigateur, 1,5 Mo max après décodage.
+// Stockée à part (clé « piece:<id> »), lisible seulement via l'action admin « piece », effacée au bout de 90 jours.
+const PIECE_MAX = 1.5 * 1024 * 1024;
+const PIECE_TTL = 90 * 24 * 3600;
+function lirePiece(v) {
+  const m = /^data:image\/jpeg;base64,([A-Za-z0-9+/=]+)$/.exec(String(v || ""));
+  if (!m) return null;
+  let bin;
+  try { bin = atob(m[1]); } catch { return null; }
+  if (bin.length < 1000 || bin.length > PIECE_MAX) return null;
+  if (bin.charCodeAt(0) !== 0xff || bin.charCodeAt(1) !== 0xd8 || bin.charCodeAt(2) !== 0xff) return null; // signature JPEG
+  return "data:image/jpeg;base64," + m[1];
+}
 const MAX_LEN = 1500;
 
 async function isAdmin(env, pw) {
@@ -72,6 +85,12 @@ export async function onRequestPost(context) {
       return json({ ok: true });
     }
 
+    if (b.action === "piece") {
+      if (!/^dem:\d+-[a-z0-9]+$/.test(String(b.id))) return json({ ok: false, error: "Demande invalide." }, 400);
+      const img = await env.COLIS.get("piece:" + b.id);
+      return img ? json({ ok: true, image: img }) : json({ ok: false, error: "Photo introuvable ou expirée." }, 404);
+    }
+
     if (b.action === "testSheet") {
       const res = await toSheet(env, { id: "test", type: "test", date: Date.now(), statut: "test", data: {} });
       return json({ ok: res === "ok", sheet: res });
@@ -100,9 +119,17 @@ export async function onRequestPost(context) {
   }
   if (!Object.keys(data).length) return json({ ok: false, error: "Demande vide." }, 400);
 
+  let piece = null;
+  if (cat === "expediteur") {
+    piece = lirePiece(b.piece);
+    if (!piece) return json({ ok: false, error: "Photo de pièce d'identité manquante ou invalide (JPEG, 1,5 Mo max)." }, 400);
+    data.piece = "oui";
+  }
+
   const now = Date.now();
   const id = `dem:${now}-${Math.random().toString(36).slice(2, 8)}`;
   const demande = { id, type: cat, data, date: now, statut: "nouveau" };
+  if (piece) await env.COLIS.put("piece:" + id, piece, { expirationTtl: PIECE_TTL });
   await env.COLIS.put(id, JSON.stringify(demande));
 
   // Copie dans la Google Sheet en arrière-plan (le client n'attend pas).

@@ -42,6 +42,8 @@ dt{color:var(--muted);font-size:.85rem}
 dd{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
 .acts{display:flex;flex-wrap:wrap;gap:8px}
 .acts a{font-weight:600;font-size:.88rem;text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--navy)}
+.piece img{display:block;max-width:100%;width:420px;border-radius:10px;border:1px solid var(--line);margin-top:6px}
+.acts button{font-size:.88rem;padding:5px 12px;border-radius:999px}
 .empty{color:var(--muted);text-align:center;border:1.5px dashed var(--line);border-radius:14px;padding:30px}
 @media (max-width:520px){dl{grid-template-columns:1fr}dt{margin-top:4px}}
 </style>
@@ -69,7 +71,7 @@ dd{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
 </main>
 <script>
 const TYPES={expediteur:"Nouvel expéditeur",cod:"Argent COD",reclamation:"Réclamation",avis:"Avis"};
-const LABELS={nom:"Nom",prenom:"Prénom",adresse:"Adresse",email:"E-mail",tel:"Téléphone",boutique:"Boutique",secteur:"Secteur",suivis:"N° de suivi",montant:"Montant (DA)",suivi:"N° de suivi",type:"Motif",desc:"Description",texte:"Avis",note:"Note"};
+const LABELS={nom:"Nom",prenom:"Prénom",adresse:"Adresse",email:"E-mail",tel:"Téléphone",boutique:"Boutique",secteur:"Secteur",suivis:"N° de suivi",montant:"Montant (DA)",suivi:"N° de suivi",type:"Motif",desc:"Description",texte:"Avis",note:"Note",piece:"Pièce d'identité"};
 const $=id=>document.getElementById(id);
 let PW="",ALL=[],curType="";
 try{PW=sessionStorage.getItem("mtd_admin")||""}catch(e){}
@@ -99,10 +101,20 @@ function render(){
     const cls=d.statut==="réglé"?"regle":d.statut==="en cours"?"encours":"nouveau";
     const fields=Object.entries(d.data||{}).map(([k,v])=>`<dt>${esc(LABELS[k]||k)}</dt><dd>${k==="note"?"★".repeat(+v||0):esc(v)}</dd>`).join("");
     const tel=d.data&&d.data.tel;
+    const pieceBtn=d.data&&d.data.piece?`<button type="button" data-piece="${esc(d.id)}" aria-expanded="false">Voir la pièce d'identité</button>`:"";
     return `<article class="card ${cls}"><div class="top"><span class="type">${esc(TYPES[d.type]||d.type)}</span><span class="date">${fmt.format(new Date(d.date))}</span><span class="sp"></span>
       <label class="date" for="s-${esc(d.id)}">Statut</label><select id="s-${esc(d.id)}" data-id="${esc(d.id)}">${["nouveau","en cours","réglé"].map(s=>`<option${s===d.statut?" selected":""}>${s}</option>`).join("")}</select></div>
-      <dl>${fields}</dl>${tel?`<div class="acts"><a href="${waLink(tel)}" target="_blank" rel="noopener">WhatsApp</a><a href="tel:${esc(tel)}">Appeler ${esc(tel)}</a></div>`:""}</article>`;
+      <dl>${fields}</dl>${tel?`<div class="acts"><a href="${waLink(tel)}" target="_blank" rel="noopener">WhatsApp</a><a href="tel:${esc(tel)}">Appeler ${esc(tel)}</a>${pieceBtn}</div>`:(pieceBtn?`<div class="acts">${pieceBtn}</div>`:"")}<div class="piece" hidden></div></article>`;
   }).join("");
+  $("list").querySelectorAll("button[data-piece]").forEach(b=>b.onclick=async()=>{
+    const box=b.closest(".card").querySelector(".piece");
+    if(!box.hidden){box.hidden=true;b.setAttribute("aria-expanded","false");b.textContent="Voir la pièce d'identité";return}
+    b.disabled=true;const j=await api({action:"piece",id:b.dataset.piece});b.disabled=false;
+    box.innerHTML="";
+    if(j.ok){const img=new Image();img.src=j.image;img.alt="Pièce d'identité de l'expéditeur";box.appendChild(img)}
+    else{const p=document.createElement("p");p.className="msg err";p.textContent=j.error||"Photo introuvable.";box.appendChild(p)}
+    box.hidden=false;b.setAttribute("aria-expanded","true");b.textContent="Masquer la pièce d'identité";
+  });
   $("list").querySelectorAll("select[data-id]").forEach(sel=>sel.onchange=async()=>{
     sel.disabled=true;const j=await api({action:"statut",id:sel.dataset.id,statut:sel.value});sel.disabled=false;
     if(j.ok){const d=ALL.find(x=>x.id===sel.dataset.id);d.statut=sel.value;render()}else alert(j.error||"Échec.");
