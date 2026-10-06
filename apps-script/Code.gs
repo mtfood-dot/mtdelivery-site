@@ -3,21 +3,20 @@
  *
  * Installation (une seule fois) :
  * 1. Dans la Google Sheet « MT Delivery – Demandes » : Extensions › Apps Script.
- * 2. Remplacez tout le code par celui-ci, puis changez TOKEN ci-dessous
- *    (une suite de lettres et chiffres que vous inventez, au moins 20 caractères).
+ * 2. Remplacez tout le code par celui-ci.
  * 3. Enregistrez, puis Déployer › Nouveau déploiement › type « Application Web »
  *    – Exécuter en tant que : Moi
  *    – Qui a accès : Tout le monde
  *    Autorisez l'accès quand Google le demande, puis copiez l'URL de l'application Web.
  * 4. Dans Cloudflare (projet mtdelivery › Settings › Variables and secrets), ajoutez :
- *    – SHEET_URL   (type Text)   = l'URL copiée à l'étape 3
- *    – SHEET_TOKEN (type Secret) = le même TOKEN que ci-dessous
+ *    – SHEET_URL (type Secret) = l'URL copiée à l'étape 3 (gardez-la privée : elle permet d'écrire dans la feuille)
  *
  * Chaque formulaire envoyé sur mtdelivery.pages.dev ajoute une ligne dans l'onglet correspondant.
  * Les onglets et leurs titres de colonnes sont créés automatiquement au premier envoi.
  */
 
-const TOKEN = 'REMPLACEZ-MOI-PAR-VOTRE-CODE-SECRET';
+// Facultatif : un code secret partagé avec Cloudflare (variable SHEET_TOKEN). Laissez vide pour ne pas l'utiliser.
+const TOKEN = '';
 
 const ONGLETS = {
   expediteur: {
@@ -48,7 +47,7 @@ const STATUTS = ['nouveau', 'en cours', 'réglé'];
 function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents);
-    if (!body || body.token !== TOKEN) return reponse({ ok: false, error: 'jeton invalide' });
+    if (!body || (TOKEN && body.token !== TOKEN)) return reponse({ ok: false, error: 'jeton invalide' });
     const dem = body.demande || {};
     if (dem.type === 'test') return reponse({ ok: true });
     const conf = ONGLETS[dem.type];

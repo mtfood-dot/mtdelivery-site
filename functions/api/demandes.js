@@ -3,7 +3,7 @@
 // POST admin   {password, action:"list"}              -> liste des demandes
 // POST admin   {password, action:"statut", id, statut} -> change le statut
 // Chaque demande est une clé KV « dem:<horodatage>-<aléa> », sans risque d'écrasement entre deux envois.
-// Copie dans Google Sheet : variables Cloudflare SHEET_URL (adresse de l'Apps Script) et SHEET_TOKEN (secret partagé).
+// Copie dans Google Sheet : variable Cloudflare SHEET_URL (adresse de l'Apps Script), SHEET_TOKEN facultatif.
 import { json } from "./_lib.js";
 
 const FIELDS = {
@@ -22,12 +22,12 @@ async function isAdmin(env, pw) {
 
 // Envoie la demande à l'Apps Script de la Google Sheet. Ne bloque jamais l'enregistrement.
 async function toSheet(env, demande) {
-  if (!env.SHEET_URL || !env.SHEET_TOKEN) return "non configurée";
+  if (!env.SHEET_URL) return "non configurée";
   try {
     const r = await fetch(env.SHEET_URL, {
       method: "POST",
       headers: { "content-type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ token: env.SHEET_TOKEN, demande }),
+      body: JSON.stringify({ token: env.SHEET_TOKEN || "", demande }),
       redirect: "follow",
     });
     const j = await r.json().catch(() => ({}));
@@ -58,7 +58,7 @@ export async function onRequestPost(context) {
         cursor = page.list_complete ? null : page.cursor;
       } while (cursor);
       out.sort((a, b2) => (b2.date || 0) - (a.date || 0));
-      return json({ ok: true, demandes: out, sheet: !!(env.SHEET_URL && env.SHEET_TOKEN) });
+      return json({ ok: true, demandes: out, sheet: !!env.SHEET_URL });
     }
 
     if (b.action === "statut") {
