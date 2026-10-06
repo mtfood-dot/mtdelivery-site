@@ -30,11 +30,21 @@ button:disabled{opacity:.5;cursor:default}
 .msg.ok{background:#e8f6ee;color:var(--ok)}.msg.err{background:#fbeaea;color:var(--err)}
 .msg.info{background:#eef2f8;color:var(--navy)}
 ol{color:var(--muted);padding-inline-start:20px;margin:22px 0 0}
+.fresh{display:flex;align-items:center;gap:10px;border-radius:12px;padding:12px 14px;margin:0 0 18px;font-weight:600;background:#eef2f8;color:var(--navy)}
+.fresh::before{content:"";flex:none;width:12px;height:12px;border-radius:50%;background:#9aa7b8}
+.fresh.ok{background:#e8f6ee;color:var(--ok)}.fresh.ok::before{background:var(--ok)}
+.fresh.old{background:#fbeaea;color:var(--err)}.fresh.old::before{background:var(--err)}
+h2{font-size:1.15rem;margin:34px 0 6px}
+.bm{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;border-radius:12px;padding:12px 18px;cursor:grab;border:2px dashed var(--gold)}
+.steps{color:var(--muted);margin:0;padding-inline-start:20px}
+.steps b{color:var(--fg)}
+.small{font-size:.88rem;color:var(--muted);margin:0}
 </style>
 </head>
 <body>
 <header><b>MT Delivery</b> · Import des colis Ecotrack</header>
 <main>
+  <div class="fresh" id="fresh">Vérification de la dernière mise à jour…</div>
   <h1>Mettre à jour la recherche par téléphone</h1>
   <p class="lead">Déposez l'export Excel « Station – Colis en traitements » d'Ecotrack. Seuls le numéro de suivi, les téléphones, la wilaya, l'état et la date sont envoyés. Les noms, adresses, produits et montants restent sur votre appareil.</p>
   <form class="card" id="f">
@@ -53,6 +63,22 @@ ol{color:var(--muted);padding-inline-start:20px;margin:22px 0 0}
     <li>Déposez le fichier ici et envoyez. Les nouveaux colis s'ajoutent, ceux déjà connus sont mis à jour.</li>
     <li>Les colis absents des imports depuis 60 jours sont retirés automatiquement.</li>
   </ol>
+
+  <h2>Plus rapide : le favori « Envoyer à MT Delivery »</h2>
+  <p class="lead" style="margin-bottom:14px">Sans télécharger de fichier : depuis la page Ecotrack, un clic sur ce favori envoie directement la liste des colis.</p>
+  <div class="card" id="bmCard">
+    <ol class="steps">
+      <li>Tapez le mot de passe admin dans le champ en haut de cette page, puis cliquez sur <b>Créer mon favori</b>.</li>
+      <li>Glissez le bouton bleu qui apparaît dans la <b>barre de favoris</b> de Chrome (Ctrl+Maj+B pour l'afficher).</li>
+      <li>Chaque matin : ouvrez <b>imir.ecotrack.dz/hub</b> › <b>Colis en traitements</b>, puis cliquez sur le favori.</li>
+    </ol>
+    <button type="button" id="mkBm">Créer mon favori</button>
+    <div id="bmOut" hidden>
+      <a class="bm" id="bm" href="#" draggable="true">📦 Envoyer à MT Delivery</a>
+      <p class="small" style="margin-top:10px">Glissez ce bouton dans la barre de favoris. Ne cliquez pas dessus ici : il ne marche que sur la page Ecotrack. Le mot de passe est enregistré dans le favori : ne le partagez pas.</p>
+    </div>
+    <div class="msg" id="bmMsg" hidden></div>
+  </div>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
@@ -105,6 +131,49 @@ $("f").onsubmit=async e=>{
   }catch(err){show($("res"),"err","Connexion impossible. Vérifiez internet et réessayez.")}
   $("go").disabled=false;$("go").textContent="Envoyer les colis";
 };
+</script>
+<script>
+/* Code du favori : tourne sur la page « Colis en traitements » d'Ecotrack (station). */
+function bookmarkletSource(api,pw){
+  return `(async()=>{const API=${JSON.stringify(api)},PW=${JSON.stringify(pw)};const say=m=>alert("MT Delivery : "+m);
+if(!/ecotrack\\.dz$/.test(location.hostname)||!window.jQuery||!jQuery.fn.dataTable||!jQuery("#myTable").length){say("ouvrez d'abord la page « Colis en traitements » d'Ecotrack (station), puis recliquez sur ce favori.");return}
+try{const dt=jQuery("#myTable").DataTable(),s=dt.settings()[0],url=(s.ajax&&s.ajax.url)||s.ajax,type=(s.ajax&&s.ajax.type)||"GET";
+const base=Object.assign({},dt.ajax.params(),{search:{value:"",regex:false}});let all=[],start=0,total=1;
+while(start<total){const r=await jQuery.ajax({url,type,data:Object.assign({},base,{start,length:1000})});const d=r.data||[];total=+(r.recordsFiltered??r.recordsTotal??0);all=all.concat(d);if(!d.length)break;start+=1000}
+const txt=h=>{const e=document.createElement("div");e.innerHTML=String(h??"");return e.textContent.trim().replace(/\\s+/g," ")};
+const rows=all.map(r=>({id:r.tracking,tel1:r.phone||"",tel2:r.phone_2||"",wilaya:r.wilaya||"",etat:txt(r.state),date:String(r.created_at||"").slice(0,19)})).filter(r=>r.id);
+if(!rows.length){say("aucun colis trouvé.");return}
+const res=await fetch(API,{method:"POST",headers:{"content-type":"text/plain"},body:JSON.stringify({password:PW,rows})});const j=await res.json();
+say(j.ok?rows.length+" colis envoyés : "+j.added+" nouveaux, "+j.updated+" mis à jour.":(j.error||"échec de l'envoi."))}catch(e){say("échec : "+(e&&e.message||e))}})();`;
+}
+if(typeof module!=="undefined")module.exports.bookmarkletSource=bookmarkletSource;
+</script>
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  function show(el,cls,txt){el.className="msg "+cls;el.textContent=txt;el.hidden=false}
+  $("mkBm").onclick=()=>{
+    const pw=$("pw").value;
+    if(!pw){show($("bmMsg"),"err","Tapez d'abord le mot de passe admin dans le champ en haut de la page.");$("pw").focus();return}
+    $("bm").href="javascript:"+encodeURIComponent(bookmarkletSource(location.origin+"/api/import",pw));
+    $("bmOut").hidden=false;$("bmMsg").hidden=true;
+  };
+  $("bm").addEventListener("click",e=>{e.preventDefault();show($("bmMsg"),"info","Glissez ce bouton dans la barre de favoris au lieu de cliquer dessus.")});
+  async function fresh(){
+    const el=$("fresh");
+    try{
+      const j=await fetch("/api/import",{cache:"no-store"}).then(r=>r.json());
+      if(!j.ok||!j.updatedAt){el.className="fresh old";el.textContent="Aucun import pour l'instant.";return}
+      const d=new Date(j.updatedAt),h=(Date.now()-j.updatedAt)/36e5;
+      const quand=d.toLocaleString("fr-DZ",{weekday:"long",day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"});
+      el.className="fresh "+(h<24?"ok":"old");
+      el.textContent=(h<24?"À jour : dernier import ":"À refaire : dernier import ")+quand+" · "+j.total+" colis consultables.";
+    }catch(e){el.className="fresh";el.textContent="Impossible de vérifier la dernière mise à jour."}
+  }
+  fresh();
+  const send=document.getElementById("f");
+  send.addEventListener("submit",()=>setTimeout(fresh,2500));
+})();
 </script>
 </body>
 </html>
