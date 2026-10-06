@@ -135,16 +135,16 @@ $("f").onsubmit=async e=>{
 <script>
 /* Code du favori : tourne sur la page « Colis en traitements » d'Ecotrack (station). */
 function bookmarkletSource(api,pw){
-  return `(async()=>{const API=${JSON.stringify(api)},PW=${JSON.stringify(pw)};const say=m=>alert("MT Delivery : "+m);
+  return `(async()=>{const API=${JSON.stringify(api)},PW=${JSON.stringify(pw)};const say=(m,k)=>{let b=document.getElementById("mtd-bar");if(!b){b=document.createElement("div");b.id="mtd-bar";document.body.appendChild(b)}b.style.cssText="position:fixed;z-index:2147483647;top:16px;left:50%;transform:translateX(-50%);max-width:92vw;padding:14px 20px;border-radius:12px;font:600 16px/1.4 system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.3);color:#fff;background:"+(k==="ok"?"#1d8a4e":k==="wait"?"#0a2647":"#b02a2a");b.textContent="MT Delivery : "+m;clearTimeout(b._t);if(k!=="wait")b._t=setTimeout(()=>b.remove(),9000)};
 if(!/ecotrack\\.dz$/.test(location.hostname)||!window.jQuery||!jQuery.fn.dataTable||!jQuery("#myTable").length){say("ouvrez d'abord la page « Colis en traitements » d'Ecotrack (station), puis recliquez sur ce favori.");return}
-try{const dt=jQuery("#myTable").DataTable(),s=dt.settings()[0],url=(s.ajax&&s.ajax.url)||s.ajax,type=(s.ajax&&s.ajax.type)||"GET";
+say("envoi des colis en cours…","wait");try{const dt=jQuery("#myTable").DataTable(),s=dt.settings()[0],url=(s.ajax&&s.ajax.url)||s.ajax,type=(s.ajax&&s.ajax.type)||"GET";
 const base=Object.assign({},dt.ajax.params(),{search:{value:"",regex:false}});let all=[],start=0,total=1;
 while(start<total){const r=await jQuery.ajax({url,type,data:Object.assign({},base,{start,length:1000})});const d=r.data||[];total=+(r.recordsFiltered??r.recordsTotal??0);all=all.concat(d);if(!d.length)break;start+=1000}
 const txt=h=>{const e=document.createElement("div");e.innerHTML=String(h??"");return e.textContent.trim().replace(/\\s+/g," ")};
 const rows=all.map(r=>({id:r.tracking,tel1:r.phone||"",tel2:r.phone_2||"",wilaya:r.wilaya||"",etat:txt(r.state),date:String(r.created_at||"").slice(0,19)})).filter(r=>r.id);
-if(!rows.length){say("aucun colis trouvé.");return}
+if(!rows.length){say("aucun colis trouvé.","err");return}
 const res=await fetch(API,{method:"POST",headers:{"content-type":"text/plain"},body:JSON.stringify({password:PW,rows})});const j=await res.json();
-say(j.ok?rows.length+" colis envoyés : "+j.added+" nouveaux, "+j.updated+" mis à jour.":(j.error||"échec de l'envoi."))}catch(e){say("échec : "+(e&&e.message||e))}})();`;
+say(j.ok?rows.length+" colis envoyés : "+j.added+" nouveaux, "+j.updated+" mis à jour.":(j.error||"échec de l'envoi."),j.ok?"ok":"err")}catch(e){say("échec : "+(e&&e.message||e),"err")}})();`;
 }
 if(typeof module!=="undefined")module.exports.bookmarkletSource=bookmarkletSource;
 </script>
