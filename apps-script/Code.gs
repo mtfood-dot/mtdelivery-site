@@ -18,6 +18,9 @@
 // Facultatif : un code secret partagé avec Cloudflare (variable SHEET_TOKEN). Laissez vide pour ne pas l'utiliser.
 const TOKEN = '';
 
+// Identifiant de la Google Sheet « MT Delivery – Demandes » (dans son adresse, entre /d/ et /edit).
+const SHEET_ID = '1qn1dtLI6HW5CPDK5q9kgXzg-fqmuFTBHYVQszZeiEQw';
+
 const ONGLETS = {
   expediteur: {
     nom: 'Expéditeurs',
@@ -73,7 +76,7 @@ function doPost(e) {
 
 // Crée l'onglet avec ses titres, la liste des statuts et la case à cocher si besoin.
 function onglet(conf) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SpreadsheetApp.openById(SHEET_ID);
   let f = ss.getSheetByName(conf.nom);
   if (f) return f;
   f = ss.insertSheet(conf.nom);
