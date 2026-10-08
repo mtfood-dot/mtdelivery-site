@@ -49,10 +49,21 @@ nav.links a:hover{opacity:1;color:var(--gold)}
 nav.links a.food{opacity:1;color:var(--gold);border:1px solid rgba(242,181,28,.5);border-radius:999px;padding:3px 12px}
 .lang{background:transparent;border:1.5px solid var(--gold);color:var(--gold);font:600 .85rem var(--body);border-radius:999px;padding:6px 14px;cursor:pointer;flex:none}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.subnav{display:none;background:var(--navy-2);overflow-x:auto}
-.subnav .wrap{display:flex;gap:16px;padding-block:8px;font-size:.85rem;white-space:nowrap}
-.subnav a{color:#dbe5f4;text-decoration:none}
-@media (max-width:960px){nav.links{display:none}.subnav{display:block}}
+.hact{display:flex;align-items:center;gap:8px;flex:none}
+.burger{display:none;align-items:center;gap:8px;background:transparent;border:1.5px solid rgba(255,255,255,.35);color:#fff;font:600 .85rem var(--body);border-radius:999px;padding:6px 12px;cursor:pointer;min-height:36px}
+.burger .bars,.burger .bars::before,.burger .bars::after{display:block;width:16px;height:2px;background:currentColor;border-radius:2px;position:relative;transition:transform .2s}
+.burger .bars::before,.burger .bars::after{content:"";position:absolute;left:0}
+.burger .bars::before{top:-5px}.burger .bars::after{top:5px}
+.burger[aria-expanded="true"] .bars{background:transparent}
+.burger[aria-expanded="true"] .bars::before{transform:translateY(5px) rotate(45deg)}
+.burger[aria-expanded="true"] .bars::after{transform:translateY(-5px) rotate(-45deg)}
+.mnav{background:var(--navy-2);border-top:1px solid rgba(255,255,255,.08);box-shadow:0 12px 24px rgba(0,0,0,.25)}
+header.top .mnav .wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-block:12px 16px}
+.mnav a{display:flex;align-items:center;min-height:46px;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.06);color:#fff;text-decoration:none;font-weight:600;font-size:.95rem}
+.mnav a:active,.mnav a:hover{background:rgba(255,255,255,.14)}
+.mnav a.food{color:var(--gold);border:1px solid rgba(242,181,28,.45);background:transparent}
+@media (max-width:960px){nav.links{display:none}.burger{display:inline-flex}}
+@media (min-width:961px){.mnav{display:none!important}}
 
 /* Hero */
 .hero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
@@ -69,9 +80,9 @@ nav.links a.food{opacity:1;color:var(--gold);border:1px solid rgba(242,181,28,.5
 .btn.navy{background:var(--navy);color:#fff}
 .btn.wa{background:var(--wa);color:#fff}
 .btn.line{border-color:var(--line);color:var(--fg);background:var(--surface)}
-.track{margin-top:26px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:14px;display:grid;gap:8px;max-width:520px}
+.track{grid-template-columns:minmax(0,1fr);margin-top:26px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:14px;display:grid;gap:8px;max-width:520px}
 .tmode{display:flex;gap:6px}
-.tmode button{flex:1;background:transparent;border:1px solid rgba(255,255,255,.25);color:#c9d6ea;font:600 .88rem var(--body);border-radius:999px;padding:7px 10px;cursor:pointer}
+.tmode button{flex:1;min-width:0;background:transparent;border:1px solid rgba(255,255,255,.25);color:#c9d6ea;font:600 .88rem var(--body);border-radius:999px;padding:7px 10px;cursor:pointer}
 .tmode button[aria-selected="true"]{background:var(--gold);border-color:var(--gold);color:var(--navy)}
 .tres{display:grid;gap:8px}
 .tres .pc{background:#fff;color:#0d1b30;border-radius:10px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
@@ -94,7 +105,15 @@ nav.links a.food{opacity:1;color:var(--gold);border:1px solid rgba(242,181,28,.5
 .label .big{font-family:var(--display);font-weight:900;font-stretch:70%;font-size:2.6rem;line-height:1;color:#0a2647}
 .bars{height:46px;margin-top:6px;background:repeating-linear-gradient(90deg,#0d1b30 0 2px,transparent 2px 4px,#0d1b30 4px 7px,transparent 7px 9px,#0d1b30 9px 10px,transparent 10px 13px)}
 .stamp{display:inline-block;border:2.5px solid #b02a2a;color:#b02a2a;font-weight:700;padding:2px 8px;transform:rotate(-6deg);letter-spacing:.08em}
-@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px}}
+.hero .wrap>*{min-width:0}
+@media (max-width:860px){.hero .wrap{grid-template-columns:minmax(0,1fr);gap:36px;padding-block:36px 56px}}
+@media (max-width:560px){
+  .hero h1{font-size:clamp(1.9rem,9.5vw,2.6rem);overflow-wrap:break-word}
+  .hero p.lead{font-size:1rem;margin:14px 0 22px}
+  .hero .cta .btn{flex:1 1 140px}
+  .label{max-width:100%;font-size:.76rem;padding:16px 18px}
+  .label .big{font-size:2.1rem}
+}
 
 /* Sections */
 section.block{padding-block:68px}
@@ -139,6 +158,32 @@ table.wil td.c{color:var(--muted);width:56px}
 table.wil td.r b{font-family:var(--display);font-weight:800;font-size:1.05rem}
 table.wil td.r small{color:var(--muted)}
 table.wil tr.home td{background:rgba(242,181,28,.14)}
+@media (max-width:560px){
+  .pcard{padding:18px 16px;border-radius:16px}
+  .pcard h3{font-size:1.2rem}
+  .wtop .fld{max-width:none;flex-basis:100%}
+  .tscroll{max-height:62vh;border-radius:12px}
+  table.wil thead{display:none}
+  table.wil,table.wil tbody{display:block}
+  table.wil tr{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"c n" "d s";column-gap:10px;row-gap:6px;padding:12px 14px;border-bottom:1px solid var(--line)}
+  table.wil tr:last-child{border-bottom:0}
+  table.wil td{padding:0;border:0!important}
+  table.wil tr.home{background:rgba(242,181,28,.14)}
+  table.wil tr.home td{background:transparent}
+  table.wil td.c{grid-area:c;width:auto;align-self:center;font-size:.85rem}
+  table.wil td.n{grid-area:n;font-weight:700;align-self:center}
+  table.wil td.r{display:flex;align-items:baseline;justify-content:space-between;gap:6px;background:var(--bg);border-radius:8px;padding:6px 10px;text-align:start}
+  table.wil td.r::before{content:attr(data-label);font-size:.75rem;color:var(--muted);font-weight:600}
+  table.wil td.d{grid-area:d}
+  table.wil td.s{grid-area:s}
+  table.wil td.d,table.wil td.s{grid-column:auto}
+  table.wil tr{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"n n" "d s"}
+  table.wil td.r{min-width:0;flex-direction:column;align-items:flex-start;gap:0;padding:6px 10px}
+  table.wil td.r b{font-size:.98rem}
+  .tscroll{overflow-x:hidden}
+  table.wil td.c{display:none}
+  table.wil td.n::before{content:attr(data-code);display:inline-block;min-width:26px;margin-inline-end:8px;color:var(--muted);font-weight:500;font-size:.85rem}
+}
 
 /* Formulaires */
 .split{display:grid;grid-template-columns:.8fr 1.2fr;gap:36px;align-items:start}
@@ -216,11 +261,16 @@ footer a{color:var(--gold)}
       <a href="#reclamation" data-i="n5">Réclamation</a>
       <a class="food" href="https://mtfood.pages.dev/index.html" target="_blank" rel="noopener">MT Food</a>
     </nav>
-    <button class="lang" id="lang" type="button">العربية</button>
+    <div class="hact">
+      <button class="lang" id="lang" type="button">العربية</button>
+      <button class="burger" id="menuBtn" type="button" aria-expanded="false" aria-controls="mnav"><span class="bars" aria-hidden="true"></span><span data-i="mMenu">Menu</span></button>
+    </div>
   </div>
-  <div class="subnav"><div class="wrap">
-    <a href="#accueil" data-i="n0">Suivi colis</a><a href="#tarifs" data-i="n1">Tarifs</a><a href="#expediteur" data-i="n2">Devenir expéditeur</a><a href="#cod" data-i="n3">Mon argent COD</a><a href="#avis" data-i="n4">Avis</a><a href="#reclamation" data-i="n5">Réclamation</a><a href="https://mtfood.pages.dev/index.html" target="_blank" rel="noopener" style="color:var(--gold)">MT Food</a>
-  </div></div>
+  <nav class="mnav" id="mnav" hidden>
+    <div class="wrap">
+      <a href="#accueil" data-i="n0">Suivi colis</a><a href="#tarifs" data-i="n1">Tarifs</a><a href="#expediteur" data-i="n2">Devenir expéditeur</a><a href="#cod" data-i="n3">Mon argent COD</a><a href="#avis" data-i="n4">Avis</a><a href="#reclamation" data-i="n5">Réclamation</a><a class="food" href="https://mtfood.pages.dev/index.html" target="_blank" rel="noopener">MT Food ↗</a>
+    </div>
+  </nav>
 </header>
 
 <section class="hero" id="accueil">
@@ -463,7 +513,7 @@ const TARIFS={
 /* Grille wilayas au départ de Blida : [code, nom FR, nom AR, à domicile DA, stop desk DA] */
 const WILAYAS=[[1, "Adrar", "أدرار", 1650, 1000], [2, "Chlef", "الشلف", 800, 450], [3, "Laghouat", "الأغواط", 900, 700], [4, "Oum El Bouaghi", "أم البواقي", 800, 450], [5, "Batna", "باتنة", 800, 450], [6, "Béjaïa", "بجاية", 900, 450], [7, "Biskra", "بسكرة", 900, 700], [8, "Béchar", "بشار", 1300, 900], [9, "Blida", "البليدة", 450, 350], [10, "Bouira", "البويرة", 800, 450], [11, "Tamanrasset", "تمنراست", 1800, 1000], [12, "Tébessa", "تبسة", 800, 450], [13, "Tlemcen", "تلمسان", 800, 450], [14, "Tiaret", "تيارت", 800, 450], [15, "Tizi Ouzou", "تيزي وزو", 800, 450], [16, "Alger", "الجزائر", 450, 350], [17, "Djelfa", "الجلفة", 900, 450], [18, "Jijel", "جيجل", 800, 450], [19, "Sétif", "سطيف", 800, 450], [20, "Saïda", "سعيدة", 800, 450], [21, "Skikda", "سكيكدة", 800, 450], [22, "Sidi Bel Abbès", "سيدي بلعباس", 800, 450], [23, "Annaba", "عنابة", 800, 450], [24, "Guelma", "قالمة", 800, 450], [25, "Constantine", "قسنطينة", 800, 450], [26, "Médéa", "المدية", 800, 450], [27, "Mostaganem", "مستغانم", 800, 450], [28, "M'Sila", "المسيلة", 800, 450], [29, "Mascara", "معسكر", 800, 450], [30, "Ouargla", "ورقلة", 900, 700], [31, "Oran", "وهران", 800, 450], [32, "El Bayadh", "البيض", 1100, 600], [33, "Illizi", "إليزي", 2000, 1000], [34, "Bordj Bou Arreridj", "برج بوعريريج", 800, 450], [35, "Boumerdès", "بومرداس", 750, 450], [36, "El Tarf", "الطارف", 800, 450], [37, "Tindouf", "تندوف", 1650, 1000], [38, "Tissemsilt", "تيسمسيلت", 800, 450], [39, "El Oued", "الوادي", 900, 500], [40, "Khenchela", "خنشلة", 800, 450], [41, "Souk Ahras", "سوق أهراس", 800, 450], [42, "Tipaza", "تيبازة", 700, 450], [43, "Mila", "ميلة", 800, 450], [44, "Aïn Defla", "عين الدفلى", 800, 450], [45, "Naâma", "النعامة", 1000, 700], [46, "Aïn Témouchent", "عين تموشنت", 800, 450], [47, "Ghardaïa", "غرداية", 900, 500], [48, "Relizane", "غليزان", 750, 450], [49, "Timimoun", "تيميمون", 1650, 1000], [51, "Ouled Djellal", "أولاد جلال", 900, 500], [52, "Beni Abbes", "بني عباس", 1300, 1000], [53, "In Salah", "عين صالح", 1650, 1000], [55, "Touggourt", "تقرت", 900, 500], [57, "El M'Ghair", "المغير", 900, 500], [58, "El Meniaa", "المنيعة", 1000, 600]];
 const T={ar:{
-n0:"تتبّع الطرد",n1:"الأسعار",n2:"كن مرسِلًا",n3:"أموالي COD",n4:"الآراء",n5:"شكوى",
+mMenu:"القائمة",n0:"تتبّع الطرد",n1:"الأسعار",n2:"كن مرسِلًا",n3:"أموالي COD",n4:"الآراء",n5:"شكوى",
 heroEy:"مفتاح · البليدة · الجزائر",heroH:"نوصل طرودك، <em>ونحصّل أموالك.</em>",
 heroP:"MT Delivery تستلم طرودك من عندك، توصلها في مفتاح وضواحيها وإلى الولايات الـ69 عبر شركائنا، تحصّل الدفع عند الاستلام وتعيد لك أموالك.",
 cta1:"📦 كن مرسِلًا",cta2:"شاهد الأسعار",trkL:"رقم التتبع",trkT:"رقم هاتفي",telPh:"رقم هاتفك (05 / 06 / 07)",trkPh:"رقم التتبع",trkB:"تتبّع",
@@ -509,7 +559,8 @@ function renderTarifs(){
 function renderWil(){
   const q=document.getElementById("wSearch").value.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
   const rows=WILAYAS.filter(w=>!q||String(w[0])===q||(w[1]+" "+w[2]).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(q));
-  document.getElementById("tWil").innerHTML=rows.map(w=>`<tr${w[0]===9?' class="home"':''}><td class="c">${String(w[0]).padStart(2,"0")}</td><td>${esc(lang==="ar"?w[2]:w[1])}</td><td class="r"><b>${w[3]}</b> <small>DA</small></td><td class="r"><b>${w[4]}</b> <small>DA</small></td></tr>`).join("");
+  const lDom=esc(document.querySelector('[data-i="thDom"]').textContent),lSd=esc(document.querySelector('[data-i="thSd"]').textContent);
+  document.getElementById("tWil").innerHTML=rows.map(w=>{const code=String(w[0]).padStart(2,"0");return `<tr${w[0]===9?' class="home"':''}><td class="c">${code}</td><td class="n" data-code="${code}">${esc(lang==="ar"?w[2]:w[1])}</td><td class="r d" data-label="${lDom}"><span><b>${w[3]}</b> <small>DA</small></span></td><td class="r s" data-label="${lSd}"><span><b>${w[4]}</b> <small>DA</small></span></td></tr>`}).join("");
   document.getElementById("wNone").hidden=rows.length>0;
 }
 document.getElementById("wSearch").addEventListener("input",renderWil);
@@ -550,6 +601,14 @@ document.getElementById("fTrack").addEventListener("submit",async e=>{
     res.innerHTML=j.colis.map(c=>`<div class="pc"><div><b>${esc(c.id)}</b><small>${esc(c.wilaya)}${c.date?" · "+esc(c.date.slice(0,10)):""}</small><span class="st ${cls(c.etat)}">${esc(c.etat)}</span></div><a href="${TRACK_URL+encodeURIComponent(c.id)}" target="_blank" rel="noopener">${esc(m.telSee)}</a></div>`).join("")+upd;
   }catch(err){res.innerHTML=`<p>${esc(m.telFail)}</p>`}
 });
+/* Menu mobile */
+(function(){
+  const btn=document.getElementById("menuBtn"),nav=document.getElementById("mnav");
+  const set=o=>{btn.setAttribute("aria-expanded",o);nav.hidden=!o};
+  btn.addEventListener("click",()=>set(nav.hidden));
+  nav.addEventListener("click",e=>{if(e.target.closest("a"))set(false)});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!nav.hidden){set(false);btn.focus()}});
+})();
 function apply(){
   const ar=lang==="ar";
   document.querySelectorAll("[data-i]").forEach(e=>{const v=ar?T.ar[e.dataset.i]:FR[e.dataset.i];if(v==null)return;e.hasAttribute("data-html")?e.innerHTML=v:e.textContent=v});
