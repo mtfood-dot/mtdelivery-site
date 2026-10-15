@@ -62,7 +62,7 @@ header.top .mnav .wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px;paddin
 .mnav a{display:flex;align-items:center;min-height:46px;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.06);color:#fff;text-decoration:none;font-weight:600;font-size:.95rem}
 .mnav a:active,.mnav a:hover{background:rgba(255,255,255,.14)}
 .mnav a.food{color:var(--gold);border:1px solid rgba(242,181,28,.45);background:transparent}
-@media (max-width:960px){nav.links{display:none}.burger{display:inline-flex}}
+@media (max-width:1060px){nav.links{display:none}.burger{display:inline-flex}}
 @media (min-width:961px){.mnav{display:none!important}}
 
 /* Hero */
@@ -130,6 +130,33 @@ section.alt{background:var(--surface);border-block:1px solid var(--line)}
 @media (max-width:440px){.perks{grid-template-columns:1fr}}
 .foodband{margin-top:34px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;background:var(--gold);color:var(--navy);border-radius:16px;padding:18px 22px}
 .foodband b{font-size:1.1rem}
+/* Boutique en ligne gratuite */
+.shopband{background:var(--navy);color:#fff;padding-block:64px;position:relative;overflow:hidden}
+.shopband .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
+.shopband .wrap>*{min-width:0}
+.shopband h2{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:800;font-stretch:85%;margin:10px 0 12px}
+.shopband h2 em{font-style:normal;color:var(--gold)}
+.shopband .eyebrow{color:var(--gold)}
+.shopband p{color:#c9d6ea;margin:0 0 18px;max-width:36em}
+.shopband ul{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:10px}
+.shopband li{display:flex;gap:10px;align-items:flex-start}
+.shopband li::before{content:"✓";flex:none;width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center;font-size:.8rem;margin-top:1px}
+.shopband .cta{display:flex;flex-wrap:wrap;gap:12px}
+.shopband .url{font-family:var(--mono);font-size:.85rem;color:var(--gold);overflow-wrap:anywhere;direction:ltr;unicode-bidi:isolate}
+.phone{justify-self:center;width:100%;max-width:290px;background:#fff;color:#0d1b30;border-radius:28px;border:8px solid #13386a;box-shadow:0 22px 50px rgba(0,0,0,.4);overflow:hidden;font-size:.8rem;direction:ltr}
+.phone .pbar{background:#7a1f5c;color:#fff;padding:12px 14px;font-weight:700;display:flex;justify-content:space-between}
+.phone .pann{background:var(--gold);color:var(--navy);text-align:center;font-weight:600;padding:5px 8px;font-size:.72rem}
+.phone .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px}
+.phone .pit{border:1px solid #e5e7eb;border-radius:10px;overflow:hidden}
+.phone .pit i{display:block;aspect-ratio:1;background:linear-gradient(135deg,#f6e7c1,#e9c97a)}
+.phone .pit:nth-child(2) i{background:linear-gradient(135deg,#e7d3e0,#c58bb0)}
+.phone .pit:nth-child(3) i{background:linear-gradient(135deg,#d6e4f5,#8fb1de)}
+.phone .pit:nth-child(4) i{background:linear-gradient(135deg,#dff0e4,#93c9a5)}
+.phone .pit b{display:block;padding:6px 8px 0;font-size:.74rem}
+.phone .pit span{display:block;padding:0 8px 8px;color:#7a1f5c;font-weight:700}
+.phone .pbtn{margin:0 12px 14px;background:#7a1f5c;color:#fff;text-align:center;border-radius:10px;padding:9px;font-weight:700}
+@media (max-width:860px){.shopband .wrap{grid-template-columns:minmax(0,1fr);gap:36px}.shopband{padding-block:48px}}
+@media (max-width:560px){.shopband .cta .btn{flex:1 1 100%}}
 
 /* Tarifs */
 .prices{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -256,6 +283,7 @@ footer a{color:var(--gold)}
       <a href="#accueil" data-i="n0">Suivi colis</a>
       <a href="#tarifs" data-i="n1">Tarifs</a>
       <a href="#expediteur" data-i="n2">Devenir expéditeur</a>
+      <a href="#boutique" data-i="n6">Boutique en ligne</a>
       <a href="#cod" data-i="n3">Mon argent COD</a>
       <a href="#avis" data-i="n4">Avis</a>
       <a href="#reclamation" data-i="n5">Réclamation</a>
@@ -268,7 +296,7 @@ footer a{color:var(--gold)}
   </div>
   <nav class="mnav" id="mnav" hidden>
     <div class="wrap">
-      <a href="#accueil" data-i="n0">Suivi colis</a><a href="#tarifs" data-i="n1">Tarifs</a><a href="#expediteur" data-i="n2">Devenir expéditeur</a><a href="#cod" data-i="n3">Mon argent COD</a><a href="#avis" data-i="n4">Avis</a><a href="#reclamation" data-i="n5">Réclamation</a><a class="food" href="https://mtfood.pages.dev/index.html" target="_blank" rel="noopener">MT Food ↗</a>
+      <a href="#accueil" data-i="n0">Suivi colis</a><a href="#tarifs" data-i="n1">Tarifs</a><a href="#expediteur" data-i="n2">Devenir expéditeur</a><a href="#boutique" data-i="n6">Boutique en ligne</a><a href="#cod" data-i="n3">Mon argent COD</a><a href="#avis" data-i="n4">Avis</a><a href="#reclamation" data-i="n5">Réclamation</a><a class="food" href="https://mtfood.pages.dev/index.html" target="_blank" rel="noopener">MT Food ↗</a>
     </div>
   </nav>
 </header>
@@ -322,6 +350,38 @@ footer a{color:var(--gold)}
   </div>
 </section>
 
+<section class="shopband" id="boutique">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow" data-i="sbEy">Nouveau · Offert aux expéditeurs MT</div>
+      <h2 data-i="sbH" data-html>Votre boutique en ligne, <em>gratuite.</em></h2>
+      <p data-i="sbP">Mettez vos produits en ligne en quelques minutes. Vos clients commandent depuis votre lien, paient à la livraison, et MT Delivery livre chaque commande.</p>
+      <ul>
+        <li data-i="sb1">Gratuite pour les expéditeurs MT Delivery</li>
+        <li data-i="sb2">Vos produits, photos, prix et variantes, en français et en arabe</li>
+        <li data-i="sb3">Frais de livraison affichés automatiquement selon la wilaya du client</li>
+        <li data-i="sb4">Commandes reçues dans votre espace, livrées par MT Delivery</li>
+      </ul>
+      <div class="cta">
+        <a class="btn gold" href="https://mtdelivery-store.pages.dev/app" target="_blank" rel="noopener" data-i="sbBtn">🛍️ Créer ma boutique gratuite</a>
+        <a class="btn ghost" href="#expediteur" data-i="sbBtn2">Pas encore expéditeur ? Inscrivez-vous</a>
+      </div>
+      <p style="margin:14px 0 0;font-size:.88rem"><span data-i="sbUrl">Votre adresse :</span> <span class="url">mtdelivery-store.pages.dev/b/votre-boutique</span></p>
+    </div>
+    <div class="phone" aria-hidden="true">
+      <div class="pbar"><span>Ma Boutique</span><span>🛒</span></div>
+      <div class="pann">🚚 Paiement à la livraison</div>
+      <div class="pgrid">
+        <div class="pit"><i></i><b>Sac cuir</b><span>3 500 DA</span></div>
+        <div class="pit"><i></i><b>Bracelet</b><span>900 DA</span></div>
+        <div class="pit"><i></i><b>Robe été</b><span>2 800 DA</span></div>
+        <div class="pit"><i></i><b>Parfum</b><span>1 900 DA</span></div>
+      </div>
+      <div class="pbtn">Commander</div>
+    </div>
+  </div>
+</section>
+
 <section class="block alt" id="tarifs">
   <div class="wrap">
     <div class="head">
@@ -366,6 +426,7 @@ footer a{color:var(--gold)}
         <li data-i="e1">Inscription gratuite</li>
         <li data-i="e2">Ramassage chez vous</li>
         <li data-i="e3">Paiement de vos clients encaissé à la livraison</li>
+        <li data-i="e4">Boutique en ligne gratuite offerte</li>
       </ul>
     </div>
     <form class="f" id="fExp" novalidate>
@@ -513,13 +574,16 @@ const TARIFS={
 /* Grille wilayas au départ de Blida : [code, nom FR, nom AR, à domicile DA, stop desk DA] */
 const WILAYAS=[[1, "Adrar", "أدرار", 1650, 1000], [2, "Chlef", "الشلف", 800, 450], [3, "Laghouat", "الأغواط", 900, 700], [4, "Oum El Bouaghi", "أم البواقي", 800, 450], [5, "Batna", "باتنة", 800, 450], [6, "Béjaïa", "بجاية", 900, 450], [7, "Biskra", "بسكرة", 900, 700], [8, "Béchar", "بشار", 1300, 900], [9, "Blida", "البليدة", 450, 350], [10, "Bouira", "البويرة", 800, 450], [11, "Tamanrasset", "تمنراست", 1800, 1000], [12, "Tébessa", "تبسة", 800, 450], [13, "Tlemcen", "تلمسان", 800, 450], [14, "Tiaret", "تيارت", 800, 450], [15, "Tizi Ouzou", "تيزي وزو", 800, 450], [16, "Alger", "الجزائر", 450, 350], [17, "Djelfa", "الجلفة", 900, 450], [18, "Jijel", "جيجل", 800, 450], [19, "Sétif", "سطيف", 800, 450], [20, "Saïda", "سعيدة", 800, 450], [21, "Skikda", "سكيكدة", 800, 450], [22, "Sidi Bel Abbès", "سيدي بلعباس", 800, 450], [23, "Annaba", "عنابة", 800, 450], [24, "Guelma", "قالمة", 800, 450], [25, "Constantine", "قسنطينة", 800, 450], [26, "Médéa", "المدية", 800, 450], [27, "Mostaganem", "مستغانم", 800, 450], [28, "M'Sila", "المسيلة", 800, 450], [29, "Mascara", "معسكر", 800, 450], [30, "Ouargla", "ورقلة", 900, 700], [31, "Oran", "وهران", 800, 450], [32, "El Bayadh", "البيض", 1100, 600], [33, "Illizi", "إليزي", 2000, 1000], [34, "Bordj Bou Arreridj", "برج بوعريريج", 800, 450], [35, "Boumerdès", "بومرداس", 750, 450], [36, "El Tarf", "الطارف", 800, 450], [37, "Tindouf", "تندوف", 1650, 1000], [38, "Tissemsilt", "تيسمسيلت", 800, 450], [39, "El Oued", "الوادي", 900, 500], [40, "Khenchela", "خنشلة", 800, 450], [41, "Souk Ahras", "سوق أهراس", 800, 450], [42, "Tipaza", "تيبازة", 700, 450], [43, "Mila", "ميلة", 800, 450], [44, "Aïn Defla", "عين الدفلى", 800, 450], [45, "Naâma", "النعامة", 1000, 700], [46, "Aïn Témouchent", "عين تموشنت", 800, 450], [47, "Ghardaïa", "غرداية", 900, 500], [48, "Relizane", "غليزان", 750, 450], [49, "Timimoun", "تيميمون", 1650, 1000], [51, "Ouled Djellal", "أولاد جلال", 900, 500], [52, "Beni Abbes", "بني عباس", 1300, 1000], [53, "In Salah", "عين صالح", 1650, 1000], [55, "Touggourt", "تقرت", 900, 500], [57, "El M'Ghair", "المغير", 900, 500], [58, "El Meniaa", "المنيعة", 1000, 600]];
 const T={ar:{
-mMenu:"القائمة",n0:"تتبّع الطرد",n1:"الأسعار",n2:"كن مرسِلًا",n3:"أموالي COD",n4:"الآراء",n5:"شكوى",
+mMenu:"القائمة",n0:"تتبّع الطرد",n1:"الأسعار",n2:"كن مرسِلًا",n3:"أموالي COD",n4:"الآراء",n5:"شكوى",n6:"متجر إلكتروني",
 heroEy:"مفتاح · البليدة · الجزائر",heroH:"نوصل طرودك، <em>ونحصّل أموالك.</em>",
 heroP:"MT Delivery تستلم طرودك من عندك، توصلها في مفتاح وضواحيها وإلى الولايات الـ69 عبر شركائنا، تحصّل الدفع عند الاستلام وتعيد لك أموالك.",
 cta1:"📦 كن مرسِلًا",cta2:"شاهد الأسعار",trkL:"رقم التتبع",trkT:"رقم هاتفي",telPh:"رقم هاتفك (05 / 06 / 07)",trkPh:"رقم التتبع",trkB:"تتبّع",
 svEy:"توصيل الطرود",svH:"ماذا تقدم MT Delivery لمحلك",
 p1:"الاستلام من المنزل",p1s:"نمر لأخذ طرودك.",p2:"مفتاح وضواحيها",p2s:"توصيل محلي سريع.",p3:"69 ولاية",p3s:"عبر شركائنا.",p4:"رقم تتبع",p4s:"لكل طرد.",p5:"دفع عند الاستلام وإرجاع مجاني",p5s:"الدفع عند الاستلام، والإرجاع بلا مصاريف.",
 fbH:"جائع؟",fbP:"اطلب الوجبات والأكل السريع والحلويات على MT Food.",fbBtn:"اذهب إلى MT Food",
+sbEy:"جديد · هدية لمرسِلي MT",sbH:"متجرك الإلكتروني، <em>مجانًا.</em>",sbP:"اعرض منتجاتك على الإنترنت في بضع دقائق. يطلب زبائنك من رابطك ويدفعون عند الاستلام، وتوصل MT Delivery كل طلبية.",
+sb1:"مجاني لمرسِلي MT Delivery",sb2:"منتجاتك وصورها وأسعارها وخياراتها، بالعربية والفرنسية",sb3:"سعر التوصيل يظهر تلقائيًا حسب ولاية الزبون",sb4:"تصلك الطلبيات في فضائك وتوصلها MT Delivery",
+sbBtn:"🛍️ أنشئ متجري المجاني",sbBtn2:"لست مرسِلًا بعد؟ سجّل الآن",sbUrl:"عنوان متجرك:",e4:"متجر إلكتروني مجاني",
 tEy:"قائمة الأسعار",tH:"أسعار التوصيل",tP:"السعر لكل طرد انطلاقًا من البليدة. إرجاع الطرد المرفوض مجاني.",tLoc:"التوصيل المحلي (مفتاح)",
 tInfo:"معلومات مفيدة",ti1:"الانطلاق من البليدة (الولاية 09)",ti2:"إلى المنزل: يُسلَّم في عنوان الزبون",ti3:"ستوب ديسك: يستلم الزبون من المكتب، بسعر أقل",ti4:"إرجاع الطرد المرفوض: مجاني",tNat:"التوصيل إلى الولايات",tSearchL:"ابحث عن ولاية",tSearch:"ابحث عن ولاية أو رمز…",thCode:"الرمز",thW:"الولاية",thDom:"إلى المنزل",thSd:"ستوب ديسك",tNone:"لم نجد هذه الولاية. اتصل بنا عبر واتساب لهذه الوجهة.",tNote:"الأسعار لكل طرد انطلاقًا من البليدة، بالدينار الجزائري. ولاية غير مذكورة: اتصل بنا.",onDemand:"حسب الولاية",free:"مجاني",
 eEy:"المرسِلون الجدد",eH:"افتح حسابك كمرسِل",eP:"تبيع عبر الإنترنت أو في محل؟ سجّل ونتصل بك لتنظيم أول استلام.",e1:"التسجيل مجاني",e2:"الاستلام من عندك",e3:"نحصّل دفع زبائنك عند التوصيل",
