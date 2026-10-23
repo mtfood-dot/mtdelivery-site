@@ -17,7 +17,7 @@ const STATUTS = ["nouveau", "en cours", "réglé"];
 const MAX_LEN = 1500;
 
 // Pièce d'identité (formulaire expéditeur) : fichier PDF uniquement, 5 Mo max après décodage.
-// Stockée à part (clé « piece:<id> »), lisible seulement via l'action admin « piece », effacée au bout de 90 jours.
+// Stockée à part (clé « piece:<id> »), lisible seulement via l'action admin « piece », effacée au plus tard au bout de 30 jours.
 const PIECE_MAX = 5 * 1024 * 1024;
 const PIECE_TTL = 30 * 24 * 3600; // 30 jours max ; effacée dès que la demande passe à « réglé »
 function lirePiece(v) {
