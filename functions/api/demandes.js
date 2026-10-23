@@ -11,7 +11,7 @@ const FIELDS = {
   cod: ["boutique", "tel", "suivis", "montant"],
   reclamation: ["nom", "tel", "suivi", "type", "desc"], // « type » = motif choisi dans le formulaire
   avis: ["prenom", "texte", "note"],
-  livreur: ["nom", "tel", "commune", "vehicule", "permis", "dispo", "message"],
+  livreur: ["nom", "tel", "commune", "vehicule", "dispo", "message"], // permis obligatoire : pas de question
 };
 const STATUTS = ["nouveau", "en cours", "réglé"];
 const MAX_LEN = 1500;

@@ -560,6 +560,7 @@ footer a{color:var(--gold)}
       <ul>
         <li data-i="lv1">Livraisons à Meftah et ses environs</li>
         <li data-i="lv2">Candidature gratuite et sans engagement</li>
+        <li data-i="lv0"><b>Permis de conduire obligatoire</b></li>
         <li data-i="lv3">Entretien et documents vérifiés au bureau</li>
       </ul>
     </div>
@@ -568,18 +569,12 @@ footer a{color:var(--gold)}
       <div class="fld"><label for="lvNom" data-i="lNomComplet">Nom et prénom</label><input id="lvNom" name="nom" required autocomplete="name"></div>
       <div class="fld"><label for="lvTel" data-i="lTel">Numéro de téléphone</label><input id="lvTel" name="tel" type="tel" required pattern="0[5-7][0-9 ]{8,11}" placeholder="05 XX XX XX XX" class="num" autocomplete="tel"></div>
       <div class="fld full"><label for="lvCom" data-i="lLvCom">Commune de résidence</label><input id="lvCom" name="commune" required autocomplete="address-level2"></div>
-      <div class="fld"><label for="lvVeh" data-i="lLvVeh">Véhicule</label>
+      <div class="fld full"><label for="lvVeh" data-i="lLvVeh">Véhicule</label>
         <select id="lvVeh" name="vehicule" required>
           <option value="" data-i="o0">Choisir…</option>
           <option data-i="v1">Moto / scooter</option>
           <option data-i="v2">Voiture</option>
           <option data-i="v3">Utilitaire</option>
-        </select></div>
-      <div class="fld"><label for="lvPer" data-i="lLvPer">Permis de conduire</label>
-        <select id="lvPer" name="permis" required>
-          <option value="" data-i="o0">Choisir…</option>
-          <option data-i="pe1">Oui</option>
-          <option data-i="pe2">Non</option>
         </select></div>
       <div class="fld full"><label for="lvDis" data-i="lLvDis">Disponibilité</label>
         <select id="lvDis" name="dispo" required>
@@ -645,7 +640,7 @@ o0:"اختر…",o1:"ملابس وموضة",o2:"مستحضرات تجميل",o3:
 cEy:"فضاء المرسِل",cH:"اطلب أموالي COD",cP:"تم توصيل طرودك؟ أدخل أرقام التتبع ونجهز لك المبلغ المحصّل لتستلمه من المكتب.",c1:"استمارة واحدة لعدة طرود",c2:"نؤكد لك المبلغ قبل الدفع",c3:"الدفع نقدًا في المكتب، بمفتاح",
 lSuivis:"أرقام تتبع الطرود الموصّلة",phSuivis:"رقم في كل سطر",lMont:'المبلغ المنتظر (دج) <span class="opt">اختياري</span>',bCod:"أرسل طلبي",
 aEy:"آراؤكم",aH:"آراؤكم حول MT Delivery",aEmpty:"لا توجد آراء بعد. كن أول من يشارك رأيه.",lNote:"تقييمك",lPrenomBout:"الاسم أو اسم المحل",lAvis:"رأيك",bAvis:"انشر رأيي",
-lvEy:"توظيف",lvH:"كن موصّلًا لدى MT Delivery",lvP:"لديك مركبة وتعرف منطقتك جيدًا؟ انضم إلى الفريق: اترك معلوماتك وسنتصل بك لإجراء مقابلة.",lv1:"توصيل في مفتاح وضواحيها",lv2:"الترشح مجاني ودون التزام",lv3:"المقابلة والتحقق من الوثائق في المكتب",lLvCom:"بلدية الإقامة",lLvVeh:"المركبة",v1:"دراجة نارية / سكوتر",v2:"سيارة",v3:"مركبة نفعية",lLvPer:"رخصة السياقة",pe1:"نعم",pe2:"لا",lLvDis:"التوفر",d1:"دوام كامل",d2:"دوام جزئي",d3:"نهاية الأسبوع فقط",lLvMsg:'الخبرة والملاحظات <span class="opt">اختياري</span>',bLiv:"أرسل طلبي",rEy:"خدمة الزبائن",rH:"تقديم شكوى",rP:"مشكلة مع طرد أو موصّل أو دفع؟ صفها لنا ونتكفل بها.",lNomComplet:"الاسم واللقب",lSuivi:'رقم التتبع <span class="opt">إن وجد</span>',lType:"السبب",r1:"تأخر التوصيل",r2:"طرد متضرر",r3:"طرد ضائع",r4:"دفع COD",r5:"سلوك الموصّل",lDesc:"وصف المشكلة",bRec:"أرسل الشكوى",
+lvEy:"توظيف",lvH:"كن موصّلًا لدى MT Delivery",lvP:"لديك مركبة وتعرف منطقتك جيدًا؟ انضم إلى الفريق: اترك معلوماتك وسنتصل بك لإجراء مقابلة.",lv1:"توصيل في مفتاح وضواحيها",lv2:"الترشح مجاني ودون التزام",lv3:"المقابلة والتحقق من الوثائق في المكتب",lLvCom:"بلدية الإقامة",lLvVeh:"المركبة",v1:"دراجة نارية / سكوتر",v2:"سيارة",v3:"مركبة نفعية",lv0:"رخصة السياقة إلزامية",lLvDis:"التوفر",d1:"دوام كامل",d2:"دوام جزئي",d3:"نهاية الأسبوع فقط",lLvMsg:'الخبرة والملاحظات <span class="opt">اختياري</span>',bLiv:"أرسل طلبي",rEy:"خدمة الزبائن",rH:"تقديم شكوى",rP:"مشكلة مع طرد أو موصّل أو دفع؟ صفها لنا ونتكفل بها.",lNomComplet:"الاسم واللقب",lSuivi:'رقم التتبع <span class="opt">إن وجد</span>',lType:"السبب",r1:"تأخر التوصيل",r2:"طرد متضرر",r3:"طرد ضائع",r4:"دفع COD",r5:"سلوك الموصّل",lDesc:"وصف المشكلة",bRec:"أرسل الشكوى",
 kEy:"اتصل بنا",kH:"شركة محلية قريبة منك",kP:"زورونا، اتصلوا بنا أو راسلونا على واتساب.",kAd:"العنوان",adr:"حي النصر (Les HLM) – مفتاح – البليدة",kTel:"الهاتف / واتساب",cp:"نسخ",cp2:"نسخ",fLiv:"كن موصّلًا"}};
 const M={fr:{
 doneSend:"Formulaire prêt. Appuyez sur le bouton pour l'envoyer sur WhatsApp :",saved:"✅ Demande enregistrée. Nous vous recontactons rapidement. Vous pouvez aussi nous l'envoyer sur WhatsApp :",avisSaved:"✅ Merci ! Votre avis a bien été transmis à MT Delivery.",sending:"Envoi…",waSend:"Envoyer sur WhatsApp",copyMsg:"Copier le message",copied:"Copié",
