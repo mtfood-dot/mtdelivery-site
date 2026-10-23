@@ -287,6 +287,7 @@ footer a{color:var(--gold)}
       <a href="#cod" data-i="n3">Mon argent COD</a>
       <a href="#avis" data-i="n4">Avis</a>
       <a href="#reclamation" data-i="n5">Réclamation</a>
+      <a href="#livreur" data-i="n7">Devenir livreur</a>
       <a class="food" href="https://food.mtdelivery.dz/index.html" target="_blank" rel="noopener">MT Food</a>
     </nav>
     <div class="hact">
@@ -296,7 +297,7 @@ footer a{color:var(--gold)}
   </div>
   <nav class="mnav" id="mnav" hidden>
     <div class="wrap">
-      <a href="#accueil" data-i="n0">Suivi colis</a><a href="#tarifs" data-i="n1">Tarifs</a><a href="#expediteur" data-i="n2">Devenir expéditeur</a><a href="#boutique" data-i="n6">Boutique en ligne</a><a href="#cod" data-i="n3">Mon argent COD</a><a href="#avis" data-i="n4">Avis</a><a href="#reclamation" data-i="n5">Réclamation</a><a class="food" href="https://food.mtdelivery.dz/index.html" target="_blank" rel="noopener">MT Food ↗</a>
+      <a href="#accueil" data-i="n0">Suivi colis</a><a href="#tarifs" data-i="n1">Tarifs</a><a href="#expediteur" data-i="n2">Devenir expéditeur</a><a href="#boutique" data-i="n6">Boutique en ligne</a><a href="#cod" data-i="n3">Mon argent COD</a><a href="#avis" data-i="n4">Avis</a><a href="#reclamation" data-i="n5">Réclamation</a><a href="#livreur" data-i="n7">Devenir livreur</a><a class="food" href="https://food.mtdelivery.dz/index.html" target="_blank" rel="noopener">MT Food ↗</a>
     </div>
   </nav>
 </header>
@@ -548,6 +549,54 @@ footer a{color:var(--gold)}
   </div>
 </section>
 
+<section class="block" id="livreur">
+  <div class="wrap split">
+    <div class="side">
+      <div class="head" style="margin:0">
+        <div class="eyebrow" data-i="lvEy">Recrutement</div>
+        <h2 data-i="lvH">Devenez livreur MT Delivery</h2>
+        <p data-i="lvP">Vous avez un véhicule et vous connaissez bien votre région ? Rejoignez l'équipe : laissez vos coordonnées, on vous rappelle pour un entretien.</p>
+      </div>
+      <ul>
+        <li data-i="lv1">Livraisons à Meftah et ses environs</li>
+        <li data-i="lv2">Candidature gratuite et sans engagement</li>
+        <li data-i="lv3">Entretien et documents vérifiés au bureau</li>
+      </ul>
+    </div>
+    <form class="f" id="fLiv" novalidate>
+      <input name="site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0;pointer-events:none">
+      <div class="fld"><label for="lvNom" data-i="lNomComplet">Nom et prénom</label><input id="lvNom" name="nom" required autocomplete="name"></div>
+      <div class="fld"><label for="lvTel" data-i="lTel">Numéro de téléphone</label><input id="lvTel" name="tel" type="tel" required pattern="0[5-7][0-9 ]{8,11}" placeholder="05 XX XX XX XX" class="num" autocomplete="tel"></div>
+      <div class="fld full"><label for="lvCom" data-i="lLvCom">Commune de résidence</label><input id="lvCom" name="commune" required autocomplete="address-level2"></div>
+      <div class="fld"><label for="lvVeh" data-i="lLvVeh">Véhicule</label>
+        <select id="lvVeh" name="vehicule" required>
+          <option value="" data-i="o0">Choisir…</option>
+          <option data-i="v1">Moto / scooter</option>
+          <option data-i="v2">Voiture</option>
+          <option data-i="v3">Utilitaire</option>
+          <option data-i="v4">Pas de véhicule</option>
+        </select></div>
+      <div class="fld"><label for="lvPer" data-i="lLvPer">Permis de conduire</label>
+        <select id="lvPer" name="permis" required>
+          <option value="" data-i="o0">Choisir…</option>
+          <option data-i="pe1">Oui</option>
+          <option data-i="pe2">Non</option>
+        </select></div>
+      <div class="fld full"><label for="lvDis" data-i="lLvDis">Disponibilité</label>
+        <select id="lvDis" name="dispo" required>
+          <option value="" data-i="o0">Choisir…</option>
+          <option data-i="d1">Temps plein</option>
+          <option data-i="d2">Temps partiel</option>
+          <option data-i="d3">Week-end uniquement</option>
+        </select></div>
+      <div class="fld full"><label for="lvMsg" data-i-html="lLvMsg">Expérience, remarques <span class="opt">facultatif</span></label><textarea id="lvMsg" name="message" maxlength="1000"></textarea></div>
+      <div class="full ts" id="tsLiv" hidden></div>
+      <div class="full"><button class="btn gold" type="submit" data-i="bLiv">Envoyer ma candidature</button></div>
+      <div class="done" hidden></div>
+    </form>
+  </div>
+</section>
+
 <section class="contact" id="contact">
   <div class="wrap">
     <div>
@@ -567,7 +616,7 @@ footer a{color:var(--gold)}
   </div>
 </section>
 
-<footer><div class="wrap"><span>© 2026 MT Delivery · البريد السريع</span><span><a href="https://food.mtdelivery.dz/inscription-livreur.html" target="_blank" rel="noopener" data-i="fLiv">Devenir livreur</a> · <a href="https://food.mtdelivery.dz/index.html" target="_blank" rel="noopener">MT Food</a></span></div></footer>
+<footer><div class="wrap"><span>© 2026 MT Delivery · البريد السريع</span><span><a href="#livreur" data-i="fLiv">Devenir livreur</a> · <a href="https://food.mtdelivery.dz/index.html" target="_blank" rel="noopener">MT Food</a></span></div></footer>
 
 <script src="/antirobot.js"></script>
 <script>
@@ -579,7 +628,7 @@ const TARIFS={
 /* Grille wilayas au départ de Blida : [code, nom FR, nom AR, à domicile DA, stop desk DA] */
 const WILAYAS=[[1, "Adrar", "أدرار", 1650, 1000], [2, "Chlef", "الشلف", 800, 450], [3, "Laghouat", "الأغواط", 900, 700], [4, "Oum El Bouaghi", "أم البواقي", 800, 450], [5, "Batna", "باتنة", 800, 450], [6, "Béjaïa", "بجاية", 900, 450], [7, "Biskra", "بسكرة", 900, 700], [8, "Béchar", "بشار", 1300, 900], [9, "Blida", "البليدة", 450, 350], [10, "Bouira", "البويرة", 800, 450], [11, "Tamanrasset", "تمنراست", 1800, 1000], [12, "Tébessa", "تبسة", 800, 450], [13, "Tlemcen", "تلمسان", 800, 450], [14, "Tiaret", "تيارت", 800, 450], [15, "Tizi Ouzou", "تيزي وزو", 800, 450], [16, "Alger", "الجزائر", 450, 350], [17, "Djelfa", "الجلفة", 900, 450], [18, "Jijel", "جيجل", 800, 450], [19, "Sétif", "سطيف", 800, 450], [20, "Saïda", "سعيدة", 800, 450], [21, "Skikda", "سكيكدة", 800, 450], [22, "Sidi Bel Abbès", "سيدي بلعباس", 800, 450], [23, "Annaba", "عنابة", 800, 450], [24, "Guelma", "قالمة", 800, 450], [25, "Constantine", "قسنطينة", 800, 450], [26, "Médéa", "المدية", 800, 450], [27, "Mostaganem", "مستغانم", 800, 450], [28, "M'Sila", "المسيلة", 800, 450], [29, "Mascara", "معسكر", 800, 450], [30, "Ouargla", "ورقلة", 900, 700], [31, "Oran", "وهران", 800, 450], [32, "El Bayadh", "البيض", 1100, 600], [33, "Illizi", "إليزي", 2000, 1000], [34, "Bordj Bou Arreridj", "برج بوعريريج", 800, 450], [35, "Boumerdès", "بومرداس", 750, 450], [36, "El Tarf", "الطارف", 800, 450], [37, "Tindouf", "تندوف", 1650, 1000], [38, "Tissemsilt", "تيسمسيلت", 800, 450], [39, "El Oued", "الوادي", 900, 500], [40, "Khenchela", "خنشلة", 800, 450], [41, "Souk Ahras", "سوق أهراس", 800, 450], [42, "Tipaza", "تيبازة", 700, 450], [43, "Mila", "ميلة", 800, 450], [44, "Aïn Defla", "عين الدفلى", 800, 450], [45, "Naâma", "النعامة", 1000, 700], [46, "Aïn Témouchent", "عين تموشنت", 800, 450], [47, "Ghardaïa", "غرداية", 900, 500], [48, "Relizane", "غليزان", 750, 450], [49, "Timimoun", "تيميمون", 1650, 1000], [51, "Ouled Djellal", "أولاد جلال", 900, 500], [52, "Beni Abbes", "بني عباس", 1300, 1000], [53, "In Salah", "عين صالح", 1650, 1000], [55, "Touggourt", "تقرت", 900, 500], [57, "El M'Ghair", "المغير", 900, 500], [58, "El Meniaa", "المنيعة", 1000, 600]];
 const T={ar:{
-mMenu:"القائمة",n0:"تتبّع الطرد",n1:"الأسعار",n2:"كن مرسِلًا",n3:"أموالي COD",n4:"الآراء",n5:"شكوى",n6:"متجر إلكتروني",
+mMenu:"القائمة",n0:"تتبّع الطرد",n1:"الأسعار",n2:"كن مرسِلًا",n3:"أموالي COD",n4:"الآراء",n5:"شكوى",n6:"متجر إلكتروني",n7:"كن موصّلًا",
 heroEy:"مفتاح · البليدة · الجزائر",heroH:"نوصل طرودك، <em>ونحصّل أموالك.</em>",
 heroP:"MT Delivery تستلم طرودك من عندك، توصلها في مفتاح وضواحيها وإلى الولايات الـ69 عبر شركائنا، تحصّل الدفع عند الاستلام وتعيد لك أموالك.",
 cta1:"📦 كن مرسِلًا",cta2:"شاهد الأسعار",trkL:"رقم التتبع",trkT:"رقم هاتفي",telPh:"رقم هاتفك (05 / 06 / 07)",trkPh:"رقم التتبع",trkB:"تتبّع",
@@ -597,19 +646,19 @@ o0:"اختر…",o1:"ملابس وموضة",o2:"مستحضرات تجميل",o3:
 cEy:"فضاء المرسِل",cH:"اطلب أموالي COD",cP:"تم توصيل طرودك؟ أدخل أرقام التتبع ونجهز لك المبلغ المحصّل لتستلمه من المكتب.",c1:"استمارة واحدة لعدة طرود",c2:"نؤكد لك المبلغ قبل الدفع",c3:"الدفع نقدًا في المكتب، بمفتاح",
 lSuivis:"أرقام تتبع الطرود الموصّلة",phSuivis:"رقم في كل سطر",lMont:'المبلغ المنتظر (دج) <span class="opt">اختياري</span>',bCod:"أرسل طلبي",
 aEy:"آراؤكم",aH:"آراؤكم حول MT Delivery",aEmpty:"لا توجد آراء بعد. كن أول من يشارك رأيه.",lNote:"تقييمك",lPrenomBout:"الاسم أو اسم المحل",lAvis:"رأيك",bAvis:"انشر رأيي",
-rEy:"خدمة الزبائن",rH:"تقديم شكوى",rP:"مشكلة مع طرد أو موصّل أو دفع؟ صفها لنا ونتكفل بها.",lNomComplet:"الاسم واللقب",lSuivi:'رقم التتبع <span class="opt">إن وجد</span>',lType:"السبب",r1:"تأخر التوصيل",r2:"طرد متضرر",r3:"طرد ضائع",r4:"دفع COD",r5:"سلوك الموصّل",lDesc:"وصف المشكلة",bRec:"أرسل الشكوى",
+lvEy:"توظيف",lvH:"كن موصّلًا لدى MT Delivery",lvP:"لديك مركبة وتعرف منطقتك جيدًا؟ انضم إلى الفريق: اترك معلوماتك وسنتصل بك لإجراء مقابلة.",lv1:"توصيل في مفتاح وضواحيها",lv2:"الترشح مجاني ودون التزام",lv3:"المقابلة والتحقق من الوثائق في المكتب",lLvCom:"بلدية الإقامة",lLvVeh:"المركبة",v1:"دراجة نارية / سكوتر",v2:"سيارة",v3:"مركبة نفعية",v4:"بدون مركبة",lLvPer:"رخصة السياقة",pe1:"نعم",pe2:"لا",lLvDis:"التوفر",d1:"دوام كامل",d2:"دوام جزئي",d3:"نهاية الأسبوع فقط",lLvMsg:'الخبرة والملاحظات <span class="opt">اختياري</span>',bLiv:"أرسل طلبي",rEy:"خدمة الزبائن",rH:"تقديم شكوى",rP:"مشكلة مع طرد أو موصّل أو دفع؟ صفها لنا ونتكفل بها.",lNomComplet:"الاسم واللقب",lSuivi:'رقم التتبع <span class="opt">إن وجد</span>',lType:"السبب",r1:"تأخر التوصيل",r2:"طرد متضرر",r3:"طرد ضائع",r4:"دفع COD",r5:"سلوك الموصّل",lDesc:"وصف المشكلة",bRec:"أرسل الشكوى",
 kEy:"اتصل بنا",kH:"شركة محلية قريبة منك",kP:"زورونا، اتصلوا بنا أو راسلونا على واتساب.",kAd:"العنوان",adr:"حي النصر (Les HLM) – مفتاح – البليدة",kTel:"الهاتف / واتساب",cp:"نسخ",cp2:"نسخ",fLiv:"كن موصّلًا"}};
 const M={fr:{
 doneSend:"Formulaire prêt. Appuyez sur le bouton pour l'envoyer sur WhatsApp :",saved:"✅ Demande enregistrée. Nous vous recontactons rapidement. Vous pouvez aussi nous l'envoyer sur WhatsApp :",avisSaved:"✅ Merci ! Votre avis a bien été transmis à MT Delivery.",sending:"Envoi…",waSend:"Envoyer sur WhatsApp",copyMsg:"Copier le message",copied:"Copié",
 fill:"Merci de remplir les champs en rouge.",starsReq:"Choisissez une note de 1 à 5 étoiles.",
 avisOk:"Merci ! Votre avis est publié.",avisWa:"Votre avis n'a pas pu être publié ici. Envoyez-le-nous sur WhatsApp :",
 count:n=>n+(n>1?" avis":" avis"),grille:"Bonjour MT Delivery, je voudrais recevoir votre grille de tarifs pour les 69 wilayas.",hello:"Bonjour MT Delivery",trkGo:"Ouvrir le suivi du colis →",trkErr:"Entrez votre numéro de suivi.",telPh:"Votre numéro de téléphone (05 / 06 / 07)",pieceType:"Format non accepté : la pièce d'identité doit être un fichier PDF.",pieceTaille:"Fichier trop lourd (5 Mo maximum).",pieceLire:"Impossible de lire ce fichier PDF. Essayez un autre fichier.",pieceManque:"Ajoutez votre pièce d'identité en PDF.",telErr:"Entrez un numéro de téléphone valide, par exemple 0555 12 34 56.",telNone:"Aucun colis trouvé pour ce numéro. Vérifiez le numéro ou utilisez votre numéro de suivi.",telFail:"Recherche impossible pour le moment. Réessayez dans un instant.",telTrop:"Trop de recherches. Réessayez dans quelques minutes.",telSee:"Suivre →",telUpd:"Liste mise à jour le ",telWait:"Recherche…",
-tExp:"Nouvelle inscription expéditeur",tCod:"Demande de versement COD",tRec:"Réclamation",tAv:"Avis client",onDemand:"Selon la wilaya",free:"Gratuit"},
+tExp:"Nouvelle inscription expéditeur",tCod:"Demande de versement COD",tRec:"Réclamation",tLiv:"Candidature livreur",tAv:"Avis client",onDemand:"Selon la wilaya",free:"Gratuit"},
 ar:{doneSend:"الاستمارة جاهزة. اضغط على الزر لإرسالها عبر واتساب:",saved:"✅ تم تسجيل طلبك. سنتصل بك قريبًا. يمكنك أيضًا إرساله لنا عبر واتساب:",avisSaved:"✅ شكرًا! تم إرسال رأيك إلى MT Delivery.",sending:"جارٍ الإرسال…",waSend:"أرسل عبر واتساب",copyMsg:"انسخ الرسالة",copied:"تم النسخ",
 fill:"يرجى ملء الخانات باللون الأحمر.",starsReq:"اختر تقييمًا من 1 إلى 5 نجوم.",
 avisOk:"شكرًا! تم نشر رأيك.",avisWa:"تعذر نشر رأيك هنا. أرسله لنا عبر واتساب:",
 count:n=>n+" رأي",grille:"السلام عليكم، أريد جدول أسعار التوصيل إلى 69 ولاية.",hello:"السلام عليكم",trkGo:"افتح تتبّع الطرد ←",trkErr:"أدخل رقم التتبع.",telPh:"رقم هاتفك (05 / 06 / 07)",pieceType:"صيغة غير مقبولة: يجب أن تكون بطاقة التعريف ملف PDF.",pieceTaille:"الملف كبير جدًا (5 ميغابايت كحد أقصى).",pieceLire:"تعذرت قراءة ملف PDF هذا. جرّب ملفًا آخر.",pieceManque:"أضف بطاقة التعريف بصيغة PDF.",telErr:"أدخل رقم هاتف صحيح، مثلًا 0555 12 34 56.",telNone:"لا يوجد طرد بهذا الرقم. تحقق من الرقم أو استعمل رقم التتبع.",telFail:"تعذر البحث حاليًا. أعد المحاولة بعد قليل.",telTrop:"عدد كبير من عمليات البحث. أعد المحاولة بعد بضع دقائق.",telSee:"تتبّع ←",telUpd:"آخر تحديث للقائمة: ",telWait:"جارٍ البحث…",
-tExp:"تسجيل مرسِل جديد",tCod:"طلب تحويل أموال COD",tRec:"شكوى",tAv:"رأي زبون",onDemand:"حسب الولاية",free:"مجاني"}};
+tExp:"تسجيل مرسِل جديد",tCod:"طلب تحويل أموال COD",tRec:"شكوى",tLiv:"طلب عمل موصّل",tAv:"رأي زبون",onDemand:"حسب الولاية",free:"مجاني"}};
 
 const FR={},FRH={},FRPH={};
 document.querySelectorAll("[data-i]").forEach(e=>FR[e.dataset.i]=e.hasAttribute("data-html")?e.innerHTML:e.textContent);
@@ -728,10 +777,10 @@ function validate(form){
   });
   return ok;
 }
-const titles={fExp:"tExp",fCod:"tCod",fRec:"tRec"};
-const TYPES={fExp:"expediteur",fCod:"cod",fRec:"reclamation"};
+const titles={fExp:"tExp",fCod:"tCod",fRec:"tRec",fLiv:"tLiv"};
+const TYPES={fExp:"expediteur",fCod:"cod",fRec:"reclamation",fLiv:"livreur"};
 /* Enregistre la demande sur le site (page admin) ; renvoie true si c'est fait. */
-const TS={expediteur:"tsExp",cod:"tsCod",reclamation:"tsRec",avis:"tsAvis"};
+const TS={expediteur:"tsExp",cod:"tsCod",reclamation:"tsRec",avis:"tsAvis",livreur:"tsLiv"};
 async function saveDemande(type,data){
   const ts=window.antiRobot?antiRobot.jeton(TS[type]):"";
   try{

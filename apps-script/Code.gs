@@ -54,6 +54,11 @@ const ONGLETS = {
     colonnes: ['Date', 'N° demande', 'Statut', 'Nom', 'Téléphone', 'N° de suivi', 'Motif', 'Description', 'Remarques'],
     valeurs: d => [d.nom, d.tel, d.suivi, d.type, d.desc, ''],
   },
+  livreur: {
+    nom: 'Livreurs',
+    colonnes: ['Date', 'N° demande', 'Statut', 'Nom', 'Téléphone', 'Commune', 'Véhicule', 'Permis', 'Disponibilité', 'Message', 'Remarques'],
+    valeurs: d => [d.nom, d.tel, d.commune, d.vehicule, d.permis, d.dispo, d.message, ''],
+  },
   avis: {
     nom: 'Avis',
     colonnes: ['Date', 'N° demande', 'Statut', 'Note', 'Prénom / boutique', 'Avis', 'Remarques'],
