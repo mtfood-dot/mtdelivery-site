@@ -225,6 +225,16 @@ form.f .full{grid-column:1/-1}
 .fld{display:flex;flex-direction:column;gap:6px;min-width:0}
 .fld label{font-size:.88rem;font-weight:600}
 .fld label .opt{font-weight:400;color:var(--muted)}
+.zones{grid-column:1/-1;display:flex;flex-direction:column;gap:10px;min-width:0}
+.zones .zt{font-size:.88rem;font-weight:600}.zones .zh{margin:-6px 0 0;font-size:.82rem;color:var(--muted)}
+.ck-l{display:flex;flex-wrap:wrap;gap:8px}
+.ck{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--field);font-size:.88rem;cursor:pointer;user-select:none}
+.ck:has(input:checked){border-color:var(--gold);background:color-mix(in srgb,var(--gold) 16%,var(--field))}
+.ck input{accent-color:var(--gold-ink);width:16px;height:16px;margin:0}
+.zg{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.zg h4{margin:0;font-size:.92rem;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.zg h4 .ck{font-weight:500}
+.zones.err .ck-l:first-of-type .ck{border-color:var(--err)}.zerr{color:var(--err);font-size:.85rem;margin:0}
 .fld input[type=file]{padding:9px;cursor:pointer}
 .fld input[type=file]:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .fld .aide{color:var(--muted);font-size:.82rem}
@@ -576,9 +586,22 @@ footer a{color:var(--gold)}
           <option value="Alger" data-i="wAlg">Alger</option>
         </select></div>
       <div class="fld"><label for="lvCom" data-i="lLvCom">Commune de résidence</label>
-        <select id="lvCom" name="commune" required disabled>
+        <select id="lvCom" name="commune" required disabled data-valeur>
           <option value="" data-i="o9">Choisissez d'abord la wilaya</option>
         </select></div>
+      <div class="zones full" id="lvZones">
+        <label for="lvZon" class="zt" data-i="lLvZon">Où voulez-vous travailler ?</label>
+        <p class="zh" data-i="lLvZonA">Cochez une ou plusieurs wilayas, puis les communes.</p>
+        <div class="ck-l" id="lvZW">
+          <label class="ck"><input type="checkbox" value="Blida"><span data-i="wBli">Blida</span></label>
+          <label class="ck"><input type="checkbox" value="Boumerdès"><span data-i="wBou">Boumerdès</span></label>
+          <label class="ck"><input type="checkbox" value="Alger"><span data-i="wAlg">Alger</span></label>
+        </div>
+        <div id="lvZC"></div>
+        <input type="hidden" id="lvZon" name="zones">
+        <span data-i="lLvZonT" hidden>Toutes les communes</span>
+        <p class="zerr" data-i="lLvZonE" hidden>Choisissez au moins une commune.</p>
+      </div>
       <div class="fld full"><label for="lvVeh" data-i="lLvVeh">Véhicule</label>
         <select id="lvVeh" name="vehicule" required>
           <option value="" data-i="o0">Choisir…</option>
@@ -650,7 +673,7 @@ o0:"اختر…",o1:"ملابس وموضة",o2:"مستحضرات تجميل",o3:
 cEy:"فضاء المرسِل",cH:"اطلب أموالي COD",cP:"تم توصيل طرودك؟ أدخل أرقام التتبع ونجهز لك المبلغ المحصّل لتستلمه من المكتب.",c1:"استمارة واحدة لعدة طرود",c2:"نؤكد لك المبلغ قبل الدفع",c3:"الدفع نقدًا في المكتب، بمفتاح",
 lSuivis:"أرقام تتبع الطرود الموصّلة",phSuivis:"رقم في كل سطر",lMont:'المبلغ المنتظر (دج) <span class="opt">اختياري</span>',bCod:"أرسل طلبي",
 aEy:"آراؤكم",aH:"آراؤكم حول MT Delivery",aEmpty:"لا توجد آراء بعد. كن أول من يشارك رأيه.",lNote:"تقييمك",lPrenomBout:"الاسم أو اسم المحل",lAvis:"رأيك",bAvis:"انشر رأيي",
-lvEy:"توظيف",lvH:"كن موصّلًا لدى MT Delivery",lvP:"لديك مركبة وتعرف منطقتك جيدًا؟ انضم إلى الفريق: اترك معلوماتك وسنتصل بك لإجراء مقابلة.",lv1:"توصيل في مفتاح وضواحيها",lv2:"الترشح مجاني ودون التزام",lv3:"المقابلة والتحقق من الوثائق في المكتب",lLvCom:"بلدية الإقامة",lLvWil:"الولاية",wBli:"البليدة",wBou:"بومرداس",wAlg:"الجزائر",o9:"اختر الولاية أولًا",lLvVeh:"المركبة",v1:"دراجة نارية / سكوتر",v2:"سيارة",v3:"مركبة نفعية",lv0:"رخصة السياقة إلزامية",lLvDis:"التوفر",d1:"دوام كامل",d2:"دوام جزئي",d3:"نهاية الأسبوع فقط",lLvMsg:'الخبرة والملاحظات <span class="opt">اختياري</span>',bLiv:"أرسل طلبي",rEy:"خدمة الزبائن",rH:"تقديم شكوى",rP:"مشكلة مع طرد أو موصّل أو دفع؟ صفها لنا ونتكفل بها.",lNomComplet:"الاسم واللقب",lSuivi:'رقم التتبع <span class="opt">إن وجد</span>',lType:"السبب",r1:"تأخر التوصيل",r2:"طرد متضرر",r3:"طرد ضائع",r4:"دفع COD",r5:"سلوك الموصّل",lDesc:"وصف المشكلة",bRec:"أرسل الشكوى",
+lvEy:"توظيف",lvH:"كن موصّلًا لدى MT Delivery",lvP:"لديك مركبة وتعرف منطقتك جيدًا؟ انضم إلى الفريق: اترك معلوماتك وسنتصل بك لإجراء مقابلة.",lv1:"توصيل في مفتاح وضواحيها",lv2:"الترشح مجاني ودون التزام",lv3:"المقابلة والتحقق من الوثائق في المكتب",lLvCom:"بلدية الإقامة",lLvWil:"الولاية",wBli:"البليدة",wBou:"بومرداس",wAlg:"الجزائر",o9:"اختر الولاية أولًا",lLvZon:"أين تريد العمل؟",lLvZonA:"اختر ولاية أو أكثر، ثم البلديات.",lLvZonT:"كل البلديات",lLvZonE:"اختر بلدية واحدة على الأقل.",lLvVeh:"المركبة",v1:"دراجة نارية / سكوتر",v2:"سيارة",v3:"مركبة نفعية",lv0:"رخصة السياقة إلزامية",lLvDis:"التوفر",d1:"دوام كامل",d2:"دوام جزئي",d3:"نهاية الأسبوع فقط",lLvMsg:'الخبرة والملاحظات <span class="opt">اختياري</span>',bLiv:"أرسل طلبي",rEy:"خدمة الزبائن",rH:"تقديم شكوى",rP:"مشكلة مع طرد أو موصّل أو دفع؟ صفها لنا ونتكفل بها.",lNomComplet:"الاسم واللقب",lSuivi:'رقم التتبع <span class="opt">إن وجد</span>',lType:"السبب",r1:"تأخر التوصيل",r2:"طرد متضرر",r3:"طرد ضائع",r4:"دفع COD",r5:"سلوك الموصّل",lDesc:"وصف المشكلة",bRec:"أرسل الشكوى",
 kEy:"اتصل بنا",kH:"شركة محلية قريبة منك",kP:"زورونا، اتصلوا بنا أو راسلونا على واتساب.",kAd:"العنوان",adr:"حي النصر (Les HLM) – مفتاح – البليدة",kTel:"الهاتف / واتساب",cp:"نسخ",cp2:"نسخ",fLiv:"كن موصّلًا"}};
 const M={fr:{
 doneSend:"Formulaire prêt. Appuyez sur le bouton pour l'envoyer sur WhatsApp :",saved:"✅ Demande enregistrée. Nous vous recontactons rapidement. Vous pouvez aussi nous l'envoyer sur WhatsApp :",avisSaved:"✅ Merci ! Votre avis a bien été transmis à MT Delivery.",sending:"Envoi…",waSend:"Envoyer sur WhatsApp",copyMsg:"Copier le message",copied:"Copié",
@@ -758,7 +781,7 @@ function buildMessage(form,title){
   const lines=["*"+title+"*"];
   form.querySelectorAll("input,select,textarea").forEach(el=>{
     if(!el.name||el.type==="file")return;
-    let v=el.tagName==="SELECT"?(el.value?el.options[el.selectedIndex].text:""):el.value.trim();
+    let v=el.tagName==="SELECT"&&!el.hasAttribute("data-valeur")?(el.value?el.options[el.selectedIndex].text:""):el.value.trim();
     if(!v)return;
     const lab=form.querySelector(`label[for="${el.id}"]`);
     const name=lab?lab.childNodes[0].textContent.trim():el.name;
@@ -789,6 +812,27 @@ const COMMUNES={"Blida":["Aïn Romana","Ben Khellil","Beni Mered","Beni Tamou","
       for(const n of l){const o=document.createElement("option");o.value=n+" ("+w.value+")";o.textContent=n;c.append(o)}}
     c.disabled=!l.length;};
   w.addEventListener("change",remplir);document.getElementById("fLiv").addEventListener("reset",()=>setTimeout(remplir));})();
+// Devenir livreur : zones de travail (wilayas cochées, puis communes de chacune). Valeur envoyée dans « zones » :
+// « Blida : Meftah, Larbaa ; Alger : toutes les communes ».
+(()=>{const box=document.getElementById("lvZones"),zw=document.getElementById("lvZW"),zc=document.getElementById("lvZC"),out=document.getElementById("lvZon"),er=box.querySelector(".zerr");
+  const tr=k=>document.documentElement.lang==="ar"?T.ar[k]:FR[k];
+  const maj=()=>{const parts=[];
+    zc.querySelectorAll(".zg").forEach(g=>{const all=g.querySelectorAll("input[data-c]"),on=[...all].filter(i=>i.checked).map(i=>i.value);
+      g.querySelector("input[data-tout]").checked=on.length===all.length;
+      if(on.length)parts.push(g.dataset.w+" : "+(on.length===all.length?"toutes les communes":on.join(", ")))});
+    out.value=parts.join(" ; ");if(out.value){box.classList.remove("err");er.hidden=true}};
+  const groupes=()=>{const garde=new Set([...zc.querySelectorAll("input[data-c]:checked")].map(i=>i.dataset.c));zc.replaceChildren();
+    zw.querySelectorAll("input:checked").forEach(cw=>{const w=cw.value,g=document.createElement("div");g.className="zg";g.dataset.w=w;
+      const h=document.createElement("h4"),t=document.createElement("span");t.textContent=cw.nextElementSibling.textContent;
+      const lt=document.createElement("label");lt.className="ck";lt.innerHTML='<input type="checkbox" data-tout><span></span>';lt.lastChild.textContent=tr("lLvZonT");lt.lastChild.dataset.i="lLvZonT";
+      h.append(t,lt);const l=document.createElement("div");l.className="ck-l";
+      for(const n of COMMUNES[w]){const lb=document.createElement("label");lb.className="ck";const i=document.createElement("input");i.type="checkbox";i.value=n;i.dataset.c=w+"|"+n;i.checked=garde.has(i.dataset.c);lb.append(i,document.createTextNode(n));l.append(lb)}
+      g.append(h,l);zc.append(g)});maj()};
+  zw.addEventListener("change",groupes);
+  zc.addEventListener("change",e=>{if(e.target.hasAttribute("data-tout"))e.target.closest(".zg").querySelectorAll("input[data-c]").forEach(i=>i.checked=e.target.checked);maj()});
+  const f=document.getElementById("fLiv");
+  f.addEventListener("submit",e=>{maj();if(!out.value){e.preventDefault();e.stopImmediatePropagation();box.classList.add("err");er.hidden=false;box.scrollIntoView({block:"center",behavior:"smooth"})}},true);
+  f.addEventListener("reset",()=>setTimeout(groupes));})();
 const titles={fExp:"tExp",fCod:"tCod",fRec:"tRec",fLiv:"tLiv"};
 const TYPES={fExp:"expediteur",fCod:"cod",fRec:"reclamation",fLiv:"livreur"};
 /* Enregistre la demande sur le site (page admin) ; renvoie true si c'est fait. */
@@ -803,7 +847,7 @@ async function saveDemande(type,data){
 }
 function formData(f){
   const o={};
-  f.querySelectorAll("input,select,textarea").forEach(el=>{if(!el.name||el.type==="file")return;o[el.name]=el.tagName==="SELECT"?(el.value?el.options[el.selectedIndex].text:""):el.value.trim()});
+  f.querySelectorAll("input,select,textarea").forEach(el=>{if(!el.name||el.type==="file")return;o[el.name]=el.tagName==="SELECT"&&!el.hasAttribute("data-valeur")?(el.value?el.options[el.selectedIndex].text:""):el.value.trim()});
   return o;
 }
 /* Pièce d'identité : fichier PDF uniquement (signature « %PDF- » vérifiée), 5 Mo maximum. */
@@ -838,7 +882,7 @@ Object.keys(titles).forEach(id=>{
     const ok=await saveDemande(TYPES[id],id==="fExp"?Object.assign(formData(f),{piece:pieceData}):formData(f));
     btn.disabled=false;btn.textContent=label;
     showDone(f,buildMessage(f,M[lang][titles[id]]),ok?M[lang].saved:null);
-    if(ok){if(id==="fExp"){pieceData=null;const ap=document.getElementById("exPieceApercu");ap.hidden=true;ap.textContent=""}f.querySelectorAll("input:not([name=site]),textarea").forEach(el=>el.value="");f.querySelectorAll("select").forEach(el=>el.selectedIndex=0)}
+    if(ok){if(id==="fExp"){pieceData=null;const ap=document.getElementById("exPieceApercu");ap.hidden=true;ap.textContent=""}f.querySelectorAll("input:not([name=site]),textarea").forEach(el=>{if(el.type==="checkbox")el.checked=false;else el.value=""});f.querySelectorAll("select").forEach(el=>el.selectedIndex=0);f.dispatchEvent(new Event("reset"))}
   });
 });
 
