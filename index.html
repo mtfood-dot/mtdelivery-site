@@ -456,6 +456,7 @@ footer a{color:var(--gold)}
         <small class="apercu" id="exPieceApercu" hidden></small>
         <small class="err" id="exPieceErr" role="alert"></small>
       </div>
+      <div class="full ts" id="tsExp" hidden></div>
       <div class="full"><button class="btn gold" type="submit" data-i="bExp">Envoyer mon inscription</button></div>
       <div class="done" hidden></div>
     </form>
@@ -482,6 +483,7 @@ footer a{color:var(--gold)}
       <div class="fld"><label for="cdTel" data-i="lTel">Numéro de téléphone</label><input id="cdTel" name="tel" type="tel" required pattern="0[5-7][0-9 ]{8,11}" placeholder="05 XX XX XX XX" class="num"></div>
       <div class="fld full"><label for="cdSuivi" data-i="lSuivis">Numéros de suivi des colis livrés</label><textarea id="cdSuivi" name="suivis" required data-ph="phSuivis" placeholder="Un numéro par ligne"></textarea></div>
       <div class="fld full"><label for="cdMont" data-i-html="lMont">Montant attendu (DA) <span class="opt">facultatif</span></label><input id="cdMont" name="montant" type="number" min="0" step="10" class="num"></div>
+      <div class="full ts" id="tsCod" hidden></div>
       <div class="full"><button class="btn gold" type="submit" data-i="bCod">Envoyer ma demande</button></div>
       <div class="done" hidden></div>
     </form>
@@ -507,6 +509,7 @@ footer a{color:var(--gold)}
         </div></div>
       <div class="fld"><label for="avPrenom" data-i="lPrenomBout">Prénom ou boutique</label><input id="avPrenom" name="prenom" required maxlength="40"></div>
       <div class="fld full"><label for="avTxt" data-i="lAvis">Votre avis</label><textarea id="avTxt" name="texte" required maxlength="500"></textarea></div>
+      <div class="full ts" id="tsAvis" hidden></div>
       <div class="full"><button class="btn gold" type="submit" data-i="bAvis">Publier mon avis</button></div>
       <div class="done" hidden></div>
     </form>
@@ -538,6 +541,7 @@ footer a{color:var(--gold)}
           <option data-i="o8">Autre</option>
         </select></div>
       <div class="fld full"><label for="rcDesc" data-i="lDesc">Description du problème</label><textarea id="rcDesc" name="desc" required></textarea></div>
+      <div class="full ts" id="tsRec" hidden></div>
       <div class="full"><button class="btn gold" type="submit" data-i="bRec">Envoyer la réclamation</button></div>
       <div class="done" hidden></div>
     </form>
@@ -565,6 +569,7 @@ footer a{color:var(--gold)}
 
 <footer><div class="wrap"><span>© 2026 MT Delivery · البريد السريع</span><span><a href="https://food.mtdelivery.dz/inscription-livreur.html" target="_blank" rel="noopener" data-i="fLiv">Devenir livreur</a> · <a href="https://food.mtdelivery.dz/index.html" target="_blank" rel="noopener">MT Food</a></span></div></footer>
 
+<script src="/antirobot.js"></script>
 <script>
 const WA="213560788497";
 /* Tarifs : modifier ici. prix = nombre en DA, ou null pour "sur demande" */
@@ -726,11 +731,14 @@ function validate(form){
 const titles={fExp:"tExp",fCod:"tCod",fRec:"tRec"};
 const TYPES={fExp:"expediteur",fCod:"cod",fRec:"reclamation"};
 /* Enregistre la demande sur le site (page admin) ; renvoie true si c'est fait. */
+const TS={expediteur:"tsExp",cod:"tsCod",reclamation:"tsRec",avis:"tsAvis"};
 async function saveDemande(type,data){
+  const ts=window.antiRobot?antiRobot.jeton(TS[type]):"";
   try{
-    const r=await fetch("/api/demandes",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(Object.assign({},data,{categorie:type}))});
+    const r=await fetch("/api/demandes",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(Object.assign({},data,{categorie:type,ts}))});
     return !!(await r.json()).ok;
   }catch(e){return false}
+  finally{if(window.antiRobot)antiRobot.reset(TS[type])}
 }
 function formData(f){
   const o={};

@@ -117,6 +117,22 @@ export async function onRequestPost(context) {
   if (!fields) return json({ ok: false, error: "Type de demande inconnu." }, 400);
   if (b.site) return json({ ok: true }); // champ piège rempli par les robots : on ignore sans le dire
 
+  // Anti-robot Turnstile (audit V7), actif dès que le secret TURNSTILE_SECRET est défini dans Cloudflare.
+  if (env.TURNSTILE_SECRET) {
+    let valide = false;
+    const jeton = String(b.ts || "").slice(0, 4096);
+    if (jeton) {
+      try {
+        const f = new FormData();
+        f.append("secret", env.TURNSTILE_SECRET); f.append("response", jeton);
+        f.append("remoteip", request.headers.get("cf-connecting-ip") || "");
+        const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body: f });
+        valide = !!(await r.json()).success;
+      } catch { valide = false; }
+    }
+    if (!valide) return json({ ok: false, error: "Vérification anti-robot non validée." }, 403);
+  }
+
   // Limite simple : 5 demandes par minute et par adresse IP.
   const ip = request.headers.get("cf-connecting-ip") || "inconnu";
   const rlKey = "rl:" + ip;
