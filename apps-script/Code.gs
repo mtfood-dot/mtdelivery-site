@@ -10,13 +10,29 @@
  *    Autorisez l'accès quand Google le demande, puis copiez l'URL de l'application Web.
  * 4. Dans Cloudflare (projet mtdelivery › Settings › Variables and secrets), ajoutez :
  *    – SHEET_URL (type Secret) = l'URL copiée à l'étape 3 (gardez-la privée : elle permet d'écrire dans la feuille)
+ *    – SHEET_TOKEN (type Secret) = un code secret long (au moins 24 caractères au hasard)
+ * 5. Dans Apps Script : Paramètres du projet (roue dentée) › Propriétés du script › Ajouter :
+ *    – propriété SHEET_TOKEN = le même code qu'à l'étape 4. Sans elle, la feuille refuse tous les envois.
  *
  * Chaque formulaire envoyé sur mtdelivery.pages.dev ajoute une ligne dans l'onglet correspondant.
  * Les onglets et leurs titres de colonnes sont créés automatiquement au premier envoi.
  */
 
-// Facultatif : un code secret partagé avec Cloudflare (variable SHEET_TOKEN). Laissez vide pour ne pas l'utiliser.
-const TOKEN = '';
+// Code secret partagé avec Cloudflare (SHEET_TOKEN) : lu dans les propriétés du script, jamais écrit dans le code.
+// Obligatoire (audit V8) : sans lui, personne ne peut écrire dans la feuille, même en connaissant son adresse.
+function jetonAttendu() {
+  return PropertiesService.getScriptProperties().getProperty('SHEET_TOKEN') || '';
+}
+
+// Neutralise les formules (audit V8) : une valeur venue d'un formulaire public qui commence par = + - @ (ou une
+// tabulation / un retour chariot) serait exécutée par Google Sheets. On la préfixe d'une apostrophe : elle reste du texte.
+function texte(v) {
+  if (v === undefined || v === null) return '';
+  if (typeof v !== 'string') return v;
+  if (/^[=+\-@\t\r]/.test(v)) return "'" + v;
+  if (/^0\d{8,9}$/.test(v)) return "'" + v; // téléphone : garde le 0 devant
+  return v;
+}
 
 // Identifiant de la Google Sheet « MT Delivery – Demandes » (dans son adresse, entre /d/ et /edit).
 const SHEET_ID = '1qn1dtLI6HW5CPDK5q9kgXzg-fqmuFTBHYVQszZeiEQw';
@@ -50,7 +66,9 @@ const STATUTS = ['nouveau', 'en cours', 'réglé'];
 function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents);
-    if (!body || (TOKEN && body.token !== TOKEN)) return reponse({ ok: false, error: 'jeton invalide' });
+    const attendu = jetonAttendu();
+    if (!attendu) return reponse({ ok: false, error: 'SHEET_TOKEN non configuré dans les propriétés du script' });
+    if (!body || body.token !== attendu) return reponse({ ok: false, error: 'jeton invalide' });
     const dem = body.demande || {};
     if (dem.type === 'test') return reponse({ ok: true });
     const conf = ONGLETS[dem.type];
@@ -61,9 +79,9 @@ function doPost(e) {
     try {
       const feuille = onglet(conf);
       const d = dem.data || {};
-      // Les numéros de téléphone sont écrits en texte pour garder le 0 devant.
-      const ligne = [new Date(dem.date || Date.now()), String(dem.id || '').replace('dem:', ''), dem.statut || 'nouveau']
-        .concat(conf.valeurs(d).map(v => v === undefined || v === null ? '' : (typeof v === 'string' && /^0\d{8,9}$/.test(v)) ? "'" + v : v));
+      // Toutes les valeurs passent par texte() : formules neutralisées, téléphones gardés avec leur 0.
+      const ligne = [new Date(dem.date || Date.now()), texte(String(dem.id || '').replace('dem:', '')), texte(dem.statut || 'nouveau')]
+        .concat(conf.valeurs(d).map(texte));
       feuille.appendRow(ligne);
     } finally {
       lock.releaseLock();

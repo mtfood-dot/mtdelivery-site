@@ -31,8 +31,18 @@ function lirePiece(v) {
 
 
 // Envoie la demande à l'Apps Script de la Google Sheet. Ne bloque jamais l'enregistrement.
+// Copie destinée à la Google Sheet : les valeurs qui commencent par = + - @ (formules) sont préfixées d'une apostrophe
+// pour rester du texte (audit V8, protection doublée dans le script Google). Les données gardées sur Cloudflare ne changent pas.
+const sansFormule = (v) => (typeof v === "string" && /^[=+\-@\t\r]/.test(v) ? "'" + v : v);
+function pourFeuille(demande) {
+  const data = {};
+  for (const [k, v] of Object.entries(demande.data || {})) data[k] = sansFormule(v);
+  return { ...demande, data };
+}
+
 async function toSheet(env, demande) {
   if (!env.SHEET_URL) return "non configurée";
+  demande = pourFeuille(demande);
   try {
     const r = await fetch(env.SHEET_URL, {
       method: "POST",
