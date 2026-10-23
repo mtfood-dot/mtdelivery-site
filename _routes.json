@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "include": ["/api/*", "/README.md", "/package.json", "/netlify.toml", "/_headers", "/_routes.json", "/.gitignore", "/apps-script/*", "/netlify/*", "/functions/*"],
+  "exclude": []
+}
