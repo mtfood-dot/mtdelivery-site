@@ -1,8 +1,32 @@
 // Recherche publique des colis par numéro de téléphone (version Cloudflare Pages).
 // Renvoie seulement : numéro de suivi, wilaya, état et date.
+// Protection contre l'énumération (audit V2) : 10 recherches par 10 minutes et par adresse IP.
+// Le compteur utilise le cache Cloudflare (aucune écriture KV, donc pas de quota consommé) ; il est propre à chaque
+// centre de données : c'est un frein, pas une garantie absolue (voir l'audit pour la protection complète).
 import { normTel, json } from "./_lib.js";
 
+const MAX = 10, FENETRE = 600; // secondes
+
+async function limite(request) {
+  const ip = request.headers.get("cf-connecting-ip");
+  if (!ip || typeof caches === "undefined") return false;
+  try {
+    const cle = new Request("https://limite.mtdelivery.invalid/suivi/" + encodeURIComponent(ip));
+    const prec = await caches.default.match(cle);
+    let n = 0, debut = Date.now();
+    if (prec) { const v = await prec.json(); n = v.n || 0; debut = v.debut || debut; }
+    if (Date.now() - debut > FENETRE * 1000) { n = 0; debut = Date.now(); }
+    if (n >= MAX) return true;
+    const reste = Math.max(1, FENETRE - Math.floor((Date.now() - debut) / 1000));
+    await caches.default.put(cle, new Response(JSON.stringify({ n: n + 1, debut }), {
+      headers: { "content-type": "application/json", "cache-control": "max-age=" + reste },
+    }));
+  } catch { /* en cas d'erreur du cache, la recherche reste possible */ }
+  return false;
+}
+
 export async function onRequestPost({ request, env }) {
+  if (await limite(request)) return json({ ok: false, error: "trop" }, 429);
   let tel = "";
   try { tel = normTel((await request.json()).tel); } catch {}
   if (!/^0[5-7]\d{8}$/.test(tel)) return json({ ok: false, error: "numero" }, 400);
