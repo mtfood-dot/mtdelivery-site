@@ -48,7 +48,7 @@ h2{font-size:1.15rem;margin:34px 0 6px}
   <h1>Mettre à jour la recherche par téléphone</h1>
   <p class="lead">Déposez l'export Excel « Station – Colis en traitements » d'Ecotrack. Seuls le numéro de suivi, les téléphones, la wilaya, l'état et la date sont envoyés. Les noms, adresses, produits et montants restent sur votre appareil.</p>
   <form class="card" id="f">
-    <div><label for="pw">Mot de passe admin</label><input id="pw" type="password" autocomplete="current-password" required></div>
+    <div><label for="pw">Clé d'import (ou mot de passe admin)</label><input id="pw" type="password" autocomplete="current-password" required></div>
     <div>
       <label for="file">Fichier Excel Ecotrack</label>
       <div class="drop" id="drop">Touchez ici pour choisir le fichier, ou glissez-le ici</div>
@@ -154,7 +154,7 @@ if(typeof module!=="undefined")module.exports.bookmarkletSource=bookmarkletSourc
   function show(el,cls,txt){el.className="msg "+cls;el.textContent=txt;el.hidden=false}
   $("mkBm").onclick=()=>{
     const pw=$("pw").value;
-    if(!pw){show($("bmMsg"),"err","Tapez d'abord le mot de passe admin dans le champ en haut de la page.");$("pw").focus();return}
+    if(!pw){show($("bmMsg"),"err","Tapez d'abord la clé d'import dans le champ en haut de la page (pas le mot de passe admin).");$("pw").focus();return}
     $("bm").href="javascript:"+encodeURIComponent(bookmarkletSource(location.origin+"/api/import",pw));
     $("bmOut").hidden=false;$("bmMsg").hidden=true;
   };

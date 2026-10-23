@@ -4,7 +4,7 @@
 // POST admin   {password, action:"statut", id, statut} -> change le statut
 // Chaque demande est une clé KV « dem:<horodatage>-<aléa> », sans risque d'écrasement entre deux envois.
 // Copie dans Google Sheet : variable Cloudflare SHEET_URL (adresse de l'Apps Script), SHEET_TOKEN facultatif.
-import { json } from "./_lib.js";
+import { json, verifierSecret } from "./_lib.js";
 
 const FIELDS = {
   expediteur: ["nom", "prenom", "adresse", "email", "tel", "boutique", "secteur"],
@@ -18,7 +18,7 @@ const MAX_LEN = 1500;
 // Pièce d'identité (formulaire expéditeur) : fichier PDF uniquement, 5 Mo max après décodage.
 // Stockée à part (clé « piece:<id> »), lisible seulement via l'action admin « piece », effacée au bout de 90 jours.
 const PIECE_MAX = 5 * 1024 * 1024;
-const PIECE_TTL = 90 * 24 * 3600;
+const PIECE_TTL = 30 * 24 * 3600; // 30 jours max ; effacée dès que la demande passe à « réglé »
 function lirePiece(v) {
   const m = /^data:application\/pdf;base64,([A-Za-z0-9+/=]+)$/.exec(String(v || ""));
   if (!m) return null;
@@ -29,10 +29,6 @@ function lirePiece(v) {
   return "data:application/pdf;base64," + m[1];
 }
 
-async function isAdmin(env, pw) {
-  const expected = env.ADMIN_MT || env.ADMIN_PASSWORD;
-  return !!expected && pw === expected;
-}
 
 // Envoie la demande à l'Apps Script de la Google Sheet. Ne bloque jamais l'enregistrement.
 async function toSheet(env, demande) {
@@ -60,7 +56,8 @@ export async function onRequestPost(context) {
 
   // --- Actions admin ---
   if (b.action) {
-    if (!(await isAdmin(env, b.password))) return json({ ok: false, error: "Mot de passe incorrect." }, 401);
+    const refus = await verifierSecret(request, [env.ADMIN_MT || env.ADMIN_PASSWORD], b.password);
+    if (refus) return refus;
 
     if (b.action === "list") {
       const out = [];
@@ -82,6 +79,11 @@ export async function onRequestPost(context) {
       if (!d) return json({ ok: false, error: "Demande introuvable." }, 404);
       d.statut = b.statut;
       d.majStatut = Date.now();
+      // Pièce d'identité : l'original est gardé sur papier, la copie en ligne est effacée une fois la demande réglée.
+      if (b.statut === "réglé" && d.data && d.data.piece === "oui") {
+        await env.COLIS.delete("piece:" + b.id);
+        d.data.piece = "effacée";
+      }
       await env.COLIS.put(b.id, JSON.stringify(d));
       return json({ ok: true });
     }

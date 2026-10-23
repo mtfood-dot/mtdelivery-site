@@ -1,6 +1,6 @@
 // Reçoit les colis (export Excel ou favori Ecotrack) et les fusionne dans KV.
 // Seuls ID, téléphones, wilaya, état et date sont gardés : jamais nom, adresse, produits ni montant.
-import { normTel, json } from "./_lib.js";
+import { normTel, json, verifierSecret } from "./_lib.js";
 
 const KEEP_DAYS = 60;
 // Le favori « Envoyer à MT Delivery » tourne sur la page Ecotrack de la station.
@@ -29,13 +29,13 @@ export async function onRequestGet({ request, env }) {
 }
 
 export async function onRequestPost({ request, env }) {
-  const expected = env.ADMIN_MT || env.ADMIN_PASSWORD;
-  if (!expected) return cors(request, json({ ok: false, error: "Mot de passe admin non configuré sur Cloudflare (ADMIN_MT)." }, 503));
   if (!env.COLIS) return cors(request, json({ ok: false, error: "Stockage COLIS non relié au projet Cloudflare." }, 503));
 
   let body;
   try { body = await request.json(); } catch { return cors(request, json({ ok: false, error: "Données illisibles." }, 400)); }
-  if (!body || body.password !== expected) return cors(request, json({ ok: false, error: "Mot de passe incorrect." }, 401));
+  // Clé d'import dédiée (IMPORT_KEY, pour le favori Ecotrack) ; le mot de passe admin reste accepté en attendant.
+  const refus = await verifierSecret(request, [env.IMPORT_KEY, env.ADMIN_MT || env.ADMIN_PASSWORD], body && body.password);
+  if (refus) return cors(request, refus);
   if (!Array.isArray(body.rows) || body.rows.length === 0 || body.rows.length > 20000)
     return cors(request, json({ ok: false, error: "Aucun colis reçu." }, 400));
 

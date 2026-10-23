@@ -102,7 +102,7 @@ function render(){
     const cls=d.statut==="réglé"?"regle":d.statut==="en cours"?"encours":"nouveau";
     const fields=Object.entries(d.data||{}).map(([k,v])=>`<dt>${esc(LABELS[k]||k)}</dt><dd>${k==="note"?"★".repeat(+v||0):esc(v)}</dd>`).join("");
     const tel=d.data&&d.data.tel;
-    const pieceBtn=d.data&&d.data.piece?`<button type="button" data-piece="${esc(d.id)}" aria-expanded="false">Voir la pièce d'identité</button>`:"";
+    const pieceBtn=d.data&&d.data.piece==="oui"?`<button type="button" data-piece="${esc(d.id)}" aria-expanded="false">Voir la pièce d'identité</button>`:"";
     return `<article class="card ${cls}"><div class="top"><span class="type">${esc(TYPES[d.type]||d.type)}</span><span class="date">${fmt.format(new Date(d.date))}</span><span class="sp"></span>
       <label class="date" for="s-${esc(d.id)}">Statut</label><select id="s-${esc(d.id)}" data-id="${esc(d.id)}">${["nouveau","en cours","réglé"].map(s=>`<option${s===d.statut?" selected":""}>${s}</option>`).join("")}</select></div>
       <dl>${fields}</dl>${tel?`<div class="acts"><a href="${waLink(tel)}" target="_blank" rel="noopener">WhatsApp</a><a href="tel:${esc(tel)}">Appeler ${esc(tel)}</a>${pieceBtn}</div>`:(pieceBtn?`<div class="acts">${pieceBtn}</div>`:"")}<div class="piece" hidden></div></article>`;
