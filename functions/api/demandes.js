@@ -5,6 +5,7 @@
 // Chaque demande est une clé KV « dem:<horodatage>-<aléa> », sans risque d'écrasement entre deux envois.
 // Copie dans Google Sheet : variable Cloudflare SHEET_URL (adresse de l'Apps Script), SHEET_TOKEN facultatif.
 import { json, verifierSecret } from "./_lib.js";
+import { notifierDemande } from "./_notif.js";
 
 const FIELDS = {
   expediteur: ["nom", "prenom", "adresse", "email", "tel", "boutique", "secteur"],
@@ -163,7 +164,8 @@ export async function onRequestPost(context) {
   await env.COLIS.put(id, JSON.stringify(demande));
 
   // Copie dans la Google Sheet en arrière-plan (le client n'attend pas).
-  const job = toSheet(env, demande);
+  // et e-mail à l'équipe (Brevo), lui aussi en arrière-plan.
+  const job = Promise.all([toSheet(env, demande), notifierDemande(env, request, demande).catch(() => false)]);
   if (context.waitUntil) context.waitUntil(job); else await job;
 
   return json({ ok: true, id });
