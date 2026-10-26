@@ -351,6 +351,9 @@ ol.cods li::before{transform:none;height:26px;content:counter(cs);flex:none;disp
 .copy{flex:none;background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:8px;padding:6px 12px;font:600 .8rem var(--body);cursor:pointer}
 @media (max-width:760px){.contact .wrap{grid-template-columns:1fr}}
 .contact .full{grid-column:1/-1}
+.contact .map{display:grid;gap:12px}
+.mapf{width:100%;height:320px;border:0;border-radius:14px;background:#13386a;display:block}
+@media (max-width:560px){.mapf{height:260px}}
 a.copy{text-decoration:none;display:inline-flex;align-items:center}
 .mapbtn{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.06);border:1px solid rgba(242,181,28,.45);border-radius:14px;padding:16px 18px;color:#fff;text-decoration:none}
 .mapbtn:hover{background:rgba(255,255,255,.1)}
@@ -796,6 +799,7 @@ footer a{color:var(--gold)}
       <div class="ci"><div><small>E-mail</small><b>MTdelivery.09@gmail.com</b></div><button class="copy" type="button" data-copy="MTdelivery.09@gmail.com" data-i="cp2">Copier</button></div>
     </div>
     <div class="map full">
+      <iframe class="mapf" title="Carte : bureau MT Delivery à Meftah" data-al-title="kMapT" src="https://maps.google.com/maps?q=36.618063,3.223063&amp;z=16&amp;hl=fr&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       <a class="mapbtn" href="https://maps.app.goo.gl/FMDcBUkGTXrLJuqo9" target="_blank" rel="noopener"><span aria-hidden="true">📍</span><span><b data-i="kMap">Voir le bureau sur Google Maps</b><small data-i="kMap2">Itinéraire depuis votre position</small></span><span aria-hidden="true" class="arr">→</span></a>
     </div>
   </div>
