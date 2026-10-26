@@ -63,9 +63,9 @@ header.top .mnav .wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px;paddin
 .mnav a{display:flex;align-items:center;min-height:46px;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.06);color:#fff;text-decoration:none;font-weight:600;font-size:.95rem}
 .mnav a:active,.mnav a:hover{background:rgba(255,255,255,.14)}
 .mnav a.food{color:var(--gold);border:1px solid rgba(242,181,28,.45);background:transparent}
-@media (max-width:960px){nav.links{display:none}.burger{display:inline-flex}.htrk{display:inline-flex}}
+@media (max-width:1100px){nav.links{display:none}.burger{display:inline-flex}.htrk{display:inline-flex}}
 @media (max-width:400px){.htrk .t{display:none}.lang{padding:6px 10px}.burger [data-i=mMenu]{display:none}}
-@media (min-width:961px){.mnav{display:none!important}}
+@media (min-width:1101px){.mnav{display:none!important}}
 
 /* Hero */
 .hero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
@@ -350,6 +350,15 @@ ol.cods li::before{transform:none;height:26px;content:counter(cs);flex:none;disp
 .ci b.num{direction:ltr;unicode-bidi:embed;font-variant-numeric:tabular-nums}
 .copy{flex:none;background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:8px;padding:6px 12px;font:600 .8rem var(--body);cursor:pointer}
 @media (max-width:760px){.contact .wrap{grid-template-columns:1fr}}
+.contact .full{grid-column:1/-1}
+a.copy{text-decoration:none;display:inline-flex;align-items:center}
+.mapbtn{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.06);border:1px solid rgba(242,181,28,.45);border-radius:14px;padding:16px 18px;color:#fff;text-decoration:none}
+.mapbtn:hover{background:rgba(255,255,255,.1)}
+.mapbtn>span:first-child{font-size:1.6rem}
+.mapbtn small{display:block;color:#9fb3d1;font-size:.82rem}
+.mapbtn .arr{margin-inline-start:auto;color:var(--gold);font-size:1.3rem}
+[dir="rtl"] .mapbtn .arr{transform:scaleX(-1)}
+.ci small+small{display:block}
 footer{background:#061a33;color:#8ea3c2;font-size:.85rem}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;padding-block:22px}
 footer .fl{display:flex;flex-wrap:wrap;gap:6px 14px}
@@ -369,6 +378,7 @@ footer a{color:var(--gold)}
       <a href="#cod" data-i="n3">Mon argent COD</a>
       <a href="#aide" data-i="n5">Assistance</a>
       <a href="#livreur" data-i="n7">Devenir livreur</a>
+      <a href="#contact" data-i="n8">Contact</a>
       <a class="food" href="https://food.mtdelivery.dz/index.html" target="_blank" rel="noopener">MT Food</a>
     </nav>
     <div class="hact">
@@ -379,7 +389,7 @@ footer a{color:var(--gold)}
   </div>
   <nav class="mnav" id="mnav" hidden>
     <div class="wrap">
-      <a href="#suivi" data-i="n0">Suivre un colis</a><a href="#tarifs" data-i="n1">Tarifs</a><a href="#expediteur" data-i="n2">Devenir expéditeur</a><a href="#cod" data-i="n3">Mon argent COD</a><a href="#aide" data-i="n5">Assistance</a><a href="#boutique" data-i="n6">Boutique en ligne</a><a href="#avis" data-i="n4">Avis</a><a href="#livreur" data-i="n7">Devenir livreur</a><a class="food" href="https://food.mtdelivery.dz/index.html" target="_blank" rel="noopener">MT Food ↗</a>
+      <a href="#suivi" data-i="n0">Suivre un colis</a><a href="#tarifs" data-i="n1">Tarifs</a><a href="#expediteur" data-i="n2">Devenir expéditeur</a><a href="#cod" data-i="n3">Mon argent COD</a><a href="#aide" data-i="n5">Assistance</a><a href="#boutique" data-i="n6">Boutique en ligne</a><a href="#avis" data-i="n4">Avis</a><a href="#livreur" data-i="n7">Devenir livreur</a><a href="#contact" data-i="n8">Contact</a><a class="food" href="https://food.mtdelivery.dz/index.html" target="_blank" rel="noopener">MT Food ↗</a>
     </div>
   </nav>
 </header>
@@ -780,16 +790,20 @@ footer a{color:var(--gold)}
       </div>
     </div>
     <div class="cards">
-      <div class="ci"><div><small data-i="kAd">Adresse</small><b data-i="adr">Hay Ennasr (Les HLM), Meftah, Blida</b></div></div>
+      <div class="ci"><div><small data-i="kAd">Adresse</small><b data-i="adr">Hay Ennasr (Les HLM), Meftah, Blida</b></div><a class="copy" href="https://maps.app.goo.gl/FMDcBUkGTXrLJuqo9" target="_blank" rel="noopener" data-i="kIt">Itinéraire</a></div>
+      <div class="ci"><div><small data-i="kHo">Horaires</small><b data-i="hor" data-html>Samedi au jeudi : <bdi dir="ltr">9h – 18h</bdi></b><small data-i="hor2" style="margin-top:2px">Vendredi : fermé</small></div></div>
       <div class="ci"><div><small data-i="kTel">Téléphone / WhatsApp</small><b class="num">05 60 78 84 97</b></div><button class="copy" type="button" data-copy="0560788497" data-i="cp">Copier</button></div>
       <div class="ci"><div><small>E-mail</small><b>MTdelivery.09@gmail.com</b></div><button class="copy" type="button" data-copy="MTdelivery.09@gmail.com" data-i="cp2">Copier</button></div>
+    </div>
+    <div class="map full">
+      <a class="mapbtn" href="https://maps.app.goo.gl/FMDcBUkGTXrLJuqo9" target="_blank" rel="noopener"><span aria-hidden="true">📍</span><span><b data-i="kMap">Voir le bureau sur Google Maps</b><small data-i="kMap2">Itinéraire depuis votre position</small></span><span aria-hidden="true" class="arr">→</span></a>
     </div>
   </div>
 </section>
 
 <footer><div class="wrap">
   <span>© 2026 MT Delivery · البريد السريع · <span data-i="fAdr">Hay Ennasr (Les HLM), Meftah, Blida</span> · <span class="num" dir="ltr">05 60 78 84 97</span></span>
-  <nav class="fl" aria-label="Liens" data-i-al="fAl"><a href="#suivi" data-i="n0">Suivre un colis</a><a href="#tarifs" data-i="n1">Tarifs</a><a href="#expediteur" data-i="n2">Devenir expéditeur</a><a href="#cod" data-i="n3">Mon argent COD</a><a href="#aide" data-i="n5">Assistance</a><a href="#boutique" data-i="n6">Boutique en ligne</a><a href="#livreur" data-i="fLiv">Devenir livreur</a><a href="https://food.mtdelivery.dz/index.html" target="_blank" rel="noopener">MT Food</a></nav>
+  <nav class="fl" aria-label="Liens" data-i-al="fAl"><a href="#suivi" data-i="n0">Suivre un colis</a><a href="#tarifs" data-i="n1">Tarifs</a><a href="#expediteur" data-i="n2">Devenir expéditeur</a><a href="#cod" data-i="n3">Mon argent COD</a><a href="#aide" data-i="n5">Assistance</a><a href="#boutique" data-i="n6">Boutique en ligne</a><a href="#livreur" data-i="fLiv">Devenir livreur</a><a href="#contact" data-i="n8">Contact</a><a href="https://food.mtdelivery.dz/index.html" target="_blank" rel="noopener">MT Food</a></nav>
 </div></footer>
 
 <script src="/antirobot.js"></script>
@@ -821,7 +835,7 @@ cEy:"فضاء المرسِل",cH:"اطلب أموالي COD",cP:"المال ال
 lSuivis:"أرقام تتبع الطرود الموصّلة",phSuivis:"رقم في كل سطر",lMont:'المبلغ المنتظر (دج) <span class="opt">اختياري</span>',bCod:"أرسل طلبي",
 aEy:"آراء الزبائن",aH:"ماذا يقول زبائننا",aEmpty:"لا توجد آراء بعد. كن أول من يشارك رأيه.",lNote:"تقييمك",lPrenomBout:"الاسم أو اسم المحل",lAvis:"رأيك",bAvis:"انشر رأيي",
 lvEy:"توظيف",lvH:"كن موصّلًا لدى MT Delivery",lvP:"لديك مركبة وتعرف منطقتك جيدًا؟ انضم إلى الفريق: اترك معلوماتك وسنتصل بك لإجراء مقابلة.",lv1:"توصيل في مفتاح وضواحيها",lv2:"الترشح مجاني ودون التزام",lv3:"المقابلة والتحقق من الوثائق في المكتب",lLvCom:"بلدية الإقامة",lLvWil:"الولاية",wBli:"البليدة",wBou:"بومرداس",wAlg:"الجزائر",o9:"اختر الولاية أولًا",lLvZon:"أين تريد العمل؟",lLvZonA:"اختر ولاية أو أكثر، ثم البلديات.",lLvZonT:"كل البلديات",lLvZonE:"اختر بلدية واحدة على الأقل.",lLvVeh:"المركبة",v1:"دراجة نارية / سكوتر",v2:"سيارة",v3:"مركبة نفعية",lv0:"رخصة السياقة إلزامية",lLvDis:"التوفر",d1:"دوام كامل",d2:"دوام جزئي",d3:"نهاية الأسبوع فقط",lLvMsg:'الخبرة والملاحظات <span class="opt">اختياري</span>',bLiv:"أرسل طلبي",rEy:"المساعدة",rH:"مشكلة؟ نتكفل بها",rP:"تأخر، طرد متضرر أو ضائع، دفع COD، موصّل: صف المشكلة في استمارة الشكوى هذه، أو اتصل بنا مباشرة.",lNomComplet:"الاسم واللقب",lSuivi:'رقم التتبع <span class="opt">إن وجد</span>',lType:"السبب",r1:"تأخر التوصيل",r2:"طرد متضرر",r3:"طرد ضائع",r4:"دفع COD",r5:"سلوك الموصّل",lDesc:"وصف المشكلة",bRec:"أرسل الشكوى",
-kEy:"اتصل بنا",kH:"شركة محلية قريبة منك",kP:"زورونا، اتصلوا بنا أو راسلونا على واتساب.",kAd:"العنوان",adr:"حي النصر (Les HLM) – مفتاح – البليدة",kTel:"الهاتف / واتساب",cp:"نسخ",cp2:"نسخ",fLiv:"كن موصّلًا",trkH:"تتبّع طرد",trkHelp:"رقم التتبع مكتوب على وصل الطرد. إن لم يكن لديك، اختر «رقم هاتفي».",pathsAl:"وصول سريع",pa1:"📍 تتبّع طرد",pa1s:"برقم التتبع أو برقم هاتفك.",pa2:"💰 الأسعار",pa2s:"احسب السعر حسب الولاية، إلى المنزل أو إلى المكتب.",pa3:"📦 كن مرسِلًا",pa3s:"التسجيل مجاني، ونتصل بك.",pa4:"💵 أموالي COD",pa4s:"استلم أموال طرودك الموصّلة.",pa5:"🛟 المساعدة",pa5s:"شكوى، واتساب أو هاتف.",svP:"من التسجيل إلى استلام أموالك، في أربع خطوات.",st1:"التسجيل",st1s:"املأ استمارة المرسِل، ونتصل بك لتنظيم أول استلام.",st2:"الاستلام من عندك",st2s:"نمر لأخذ طرودك، ولكل طرد رقم تتبع.",st3:"التوصيل والدفع",st3s:"يُسلَّم الطرد إلى المنزل أو إلى المكتب، ويدفع الزبون عند الاستلام (COD). الطرد المرفوض: إرجاع مجاني.",st4:"أموالك",st4s:"تم توصيل طرودك؟ اطلب أموالك: نؤكد لك المبلغ، وتستلمه نقدًا من مكتبنا في مفتاح.",zH:"مناطق التوصيل",z1:"مفتاح وضواحيها: توصيل محلي من طرف MT Delivery (مفتاح وسط، خارج مفتاح، الضواحي).",z2:"باقي الولايات: التوصيل مع شركائنا، انطلاقًا من البليدة (الولاية 09).",z3:"إلى المنزل، أو إلى المكتب: يستلم الزبون طرده من المكتب.",dH:"مدة التوصيل",dP:"تختلف المدة حسب الوجهة وطريقة التوصيل. لمعرفة المدة التقريبية قبل الإرسال، اسألنا عبر واتساب.",dBtn:"اسأل عن المدة",ti5:"الدفع عند الاستلام (COD): يدفع زبونك عند استلام الطرد",ti6:"الطرود التي يتجاوز وزنها 5 كغ: زيادة 50 دج عن كل كيلوغرام",tPdf:"📄 تحميل جدول الأسعار (PDF)",tClr:"مسح",tWa:"اسأل عن السعر",lPieceWhy:"<b>لماذا؟</b> بطاقة التعريف إلزامية لفتح حساب مرسِل: تسمح بالتحقق من هوية صاحب الحساب. لا يطّلع عليها إلا فريق MT Delivery. تُحذف من الموقع بمجرد معالجة تسجيلك، وفي أقصى تقدير بعد 30 يومًا، وتُحفظ نسخة ورقية في ملفك بالمكتب.",c0:"تأكد أن طرودك تم توصيلها، عبر التتبع في أعلى الصفحة.",cBox:"<b>الدفع نقدًا فقط، في المكتب.</b> سؤال حول تحويل أموالك؟ راسلنا عبر واتساب.",cWa:"سؤال حول التحويل",aP:"الآراء أدناه يرسلها زبائننا عبر هذه الاستمارة.",callBtn:'اتصل بـ <bdi dir="ltr">05 60 78 84 97</bdi>',callBtn2:"اتصل",fAdr:"حي النصر (Les HLM)، مفتاح، البليدة",fAl:"روابط",hTrk:"تتبّع",hTrkAl:"تتبّع طرد",heroShop:"<b>هدية:</b> متجرك الإلكتروني المجاني",audS:"تبيع وترسل طرودًا",audR:"تنتظر طردًا",pa6:"🛍️ متجر مجاني",pa6s:"بِع عبر الإنترنت برابطك الخاص.",pa7:"🗺️ المناطق والمدة",pa7s:"أين نوصل، إلى المنزل أو إلى المكتب.",svH2:"خدماتنا للبائعين",svP2:"شركة من مفتاح تتكفل بطرودك وبتحصيل أموالك وبواجهتك على الإنترنت.",sv1:"توصيل التجارة الإلكترونية",sv1p:"الاستلام من عندك، والتوصيل إلى المنزل أو إلى المكتب: في مفتاح وضواحيها عبر موصّلينا، وإلى باقي الولايات مع شركائنا.",sv1a:"شاهد الأسعار ←",sv2:"الدفع عند الاستلام (COD)",sv2p:"يدفع زبونك عند الاستلام، وتستلم أموال طرودك الموصّلة نقدًا من مكتبنا في مفتاح.",sv2a:"استلم أموالي ←",sv3t:"هدية للمرسِلين",sv3:"متجر إلكتروني مجاني",sv3p:"منتجاتك على الإنترنت بالعربية والفرنسية. يطلب زبائنك من رابطك وتوصل MT Delivery.",sv3a:"اكتشف المتجر ←",simH:"احسب سعر التوصيل",simL:"وجهة الطرد",simModeAl:"طريقة التوصيل",simTxt0:"اختر وجهة."}};
+kEy:"اتصل بنا",kH:"شركة محلية قريبة منك",kP:"زورونا، اتصلوا بنا أو راسلونا على واتساب.",kAd:"العنوان",kIt:"الاتجاهات",kHo:"أوقات العمل",hor:'من السبت إلى الخميس: <bdi dir="ltr">9:00 – 18:00</bdi>',hor2:"الجمعة: مغلق",kMap:"شاهد المكتب على خرائط Google",kMap2:"الاتجاهات انطلاقًا من موقعك",n8:"اتصل بنا",adr:"حي النصر (Les HLM) – مفتاح – البليدة",kTel:"الهاتف / واتساب",cp:"نسخ",cp2:"نسخ",fLiv:"كن موصّلًا",trkH:"تتبّع طرد",trkHelp:"رقم التتبع مكتوب على وصل الطرد. إن لم يكن لديك، اختر «رقم هاتفي».",pathsAl:"وصول سريع",pa1:"📍 تتبّع طرد",pa1s:"برقم التتبع أو برقم هاتفك.",pa2:"💰 الأسعار",pa2s:"احسب السعر حسب الولاية، إلى المنزل أو إلى المكتب.",pa3:"📦 كن مرسِلًا",pa3s:"التسجيل مجاني، ونتصل بك.",pa4:"💵 أموالي COD",pa4s:"استلم أموال طرودك الموصّلة.",pa5:"🛟 المساعدة",pa5s:"شكوى، واتساب أو هاتف.",svP:"من التسجيل إلى استلام أموالك، في أربع خطوات.",st1:"التسجيل",st1s:"املأ استمارة المرسِل، ونتصل بك لتنظيم أول استلام.",st2:"الاستلام من عندك",st2s:"نمر لأخذ طرودك، ولكل طرد رقم تتبع.",st3:"التوصيل والدفع",st3s:"يُسلَّم الطرد إلى المنزل أو إلى المكتب، ويدفع الزبون عند الاستلام (COD). الطرد المرفوض: إرجاع مجاني.",st4:"أموالك",st4s:"تم توصيل طرودك؟ اطلب أموالك: نؤكد لك المبلغ، وتستلمه نقدًا من مكتبنا في مفتاح.",zH:"مناطق التوصيل",z1:"مفتاح وضواحيها: توصيل محلي من طرف MT Delivery (مفتاح وسط، خارج مفتاح، الضواحي).",z2:"باقي الولايات: التوصيل مع شركائنا، انطلاقًا من البليدة (الولاية 09).",z3:"إلى المنزل، أو إلى المكتب: يستلم الزبون طرده من المكتب.",dH:"مدة التوصيل",dP:"تختلف المدة حسب الوجهة وطريقة التوصيل. لمعرفة المدة التقريبية قبل الإرسال، اسألنا عبر واتساب.",dBtn:"اسأل عن المدة",ti5:"الدفع عند الاستلام (COD): يدفع زبونك عند استلام الطرد",ti6:"الطرود التي يتجاوز وزنها 5 كغ: زيادة 50 دج عن كل كيلوغرام",tPdf:"📄 تحميل جدول الأسعار (PDF)",tClr:"مسح",tWa:"اسأل عن السعر",lPieceWhy:"<b>لماذا؟</b> بطاقة التعريف إلزامية لفتح حساب مرسِل: تسمح بالتحقق من هوية صاحب الحساب. لا يطّلع عليها إلا فريق MT Delivery. تُحذف من الموقع بمجرد معالجة تسجيلك، وفي أقصى تقدير بعد 30 يومًا، وتُحفظ نسخة ورقية في ملفك بالمكتب.",c0:"تأكد أن طرودك تم توصيلها، عبر التتبع في أعلى الصفحة.",cBox:"<b>الدفع نقدًا فقط، في المكتب.</b> سؤال حول تحويل أموالك؟ راسلنا عبر واتساب.",cWa:"سؤال حول التحويل",aP:"الآراء أدناه يرسلها زبائننا عبر هذه الاستمارة.",callBtn:'اتصل بـ <bdi dir="ltr">05 60 78 84 97</bdi>',callBtn2:"اتصل",fAdr:"حي النصر (Les HLM)، مفتاح، البليدة",fAl:"روابط",hTrk:"تتبّع",hTrkAl:"تتبّع طرد",heroShop:"<b>هدية:</b> متجرك الإلكتروني المجاني",audS:"تبيع وترسل طرودًا",audR:"تنتظر طردًا",pa6:"🛍️ متجر مجاني",pa6s:"بِع عبر الإنترنت برابطك الخاص.",pa7:"🗺️ المناطق والمدة",pa7s:"أين نوصل، إلى المنزل أو إلى المكتب.",svH2:"خدماتنا للبائعين",svP2:"شركة من مفتاح تتكفل بطرودك وبتحصيل أموالك وبواجهتك على الإنترنت.",sv1:"توصيل التجارة الإلكترونية",sv1p:"الاستلام من عندك، والتوصيل إلى المنزل أو إلى المكتب: في مفتاح وضواحيها عبر موصّلينا، وإلى باقي الولايات مع شركائنا.",sv1a:"شاهد الأسعار ←",sv2:"الدفع عند الاستلام (COD)",sv2p:"يدفع زبونك عند الاستلام، وتستلم أموال طرودك الموصّلة نقدًا من مكتبنا في مفتاح.",sv2a:"استلم أموالي ←",sv3t:"هدية للمرسِلين",sv3:"متجر إلكتروني مجاني",sv3p:"منتجاتك على الإنترنت بالعربية والفرنسية. يطلب زبائنك من رابطك وتوصل MT Delivery.",sv3a:"اكتشف المتجر ←",simH:"احسب سعر التوصيل",simL:"وجهة الطرد",simModeAl:"طريقة التوصيل",simTxt0:"اختر وجهة."}};
 const M={fr:{
 doneSend:"Formulaire prêt. Appuyez sur le bouton pour l'envoyer sur WhatsApp :",saved:"✅ Demande enregistrée. Nous vous recontactons rapidement. Vous pouvez aussi nous l'envoyer sur WhatsApp :",avisSaved:"✅ Merci ! Votre avis a bien été transmis à MT Delivery.",sending:"Envoi…",waSend:"Envoyer sur WhatsApp",copyMsg:"Copier le message",copied:"Copié",
 fill:"Merci de remplir les champs en rouge.",starsReq:"Choisissez une note de 1 à 5 étoiles.",
