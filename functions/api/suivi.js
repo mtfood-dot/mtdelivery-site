@@ -27,8 +27,18 @@ async function limite(request) {
 
 export async function onRequestPost({ request, env }) {
   if (await limite(request)) return json({ ok: false, error: "trop" }, 429);
-  let tel = "";
-  try { tel = normTel((await request.json()).tel); } catch {}
+  let body = {};
+  try { body = await request.json(); } catch {}
+  // Plusieurs numéros de suivi (25 au maximum) : état connu de chaque colis présent dans la liste importée.
+  if (Array.isArray(body.nums)) {
+    const nums = [...new Set(body.nums.map((x) => String(x || "").trim().toUpperCase()).filter((x) => /^[A-Z0-9-]{4,40}$/.test(x)))].slice(0, 25);
+    if (!nums.length) return json({ ok: false, error: "numero" }, 400);
+    if (!env.COLIS) return json({ ok: false, error: "stockage" }, 503);
+    const data = (await env.COLIS.get("colis", { type: "json" })) || { items: {} };
+    const colis = nums.map((n) => { const r = (data.items || {})[n]; return r ? { id: r.id, wilaya: r.wilaya, etat: r.etat, date: r.date } : { id: n, inconnu: true }; });
+    return json({ ok: true, colis, updatedAt: data.updatedAt || null });
+  }
+  const tel = normTel(body.tel);
   if (!/^0[5-7]\d{8}$/.test(tel)) return json({ ok: false, error: "numero" }, 400);
   if (!env.COLIS) return json({ ok: false, error: "stockage" }, 503);
 
