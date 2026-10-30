@@ -4,10 +4,10 @@
 // La pièce d'identité n'est jamais jointe : l'e-mail indique seulement qu'elle a été reçue.
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => "&#" + c.charCodeAt(0) + ";");
 
-const TITRES = { expediteur: "Nouvel expéditeur", cod: "Demande d'argent COD", reclamation: "Réclamation", avis: "Nouvel avis client", livreur: "Candidature livreur" };
+const TITRES = { expediteur: "Nouvel expéditeur", cod: "Demande d'argent COD", reclamation: "Réclamation", avis: "Nouvel avis client", livreur: "Candidature livreur", rappel: "Demande de rappel" };
 const LABELS = { nom: "Nom", prenom: "Prénom", adresse: "Adresse", email: "E-mail", tel: "Téléphone", boutique: "Boutique", secteur: "Secteur",
   suivis: "N° de suivi", montant: "Montant (DA)", suivi: "N° de suivi", type: "Motif", desc: "Description", texte: "Avis", note: "Note",
-  piece: "Pièce d'identité", commune: "Commune", zones: "Zones de travail", vehicule: "Véhicule", dispo: "Disponibilité", message: "Message" };
+  piece: "Pièce d'identité", commune: "Commune", zones: "Zones de travail", vehicule: "Véhicule", dispo: "Disponibilité", message: "Message", sujet: "Sujet", moment: "À rappeler" };
 
 export async function notifierDemande(env, request, demande) {
   if (!(env.BREVO_API_KEY && env.NOTIF_EMAILS && env.NOTIF_FROM)) return false;

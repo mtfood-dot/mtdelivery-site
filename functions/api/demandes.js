@@ -12,7 +12,8 @@ const FIELDS = {
   cod: ["boutique", "tel", "suivis", "montant"],
   reclamation: ["nom", "tel", "suivi", "type", "desc"], // « type » = motif choisi dans le formulaire
   avis: ["prenom", "texte", "note"],
-  livreur: ["nom", "tel", "commune", "zones", "vehicule", "dispo", "message"], // permis obligatoire : pas de question
+  livreur: ["nom", "tel", "commune", "zones", "vehicule", "dispo", "message"],
+  rappel: ["nom", "tel", "sujet", "moment", "message"], // demande de rappel par l'équipe // permis obligatoire : pas de question
 };
 const STATUTS = ["nouveau", "en cours", "réglé"];
 const MAX_LEN = 1500;
