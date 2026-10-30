@@ -8,7 +8,7 @@ import { json, verifierSecret } from "./_lib.js";
 import { notifierDemande } from "./_notif.js";
 
 const FIELDS = {
-  expediteur: ["nom", "prenom", "adresse", "email", "tel", "boutique", "secteur"],
+  expediteur: ["nom", "prenom", "adresse", "email", "tel", "boutique", "secteur", "volume"],
   cod: ["boutique", "tel", "suivis", "montant"],
   reclamation: ["nom", "tel", "suivi", "type", "desc"], // « type » = motif choisi dans le formulaire
   avis: ["prenom", "texte", "note"],

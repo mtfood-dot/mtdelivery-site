@@ -272,6 +272,17 @@ table.wil tr.home td{background:rgba(242,181,28,.14)}
 @media (max-width:860px){.split{grid-template-columns:1fr}}
 .side ul{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px}
 .side li{display:flex;gap:10px}
+.prm{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.prm div{background:var(--surface);border:1px solid var(--line);border-inline-start:3px solid var(--gold);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.prm b{font-size:.98rem}
+.prm span{color:var(--muted);font-size:.86rem;line-height:1.4}
+.aph{font-size:1.05rem;margin:22px 0 8px}
+.side ol.aps{margin:0;padding-inline-start:22px;display:grid;gap:6px;list-style:decimal}
+.side ol.aps li{display:list-item;padding-inline-start:4px}
+.side ol.aps li::before{content:none}
+.side ol.aps li::marker{color:var(--gold);font-weight:800}
+.eln{margin:16px 0 0;font-size:.95rem}
+@media (max-width:360px){.prm{grid-template-columns:1fr}}
 .side li::before{content:"";flex:none;width:9px;height:9px;margin-top:.55em;background:var(--gold);transform:rotate(45deg)}
 form.f{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px;min-width:0}
 section.alt form.f{background:var(--bg)}
@@ -682,19 +693,28 @@ footer a{color:var(--gold)}
         <h2 data-i="eH">Ouvrez votre compte expéditeur</h2>
         <p data-i="eP">Vous vendez en ligne ou en boutique ? Inscrivez-vous et on vous rappelle pour organiser le premier ramassage.</p>
       </div>
-      <ul>
-        <li data-i="e1">Inscription gratuite</li>
-        <li data-i="e2">Ramassage chez vous</li>
-        <li data-i="e3">Le paiement de vos clients est encaissé à la livraison</li>
-        <li data-i="e4">Boutique en ligne offerte</li>
-      </ul>
+      <div class="prm">
+        <div><b data-i="pr1">Inscription gratuite</b><span data-i="pr1s">Aucun frais pour ouvrir votre compte.</span></div>
+        <div><b data-i="pr2">Ramassage chez vous</b><span data-i="pr2s">On passe récupérer vos colis.</span></div>
+        <div><b data-i="pr3">Retours gratuits</b><span data-i="pr3s">Un colis refusé vous revient sans frais.</span></div>
+        <div><b data-i="pr4">Fonds sous 48 h</b><span data-i="pr4s">En espèces, au bureau de Meftah.</span></div>
+        <div><b data-i="pr5">69 wilayas</b><span data-i="pr5s">Avec nos partenaires, à domicile ou en stop desk.</span></div>
+        <div><b data-i="pr6">Boutique offerte</b><span data-i="pr6s">Vos produits en ligne, livrés par MT Delivery.</span></div>
+      </div>
+      <h3 class="aph" data-i="apH">Après votre inscription</h3>
+      <ol class="aps">
+        <li data-i="ap1">Vous envoyez ce formulaire.</li>
+        <li data-i="ap2">L'équipe vous rappelle pendant les horaires d'ouverture : samedi au jeudi, 9h – 18h.</li>
+        <li data-i="ap3">Premier ramassage de vos colis, chez vous.</li>
+      </ol>
+      <p class="eln"><a href="#tarifs" data-i="el1">Tarifs</a> · <a href="#interdits" data-i="el2">Produits interdits</a> · <a href="#faq" data-i="el3">Questions fréquentes</a></p>
     </div>
     <form class="f" id="fExp" novalidate>
       <input name="site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0;pointer-events:none">
       <div class="fld"><label for="exNom" data-i="lNom">Nom</label><input id="exNom" name="nom" required autocomplete="family-name"></div>
       <div class="fld"><label for="exPrenom" data-i="lPrenom">Prénom</label><input id="exPrenom" name="prenom" required autocomplete="given-name"></div>
       <div class="fld full"><label for="exAdr" data-i="lAdr">Adresse</label><input id="exAdr" name="adresse" required autocomplete="street-address"></div>
-      <div class="fld"><label for="exMail" data-i="lMail">Adresse e-mail</label><input id="exMail" name="email" type="email" required autocomplete="email" class="num"></div>
+      <div class="fld"><label for="exMail" data-i-html="lMail2">Adresse e-mail <span class="opt">facultatif</span></label><input id="exMail" name="email" type="email" autocomplete="email" class="num"></div>
       <div class="fld"><label for="exTel" data-i="lTel">Numéro de téléphone</label><input id="exTel" name="tel" type="tel" required pattern="0[5-7][0-9 ]{8,11}" placeholder="05 XX XX XX XX" class="num" autocomplete="tel"></div>
       <div class="fld"><label for="exBout" data-i="lBout">Nom de la boutique</label><input id="exBout" name="boutique" required></div>
       <div class="fld"><label for="exSect" data-i="lSect">Secteur d'activité</label>
@@ -708,6 +728,14 @@ footer a{color:var(--gold)}
           <option data-i="o6">Santé et parapharmacie</option>
           <option data-i="o7">Enfants et jouets</option>
           <option data-i="o8">Autre</option>
+        </select></div>
+      <div class="fld"><label for="exVol" data-i-html="lVol">Colis par jour <span class="opt">facultatif</span></label>
+        <select id="exVol" name="volume">
+          <option value="" data-i="o0">Choisir…</option>
+          <option value="Moins de 5" data-i="vol1">Moins de 5</option>
+          <option value="5 à 20" data-i="vol2">5 à 20</option>
+          <option value="20 à 50" data-i="vol3">20 à 50</option>
+          <option value="Plus de 50" data-i="vol4">Plus de 50</option>
         </select></div>
       <div class="fld full">
         <label for="exPiece" data-i="lPiece">Pièce d'identité (PDF)</label>
@@ -1036,10 +1064,10 @@ p1:"الاستلام من المنزل",p1s:"نمر لأخذ طرودك.",p2:"م
 fbH:"جائع؟",fbP:"اطلب الوجبات والأكل السريع والحلويات على MT Food.",fbBtn:"اذهب إلى MT Food",
 sbEy:"جديد · هدية لمرسِلي MT",sbH:"متجرك الإلكتروني، <em>مجانًا.</em>",sbP:"اعرض منتجاتك على الإنترنت في بضع دقائق. يطلب زبائنك من رابطك ويدفعون عند الاستلام، وتوصل MT Delivery كل طلبية.",
 sb1:"مجاني لمرسِلي MT Delivery",sb2:"منتجاتك وصورها وأسعارها وخياراتها، بالعربية والفرنسية",sb3:"سعر التوصيل يظهر تلقائيًا حسب ولاية الزبون",sb4:"تصلك الطلبيات في فضائك وتوصلها MT Delivery",
-sbBtn:"🛍️ أنشئ متجري المجاني",sbBtn2:"لست مرسِلًا بعد؟ سجّل الآن",sbUrl:"عنوان متجرك:",e4:"متجر إلكتروني هدية",
+sbBtn:"🛍️ أنشئ متجري المجاني",sbBtn2:"لست مرسِلًا بعد؟ سجّل الآن",sbUrl:"عنوان متجرك:",
 tEy:"قائمة الأسعار",tH:"أسعار التوصيل",tP:"السعر لكل طرد انطلاقًا من البليدة (الولاية 09)، بالدينار الجزائري.",tLoc:"مفتاح وضواحيها",
 tInfo:"معلومات مفيدة",ti1:"الانطلاق من البليدة (الولاية 09)",ti2:"إلى المنزل: يُسلَّم في عنوان الزبون",ti3:"إلى المكتب: يستلم الزبون طرده من المكتب، بسعر أقل",ti4:"إرجاع الطرد المرفوض: مجاني",tNat:"التوصيل إلى الولايات",tSearchL:"ابحث عن ولاية",tSearch:"ابحث عن ولاية أو رمز…",thCode:"الرمز",thW:"الولاية",thDom:"إلى المنزل",thSd:"إلى المكتب",tNone:"لا توجد ولاية مطابقة لهذا البحث.",tNote:"سؤال حول سعر؟ اسألنا عبر واتساب.",onDemand:"حسب الولاية",free:"مجاني",
-eEy:"المرسِلون الجدد",eH:"افتح حسابك كمرسِل",eP:"تبيع عبر الإنترنت أو في محل؟ سجّل ونتصل بك لتنظيم أول استلام.",e1:"التسجيل مجاني",e2:"الاستلام من عندك",e3:"يُحصَّل دفع زبائنك عند التوصيل",
+eEy:"المرسِلون الجدد",eH:"افتح حسابك كمرسِل",eP:"تبيع عبر الإنترنت أو في محل؟ سجّل ونتصل بك لتنظيم أول استلام.",pr1:"التسجيل مجاني",pr1s:"دون أي رسوم لفتح حسابك.",pr2:"الاستلام من عندك",pr2s:"نأتي لاستلام طرودك.",pr3:"إرجاع مجاني",pr3s:"الطرد المرفوض يعود إليك دون رسوم.",pr4:"أموالك خلال 48 ساعة",pr4s:"نقدًا، في مكتبنا بمفتاح.",pr5:"69 ولاية",pr5s:"مع شركائنا، إلى المنزل أو إلى المكتب.",pr6:"متجر مجاني",pr6s:"منتجاتك على الإنترنت، توصلها MT Delivery.",apH:"بعد تسجيلك",ap1:"ترسل هذه الاستمارة.",ap2:"يتصل بك الفريق خلال أوقات العمل: من السبت إلى الخميس، 9 صباحًا – 6 مساءً.",ap3:"أول استلام لطرودك من عندك.",el1:"الأسعار",el2:"المنتجات الممنوعة",el3:"الأسئلة الشائعة",lMail2:'البريد الإلكتروني <span class="opt">اختياري</span>',lVol:'عدد الطرود يوميًا <span class="opt">اختياري</span>',vol1:"أقل من 5",vol2:"من 5 إلى 20",vol3:"من 20 إلى 50",vol4:"أكثر من 50",
 lNom:"اللقب",lPrenom:"الاسم",lAdr:"العنوان",lMail:"البريد الإلكتروني",lTel:"رقم الهاتف",lBout:"اسم المحل",lSect:"قطاع النشاط",lPiece:"بطاقة التعريف (PDF)",lPieceAide:"بطاقة التعريف الوطنية أو رخصة السياقة، الوجهان واضحان، في ملف PDF واحد بحد أقصى 5 ميغابايت.",
 o0:"اختر…",o1:"ملابس وموضة",o2:"مستحضرات تجميل",o3:"إلكترونيات وإكسسوارات",o4:"المنزل والديكور",o5:"مواد غذائية",o6:"صحة وشبه صيدلية",o7:"أطفال وألعاب",o8:"أخرى",bExp:"أرسل تسجيلي",
 cEy:"فضاء المرسِل",cH:"اطلب أموالي COD",cP:"المال الذي يدفعه زبائنك عند التوصيل هو حقك. إليك طريقة استلامه:",c1:"أرسل هذه الاستمارة مع أرقام التتبع: استمارة واحدة لعدة طرود.",c2:"نؤكد لك المبلغ قبل الدفع.",c3:"تستلم المال نقدًا من المكتب: حي النصر (Les HLM)، مفتاح.",
