@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="MT Delivery – البريد السريع : livraison de colis à Meftah, Blida et partout en Algérie avec nos partenaires. Paiement à la livraison, retours gratuits.">
+<meta name="description" content="MT Delivery – البريد السريع : livraison de colis à Meftah, Blida et dans les 69 wilayas avec nos partenaires. Paiement à la livraison, retours gratuits, fonds reversés sous 48 h.">
 <meta name="theme-color" content="#0a2647">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.json">
 <style>[hidden]{display:none!important}img{max-width:100%}</style>
-<title>MT Delivery – Livraison de colis à Meftah (Blida) et partout en Algérie | البريد السريع</title>
+<title>MT Delivery – Livraison de colis à Meftah (Blida) et dans les 69 wilayas | البريد السريع</title>
 <link rel="canonical" href="https://www.mtdelivery.dz/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MT Delivery – البريد السريع">
 <meta property="og:title" content="MT Delivery – Vos colis livrés, votre argent encaissé">
-<meta property="og:description" content="Ramassage chez vous, livraison à Meftah et partout en Algérie avec nos partenaires, paiement à la livraison, suivi de colis et boutique en ligne gratuite.">
+<meta property="og:description" content="Ramassage chez vous, livraison à Meftah et dans les 69 wilayas avec nos partenaires, paiement à la livraison, retours gratuits, fonds sous 48 h, suivi de colis et boutique en ligne gratuite.">
 <meta property="og:url" content="https://www.mtdelivery.dz/">
 <meta property="og:image" content="https://www.mtdelivery.dz/icons/icon-512.png">
 <meta property="og:locale" content="fr_DZ">
@@ -119,6 +119,8 @@ header.top .mnav .wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px;paddin
 .tres .st{display:inline-block;font-size:.78rem;font-weight:700;border-radius:999px;padding:2px 9px;background:#eef2f8;color:#0a2647;margin-top:3px}
 .tres .st.ok{background:#e3f5ea;color:#1d8a4e}.tres .st.ret{background:#fbeaea;color:#b02a2a}
 .tres p{margin:0;color:#c9d6ea;font-size:.9rem}
+.tres p.err{color:#ffc2b8;font-weight:600}
+.trow button[disabled]{opacity:.65;cursor:progress}
 .trow{display:flex;gap:8px}
 .trow input{flex:1;min-width:0;font:inherit;font-size:1rem;border-radius:10px;border:1.5px solid transparent;padding:11px 12px;background:#fff;color:#0d1b30;direction:ltr;text-transform:uppercase}
 .trow input:focus{outline:none;border-color:var(--gold)}
@@ -127,9 +129,8 @@ header.top .mnav .wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px;paddin
 .shoppill{display:inline-flex;align-items:center;gap:8px;margin-top:16px;color:#fff;text-decoration:none;font-size:.9rem;border:1px solid rgba(242,181,28,.55);border-radius:999px;padding:7px 14px;background:rgba(242,181,28,.1)}
 .shoppill b{color:var(--gold)}
 .shoplink{display:inline-block;margin-top:12px;padding-block:8px;color:#c9d6ea;font-size:.9rem;text-decoration:none;line-height:1.5}
-.shoplink .arr{display:inline-block}
 .shoplink b{color:#fff;text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:3px}
-.shoplink .arr{color:var(--gold)}
+.shoplink .arr{display:inline-block;color:var(--gold)}
 [dir="rtl"] .shoplink .arr{transform:scaleX(-1)}
 [dir="rtl"] .shoppill .arr{transform:scaleX(-1)}
 .track h2{font:700 1rem var(--body);margin:0 0 2px;color:#fff}
@@ -137,7 +138,7 @@ header.top .mnav .wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px;paddin
 .label{background:var(--label);color:#0d1b30;border-radius:6px;padding:20px 22px;font-family:var(--mono);font-size:.82rem;transform:rotate(-2.2deg);box-shadow:0 18px 40px rgba(0,0,0,.35);max-width:400px;justify-self:center;width:100%;direction:ltr}
 .label .row{display:flex;justify-content:space-between;gap:10px;border-bottom:1.5px dashed #b9b2a0;padding-block:9px}
 .label .row:last-child{border:0}
-.label small{display:block;color:#7c7462;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase}
+.label small{display:block;color:#7c7462;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
 .label strong{font-size:1rem}
 .label .big{font-family:var(--display);font-weight:900;font-stretch:70%;font-size:2.6rem;line-height:1;color:#0a2647}
 .bars{height:46px;margin-top:6px;background:repeating-linear-gradient(90deg,#0d1b30 0 2px,transparent 2px 4px,#0d1b30 4px 7px,transparent 7px 9px,#0d1b30 9px 10px,transparent 10px 13px)}
@@ -156,18 +157,15 @@ header.top .mnav .wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px;paddin
 
 /* Sections */
 section.block{padding-block:68px}
-@media (max-width:560px){section.block{padding-block:44px}.head{margin-bottom:20px}.pq{padding-block:44px}.paths{padding-block:20px}}
+@media (max-width:560px){section.block{padding-block:44px}.head{margin-bottom:20px}.pq{padding-block:44px}}
 section.alt{background:var(--surface);border-block:1px solid var(--line)}
 .head{display:flex;flex-direction:column;gap:10px;margin-bottom:30px;max-width:42em}
 .head h2{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:800;font-stretch:85%}
 .head p{color:var(--muted);margin:0}
 
-.perks{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 .perk{border-top:3px solid var(--gold);padding-top:12px;min-width:0}
 .perk b{display:block;font-size:1rem}
 .perk span{color:var(--muted);font-size:.9rem}
-@media (max-width:900px){.perks{grid-template-columns:1fr 1fr}}
-@media (max-width:440px){.perks{grid-template-columns:1fr}}
 .foodband{margin-top:34px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;background:var(--gold);color:var(--navy);border-radius:16px;padding:18px 22px}
 .foodband b{font-size:1.1rem}
 /* Boutique en ligne gratuite */
@@ -250,17 +248,22 @@ table.wil tr.home td{background:rgba(242,181,28,.14)}
   .pcard h3{font-size:1.2rem}
   .wtop .fld{max-width:none;flex-basis:100%}
   .tscroll{max-height:70vh;overflow-x:hidden}
-  table.wil th{padding:9px 8px;font-size:.74rem}
-  table.wil td{padding:10px 8px}
+  table.wil th{padding:9px 6px;font-size:.78rem;line-height:1.3}
+  table.wil th.r{white-space:normal}
+  table.wil td.r{white-space:normal}
+  table.wil .na{font-size:.78rem;line-height:1.25;display:inline-block}
+  table.wil td.n{hyphens:auto}
+  table.wil td{padding:10px 6px}
   table.wil td.c{display:none}
   table.wil th.c{display:none}
-  table.wil td.n{font-weight:600;overflow-wrap:anywhere}
-  table.wil td.n::before{content:attr(data-code);display:inline-block;min-width:24px;margin-inline-end:6px;color:var(--muted);font-weight:500;font-size:.8rem}
+  table.wil td.n{font-weight:600;overflow-wrap:break-word;line-height:1.3}
+  table.wil td.n::before{content:attr(data-code);display:block;color:var(--muted);font-weight:500;font-size:.75rem}
   table.wil td.r b{font-size:.98rem}
   table.wil td.r small{display:none}
   table.wil th.r::after{content:" (DA)";font-weight:400}
   table.wil th.r{white-space:normal;width:27%}
 }
+@media (max-width:360px){.pcard.wide{padding-inline:10px}table.wil td{font-size:.9rem}table.wil td.r b{font-size:.92rem}}
 
 /* Formulaires */
 .split{display:grid;grid-template-columns:.8fr 1.2fr;gap:36px;align-items:start}
@@ -311,28 +314,17 @@ form.f .full{grid-column:1/-1}
 .rv time{font-size:.78rem;color:var(--muted)}
 .empty{color:var(--muted);border:1.5px dashed var(--line);border-radius:14px;padding:22px;text-align:center}
 .rate{display:flex;gap:4px;direction:ltr}
-.rate button{background:none;border:0;font-size:2rem;line-height:1;color:var(--line);cursor:pointer;padding:0 2px}
+.rate button{background:none;border:0;font-size:2rem;line-height:1;color:#7d8aa0;cursor:pointer;padding:0 2px}
 .rate button.on{color:var(--gold)}
 .mt{margin-top:26px}
 
 /* Parcours par public */
-.paths{padding-block:30px;background:var(--bg)}
-.paths .wrap{display:grid;grid-template-columns:1.6fr 1fr;gap:18px}
-.aud{min-width:0}
-.aud h2{font:700 .8rem var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
-[dir="rtl"] .aud h2{letter-spacing:0;font-size:.9rem}
-.aud .pl{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.aud.rcv .pl{grid-template-columns:1fr}
-.path{display:flex;flex-direction:column;gap:3px;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 15px;min-width:0;transition:border-color .15s,transform .15s}
-.path:hover{border-color:var(--gold);transform:translateY(-2px)}
-.path b{font-size:.98rem;display:flex;gap:8px;align-items:center}
-.path span{color:var(--muted);font-size:.85rem;line-height:1.45}
-.path.main{background:var(--gold);border-color:var(--gold);color:var(--navy)}
-.path.main span{color:var(--navy);opacity:.85}
-.path.shop{background:var(--navy);border-color:var(--navy);color:#fff}
-.path.shop span{color:#c9d6ea}
-@media (max-width:860px){.paths .wrap{grid-template-columns:1fr}.aud.rcv .pl{grid-template-columns:1fr 1fr}.aud.rcv .path:first-child{grid-column:1/-1}}
-@media (max-width:360px){.aud .pl,.aud.rcv .pl{grid-template-columns:1fr}}
+.kf{background:var(--surface);border-bottom:1px solid var(--line)}
+.kf ul{list-style:none;margin:0;padding:18px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kf li{display:flex;flex-direction:column;gap:2px;padding-inline-start:12px;border-inline-start:3px solid var(--gold);min-width:0}
+.kf b{font-family:var(--display);font-size:1.12rem;line-height:1.25;color:var(--fg)}
+.kf span{color:var(--muted);font-size:.86rem;line-height:1.35}
+@media (max-width:760px){.kf ul{grid-template-columns:1fr 1fr;gap:14px 12px;padding:16px 0}}
 
 /* Comment ça marche */
 .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:st}
@@ -352,7 +344,7 @@ a.svc:hover{border-color:var(--gold);transform:translateY(-2px)}
 .svc a{margin-top:auto;padding-top:6px;font-weight:700;color:var(--gold-ink);text-decoration:none}
 .svc.hl{background:var(--navy);border-color:var(--navy);color:#fff}
 .svc.hl p{color:#c9d6ea}.svc.hl a{color:var(--gold)}
-.svc .tag{align-self:flex-start;background:var(--gold);color:var(--navy);font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 9px}
+.svc .tag{align-self:flex-start;background:var(--gold);color:var(--navy);font-size:.75rem;font-weight:700;border-radius:999px;padding:2px 9px}
 @media (max-width:1000px){.svcs{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.svcs{grid-template-columns:1fr;gap:8px}.svc{display:grid;grid-template-columns:34px 1fr;column-gap:12px;row-gap:2px;padding:12px 14px;align-items:start}.svc .ic{grid-row:span 2;font-size:1.4rem;margin-top:2px}.svc h3{font-size:1.05rem}.svc p{font-size:.88rem}.svc .tag{grid-column:2;justify-self:start}}
 .h3s{font-size:1.5rem;font-weight:800;font-stretch:85%;margin:0 0 16px}
@@ -389,8 +381,6 @@ ol.cods li::before{transform:none;height:26px;content:counter(cs);flex:none;disp
 .contact .full{grid-column:1/-1}
 /* Lisibilité et accessibilité */
 .hero .eyebrow{color:var(--gold)}
-.rate button{color:#7d8aa0}
-.rate button.on{color:var(--gold)}
 .lang,.burger,.htrk{min-height:40px}
 .svc a,.trklink{display:inline-flex;align-items:center;min-height:40px}
 .contact form.rap{background:var(--surface);color:var(--fg)}
@@ -476,7 +466,7 @@ footer a{color:var(--gold)}
     <div>
       <div class="eyebrow" data-i="heroEy">Meftah · Blida · Algérie</div>
       <h1 data-i="heroH" data-html>Vos colis livrés, <em>votre argent encaissé.</em></h1>
-      <p class="lead" data-i="heroP">On récupère vos colis chez vous et on les livre à Meftah et ses environs, et partout en Algérie avec nos partenaires. Votre client paie à la réception ; vous récupérez votre argent au bureau de Meftah.</p>
+      <p class="lead" data-i="heroP">On récupère vos colis chez vous et on les livre à Meftah et ses environs, et dans les 69 wilayas avec nos partenaires. Votre client paie à la réception ; vous récupérez votre argent au bureau de Meftah.</p>
       <div class="hbox" id="suivi">
       <div class="htabs" role="tablist" aria-label="Outils" data-al="htAl">
         <button type="button" role="tab" id="htS" aria-controls="fTrack" aria-selected="true" data-i="ht1">📍 Suivre</button>
@@ -491,7 +481,7 @@ footer a{color:var(--gold)}
         </div>
         <div class="trow"><label for="trkNum" class="sr" data-i="trkL2">Numéro de suivi ou téléphone</label><input id="trkNum" name="trk" required autocomplete="off" data-ph="trkPh" placeholder="Numéro de suivi"><button class="btn gold" type="submit" data-i="trkB">Suivre</button></div>
         <a class="trklink" id="trkGo" target="_blank" rel="noopener" hidden></a>
-        <div class="tres" id="trkRes" hidden></div>
+        <div class="tres" id="trkRes" aria-live="polite" hidden></div>
         <p class="thelp" data-i="trkHelp">Numéro inscrit sur le bordereau. Plusieurs colis : séparez les numéros par un espace (25 max).</p>
       </form>
       <div class="hpan" id="pTarif" role="tabpanel" aria-labelledby="htT" hidden>
@@ -520,26 +510,13 @@ footer a{color:var(--gold)}
   </div>
 </section>
 
-<section class="paths" aria-label="Accès rapides" data-i-al="pathsAl">
-  <div class="wrap">
-    <div class="aud">
-      <h2 data-i="audS">Vous vendez et envoyez des colis</h2>
-      <div class="pl">
-        <a class="path main" href="#expediteur"><b data-i="pa3">📦 Devenir expéditeur</b><span data-i="pa3s">Inscription gratuite, on vous rappelle.</span></a>
-        <a class="path" href="#tarifs"><b data-i="pa2">💰 Tarifs</b><span data-i="pa2s">Calculez le prix par wilaya, à domicile ou en stop desk.</span></a>
-        <a class="path" href="#cod"><b data-i="pa4">💵 Mon argent COD</b><span data-i="pa4s">Récupérer l'argent de vos colis livrés.</span></a>
-        <a class="path shop" href="#boutique"><b data-i="pa6">🛍️ Boutique gratuite</b><span data-i="pa6s">Vendez en ligne avec votre propre lien.</span></a>
-      </div>
-    </div>
-    <div class="aud rcv">
-      <h2 data-i="audR">Vous attendez un colis</h2>
-      <div class="pl">
-        <a class="path" href="#suivi"><b data-i="pa1">📍 Suivre un colis</b><span data-i="pa1s">Avec le numéro de suivi ou votre téléphone.</span></a>
-        <a class="path" href="#services"><b data-i="pa7">🗺️ Zones et délais</b><span data-i="pa7s">Où on livre, à domicile ou en stop desk.</span></a>
-        <a class="path" href="#aide"><b data-i="pa5">🛟 Assistance</b><span data-i="pa5s">Réclamation, WhatsApp ou téléphone.</span></a>
-      </div>
-    </div>
-  </div>
+<section class="kf" aria-label="L'essentiel" data-i-al="kfAl">
+  <div class="wrap"><ul>
+    <li><b data-i="kf1">69 wilayas</b><span data-i="kf1s">livrées avec nos partenaires</span></li>
+    <li><b data-i="kf2">Retours gratuits</b><span data-i="kf2s">pour un colis refusé</span></li>
+    <li><b data-i="kf3">Fonds sous 48 h</b><span data-i="kf3s">reversement de votre argent COD</span></li>
+    <li><b data-i="kf4">Ramassage</b><span data-i="kf4s">chez vous, sans vous déplacer</span></li>
+  </ul></div>
 </section>
 
 <section class="block" id="services">
@@ -553,7 +530,7 @@ footer a{color:var(--gold)}
       <a class="svc" href="#expediteur"><span class="ic" aria-hidden="true">🛵</span><h3 data-i="sv1">Ramassage des colis</h3><p data-i="sv1p">On passe récupérer vos colis chez vous, vous n'avez pas à vous déplacer.</p></a>
       <a class="svc" href="#suivi"><span class="ic" aria-hidden="true">🔎</span><h3 data-i="sv4">Suivi des expéditions</h3><p data-i="sv4p">Un numéro de suivi par colis, jusqu'à 25 colis suivis à la fois, et une recherche par téléphone.</p></a>
       <a class="svc" href="#tarifs"><span class="ic" aria-hidden="true">↩️</span><h3 data-i="sv5">Gestion des retours</h3><p data-i="sv5p">Un colis refusé par le client vous est retourné gratuitement.</p></a>
-      <a class="svc" href="#cod"><span class="ic" aria-hidden="true">💵</span><h3 data-i="sv2">Reversement des fonds</h3><p data-i="sv2p">Le client paie à la livraison ; vous récupérez l'argent de vos colis livrés en espèces, au bureau de Meftah.</p></a>
+      <a class="svc" href="#cod"><span class="ic" aria-hidden="true">💵</span><h3 data-i="sv2">Reversement des fonds</h3><p data-i="sv2p">Le client paie à la livraison ; vos fonds sont reversés sous 48 h, en espèces au bureau de Meftah.</p></a>
       <a class="svc" href="#tarifs"><span class="ic" aria-hidden="true">💰</span><h3 data-i="sv6">Tarifs par wilaya</h3><p data-i="sv6p">Une grille claire, à domicile ou en stop desk, calculable en ligne et téléchargeable en PDF.</p></a>
       <a class="svc" href="#bureaux"><span class="ic" aria-hidden="true">🏢</span><h3 data-i="sv7">Bureaux partenaires</h3><p data-i="sv7p">Des bureaux de retrait dans de nombreuses wilayas pour la livraison en stop desk.</p></a>
       <a class="svc hl" href="#boutique"><span class="tag" data-i="sv3t">Offert aux expéditeurs</span><span class="ic" aria-hidden="true">🛍️</span><h3 data-i="sv3">Boutique en ligne gratuite</h3><p data-i="sv3p">Vos produits en ligne, en français et en arabe. Vos clients commandent depuis votre lien et MT Delivery livre.</p></a>
@@ -571,7 +548,7 @@ footer a{color:var(--gold)}
         <h3 data-i="zH">Zones desservies</h3>
         <ul class="facts">
           <li data-i="z1">Meftah et ses environs : livraison locale par MT Delivery (Meftah Centre, Meftah Dehors, environs).</li>
-          <li data-i="z2">Autres wilayas : livraison avec nos partenaires, au départ de Blida (wilaya 09).</li>
+          <li data-i="z2">Les 69 wilayas : livraison avec nos partenaires, au départ de Blida (wilaya 09).</li>
           <li data-i="z3">À domicile, ou en stop desk : le client récupère son colis au bureau.</li>
         </ul>
       </div>
@@ -979,8 +956,8 @@ const WILAYAS=[[1, "Adrar", "أدرار", 1550, 950], [2, "Chlef", "الشلف",
 const T={ar:{
 mMenu:"القائمة",n0:"تتبّع طرد",n1:"الأسعار",n2:"كن مرسِلًا",n3:"أموالي COD",n4:"الآراء",n5:"المساعدة",n6:"متجر إلكتروني",n7:"كن موصّلًا",
 heroEy:"مفتاح · البليدة · الجزائر",heroH:"نوصل طرودك، <em>ونحصّل أموالك.</em>",
-heroP:"نستلم طرودك من عندك ونوصلها في مفتاح وضواحيها، وإلى كل أنحاء الجزائر عبر شركائنا. يدفع زبونك عند الاستلام، وتستلم أموالك من مكتبنا في مفتاح.",
-cta1:"📦 انضم إلينا كتاجر",cta2:"احسب السعر",trkL:"رقم التتبع",trkT:"رقم هاتفي",telPh:"رقم هاتفك (05 / 06 / 07)",trkPh:"رقم التتبع",trkB:"تتبّع",
+heroP:"نستلم طرودك من عندك ونوصلها في مفتاح وضواحيها، وإلى 69 ولاية عبر شركائنا. يدفع زبونك عند الاستلام، وتستلم أموالك من مكتبنا في مفتاح.",
+cta1:"📦 انضم إلينا كتاجر",trkL:"رقم التتبع",trkT:"رقم هاتفي",telPh:"رقم هاتفك (05 / 06 / 07)",trkPh:"رقم التتبع",trkB:"تتبّع",
 svEy:"توصيل الطرود",svH:"كيف نعمل",
 p1:"الاستلام من المنزل",p1s:"نمر لأخذ طرودك.",p2:"مفتاح وضواحيها",p2s:"توصيل محلي سريع.",p3:"كل الجزائر",p3s:"عبر شركائنا.",p4:"رقم تتبع",p4s:"لكل طرد.",p5:"دفع عند الاستلام وإرجاع مجاني",p5s:"الدفع عند الاستلام، والإرجاع بلا مصاريف.",
 fbH:"جائع؟",fbP:"اطلب الوجبات والأكل السريع والحلويات على MT Food.",fbBtn:"اذهب إلى MT Food",
@@ -996,17 +973,18 @@ cEy:"فضاء المرسِل",cH:"اطلب أموالي COD",cP:"المال ال
 lSuivis:"أرقام تتبع الطرود الموصّلة",phSuivis:"رقم في كل سطر",lMont:'المبلغ المنتظر (دج) <span class="opt">اختياري</span>',bCod:"أرسل طلبي",
 aEy:"آراء الزبائن",aH:"ماذا يقول زبائننا",aEmpty:"لا توجد آراء بعد. كن أول من يشارك رأيه.",lNote:"تقييمك",lPrenomBout:"الاسم أو اسم المحل",lAvis:"رأيك",bAvis:"انشر رأيي",
 lvEy:"توظيف",lvH:"كن موصّلًا لدى MT Delivery",lvP:"لديك مركبة وتعرف منطقتك جيدًا؟ انضم إلى الفريق: اترك معلوماتك وسنتصل بك لإجراء مقابلة.",lv1:"توصيل في مفتاح وضواحيها",lv2:"الترشح مجاني ودون التزام",lv3:"المقابلة والتحقق من الوثائق في المكتب",lLvCom:"بلدية الإقامة",lLvWil:"الولاية",wBli:"البليدة",wBou:"بومرداس",wAlg:"الجزائر",o9:"اختر الولاية أولًا",lLvZon:"أين تريد العمل؟",lLvZonA:"اختر ولاية أو أكثر، ثم البلديات.",lLvZonT:"كل البلديات",lLvZonE:"اختر بلدية واحدة على الأقل.",lLvVeh:"المركبة",v1:"دراجة نارية / سكوتر",v2:"سيارة",v3:"مركبة نفعية",lv0:"رخصة السياقة إلزامية",lLvDis:"التوفر",d1:"دوام كامل",d2:"دوام جزئي",d3:"نهاية الأسبوع فقط",lLvMsg:'الخبرة والملاحظات <span class="opt">اختياري</span>',bLiv:"أرسل طلبي",rEy:"المساعدة",rH:"مشكلة؟ نتكفل بها",rP:"تأخر، طرد متضرر أو ضائع، دفع COD، موصّل: صف المشكلة في استمارة الشكوى هذه، أو اتصل بنا مباشرة.",lNomComplet:"الاسم واللقب",lSuivi:'رقم التتبع <span class="opt">إن وجد</span>',lType:"السبب",r1:"تأخر التوصيل",r2:"طرد متضرر",r3:"طرد ضائع",r4:"دفع COD",r5:"سلوك الموصّل",lDesc:"وصف المشكلة",bRec:"أرسل الشكوى",
-kEy:"اتصل بنا",kH:"شركة محلية قريبة منك",kP:"زورونا، اتصلوا بنا أو راسلونا على واتساب.",kAd:"العنوان",kIt:"الاتجاهات",kHo:"أوقات العمل",hor:'من السبت إلى الخميس: <bdi dir="ltr">9:00 – 18:00</bdi>',hor2:"الجمعة: مغلق",kMap:"شاهد المكتب على خرائط Google",kMap2:"الاتجاهات انطلاقًا من موقعك",n8:"اتصل بنا",trkL2:"رقم التتبع أو الهاتف",htAl:"أدوات",ht1:"📍 تتبّع",ht2:"💰 السعر",ht3:"🏢 مكتب",htWL:"إلى أين يُرسل الطرد؟",htNote:"السعر لكل طرد انطلاقًا من البليدة.",htMore:"الحساب المفصّل ←",hbWL:"ابحث عن مكتب شريك (التوصيل إلى المكتب)",hbGo:"عرض",rapT:"📞 نعاود الاتصال بك",rapP:"اترك رقمك: يتصل بك الفريق خلال أوقات العمل.",lRpSuj:"الموضوع",rs1:"أصبح مرسِلًا",rs2:"الأسعار",rs3:"تتبّع طرد",rs4:"أموال COD",rs5:"المتجر الإلكتروني",lRpMom:"متى نتصل بك؟",rm1:"في أقرب وقت",rm2:"صباحًا (من 9:00 إلى 12:00)",rm3:"مساءً (من 12:00 إلى 18:00)",lRpMsg:'سؤالك <span class="opt">اختياري</span>',bRap:"اطلب معاودة الاتصال",pqEy:"لماذا MT Delivery",pqH:"ما الذي تكسبه بالعمل معنا",pq1:"فريق في مفتاح",pq1p:'مكتب حقيقي في حي النصر (Les HLM)، مفتوح من السبت إلى الخميس، من <bdi dir="ltr">9:00</bdi> إلى <bdi dir="ltr">18:00</bdi>.',pq2:"الاستلام من عندك",pq2p:"لا داعي للتنقل: نمر لأخذ طرودك.",pq3:"كل طرد متتبَّع",pq3p:"رقم تتبع لكل طرد، وبحث برقم الهاتف لزبائنك.",pq4:"الدفع عند الاستلام",pq4p:"يدفع زبونك عند الاستلام، وتستلم أموالك نقدًا من المكتب.",pq5:"إرجاع مجاني",pq5p:"الطرد الذي يرفضه الزبون يعود إليك دون مصاريف.",pq6:"أسعار شفافة",pq6p:"جدول عمومي حسب الولاية، تحسبه على الإنترنت أو تحمّله، دون مفاجآت.",n9:"مكاتب الشركاء",n9s:"المكاتب",bxEy:"التوصيل إلى المكتب",bxH:"مكاتب الشركاء",bxP:"خارج مفتاح، تعمل MT Delivery مع شريك توصيل. هذه المكاتب تابعة له: يستلم فيها زبائنك طرودهم عند اختيار التوصيل إلى المكتب. اختر ولاية أو ابحث عن مدينة.",bxL1:"الولاية",bxL2:"بحث",bxAll:"اختر ولاية…",bxPh:"مدينة، حي…",waFab:"واتساب",waAl:"راسل MT Delivery عبر واتساب",adr:"حي النصر (Les HLM) – مفتاح – البليدة",kTel:"الهاتف / واتساب",cp:"نسخ",cp2:"نسخ",fLiv:"كن موصّلًا",trkH:"تتبّع طرد",trkHelp:"الرقم مكتوب على وصل الطرد. عدة طرود: افصل بين الأرقام بمسافة (25 كحد أقصى).",pathsAl:"وصول سريع",pa1:"📍 تتبّع طرد",pa1s:"برقم التتبع أو برقم هاتفك.",pa2:"💰 الأسعار",pa2s:"احسب السعر حسب الولاية، إلى المنزل أو إلى المكتب.",pa3:"📦 كن مرسِلًا",pa3s:"التسجيل مجاني، ونتصل بك.",pa4:"💵 أموالي COD",pa4s:"استلم أموال طرودك الموصّلة.",pa5:"🛟 المساعدة",pa5s:"شكوى، واتساب أو هاتف.",svP:"من التسجيل إلى استلام أموالك، في أربع خطوات.",st1:"التسجيل",st1s:"املأ استمارة المرسِل، ونتصل بك لتنظيم أول استلام.",st2:"الاستلام من عندك",st2s:"نمر لأخذ طرودك، ولكل طرد رقم تتبع.",st3:"التوصيل والدفع",st3s:"يُسلَّم الطرد إلى المنزل أو إلى المكتب، ويدفع الزبون عند الاستلام (COD). الطرد المرفوض: إرجاع مجاني.",st4:"أموالك",st4s:"تم توصيل طرودك؟ اطلب أموالك: نؤكد لك المبلغ، وتستلمه نقدًا من مكتبنا في مفتاح.",zH:"مناطق التوصيل",z1:"مفتاح وضواحيها: توصيل محلي من طرف MT Delivery (مفتاح وسط، خارج مفتاح، الضواحي).",z2:"باقي الولايات: التوصيل مع شركائنا، انطلاقًا من البليدة (الولاية 09).",z3:"إلى المنزل، أو إلى المكتب: يستلم الزبون طرده من المكتب.",dH:"مدة التوصيل",dP:"تختلف المدة حسب الوجهة وطريقة التوصيل. لمعرفة المدة التقريبية قبل الإرسال، اسألنا عبر واتساب.",dBtn:"اسأل عن المدة",ti5:"الدفع عند الاستلام (COD): يدفع زبونك عند استلام الطرد",ti6:"الطرود التي يتجاوز وزنها 5 كغ: زيادة 50 دج عن كل كيلوغرام",tPdf:"📄 تحميل جدول الأسعار (PDF)",tClr:"مسح",tWa:"اسأل عن السعر",lPieceWhy:"<b>لماذا؟</b> بطاقة التعريف إلزامية لفتح حساب مرسِل: تسمح بالتحقق من هوية صاحب الحساب. لا يطّلع عليها إلا فريق MT Delivery. تُحذف من الموقع بمجرد معالجة تسجيلك، وفي أقصى تقدير بعد 30 يومًا، وتُحفظ نسخة ورقية في ملفك بالمكتب.",c0:"تأكد أن طرودك تم توصيلها، عبر التتبع في أعلى الصفحة.",cBox:"<b>الدفع نقدًا فقط، في المكتب.</b> سؤال حول تحويل أموالك؟ راسلنا عبر واتساب.",cWa:"سؤال حول التحويل",aP:"الآراء أدناه أرسلها زبائننا عبر هذه الاستمارة، ثم نشرها فريقنا.",callBtn:'اتصل بـ <bdi dir="ltr">05 60 78 84 97</bdi>',callBtn2:"اتصل",fAdr:"حي النصر (Les HLM)، مفتاح، البليدة",fAl:"روابط",hTrk:"تتبّع",hTrkAl:"تتبّع طرد",heroShop:"إضافة: <b>متجر إلكتروني مجاني</b> لتجّارنا",audS:"تبيع وترسل طرودًا",audR:"تنتظر طردًا",pa6:"🛍️ متجر مجاني",pa6s:"بِع عبر الإنترنت برابطك الخاص.",pa7:"🗺️ المناطق والمدة",pa7s:"أين نوصل، إلى المنزل أو إلى المكتب.",svH2:"شريكك اللوجستي",svP2:"من استلام الطرود إلى تحويل أموالك، تتكفل MT Delivery بكل مراحل توصيل طلبيات متجرك.",sv1:"استلام الطرود",sv1p:"نمر لأخذ طرودك من عندك، دون أن تتنقل.",sv1a:"شاهد الأسعار ←",sv2:"تحويل الأموال",sv2p:"يدفع الزبون عند الاستلام، وتستلم أموال طرودك الموصّلة نقدًا من مكتبنا في مفتاح.",sv2a:"استلم أموالي ←",sv3t:"هدية للمرسِلين",sv3:"متجر إلكتروني مجاني",sv3p:"منتجاتك على الإنترنت بالعربية والفرنسية. يطلب زبائنك من رابطك وتوصل MT Delivery.",sv3a:"اكتشف المتجر ←",simH:"احسب سعر التوصيل",simL:"وجهة الطرد",simModeAl:"طريقة التوصيل",simTxt0:"اختر وجهة.",sv4:"تتبّع الشحنات",sv4p:"رقم تتبع لكل طرد، وتتبّع حتى 25 طردًا في آن واحد، وبحث برقم الهاتف.",sv5:"تسيير المرتجعات",sv5p:"الطرد الذي يرفضه الزبون يعود إليك مجانًا.",sv6:"أسعار حسب الولاية",sv6p:"جدول واضح، إلى المنزل أو إلى المكتب، مع حساب على الإنترنت وملف PDF للتحميل.",sv7:"مكاتب الشركاء",sv7p:"مكاتب استلام في عدد كبير من الولايات للتوصيل إلى المكتب.",sv8:"المساعدة",sv8p:"شكوى، طلب معاودة الاتصال، واتساب أو هاتف: فريق في متناولك بمفتاح.",pq7:"متاحون دائمًا",pq7p:"هاتف، واتساب، طلب معاودة الاتصال أو شكوى: تتحدث مع الفريق الذي يتكفل بطرودك."}};
+kfAl:"أهم المزايا",kf1:"69 ولاية",kf1s:"نوصلها مع شركائنا",kf2:"إرجاع مجاني",kf2s:"للطرد المرفوض",kf3:"أموالك خلال 48 ساعة",kf3s:"تحويل أموال الدفع عند الاستلام",kf4:"استلام الطرود",kf4s:"من عندك، دون أن تتنقّل",
+kEy:"اتصل بنا",kH:"شركة محلية قريبة منك",kP:"زورونا، اتصلوا بنا أو راسلونا على واتساب.",kAd:"العنوان",kIt:"الاتجاهات",kHo:"أوقات العمل",hor:'من السبت إلى الخميس: <bdi dir="ltr">9:00 – 18:00</bdi>',hor2:"الجمعة: مغلق",kMap:"شاهد المكتب على خرائط Google",kMap2:"الاتجاهات انطلاقًا من موقعك",n8:"اتصل بنا",trkL2:"رقم التتبع أو الهاتف",htAl:"أدوات",ht1:"📍 تتبّع",ht2:"💰 السعر",ht3:"🏢 مكتب",htWL:"إلى أين يُرسل الطرد؟",htNote:"السعر لكل طرد انطلاقًا من البليدة.",htMore:"الحساب المفصّل ←",hbWL:"ابحث عن مكتب شريك (التوصيل إلى المكتب)",hbGo:"عرض",rapT:"📞 نعاود الاتصال بك",rapP:"اترك رقمك: يتصل بك الفريق خلال أوقات العمل.",lRpSuj:"الموضوع",rs1:"أصبح مرسِلًا",rs2:"الأسعار",rs3:"تتبّع طرد",rs4:"أموال COD",rs5:"المتجر الإلكتروني",lRpMom:"متى نتصل بك؟",rm1:"في أقرب وقت",rm2:"صباحًا (من 9:00 إلى 12:00)",rm3:"مساءً (من 12:00 إلى 18:00)",lRpMsg:'سؤالك <span class="opt">اختياري</span>',bRap:"اطلب معاودة الاتصال",pqEy:"لماذا MT Delivery",pqH:"ما الذي تكسبه بالعمل معنا",pq1:"فريق في مفتاح",pq1p:'مكتب حقيقي في حي النصر (Les HLM)، مفتوح من السبت إلى الخميس، من <bdi dir="ltr">9:00</bdi> إلى <bdi dir="ltr">18:00</bdi>.',pq2:"الاستلام من عندك",pq2p:"لا داعي للتنقل: نمر لأخذ طرودك.",pq3:"كل طرد متتبَّع",pq3p:"رقم تتبع لكل طرد، وبحث برقم الهاتف لزبائنك.",pq4:"الدفع عند الاستلام",pq4p:"يدفع زبونك عند الاستلام، وتستلم أموالك نقدًا من المكتب.",pq5:"إرجاع مجاني",pq5p:"الطرد الذي يرفضه الزبون يعود إليك دون مصاريف.",pq6:"أسعار شفافة",pq6p:"جدول عمومي حسب الولاية، تحسبه على الإنترنت أو تحمّله، دون مفاجآت.",n9:"مكاتب الشركاء",n9s:"المكاتب",bxEy:"التوصيل إلى المكتب",bxH:"مكاتب الشركاء",bxP:"خارج مفتاح، تعمل MT Delivery مع شريك توصيل. هذه المكاتب تابعة له: يستلم فيها زبائنك طرودهم عند اختيار التوصيل إلى المكتب. اختر ولاية أو ابحث عن مدينة.",bxL1:"الولاية",bxL2:"بحث",bxAll:"اختر ولاية…",bxPh:"مدينة، حي…",waFab:"واتساب",waAl:"راسل MT Delivery عبر واتساب",adr:"حي النصر (Les HLM) – مفتاح – البليدة",kTel:"الهاتف / واتساب",cp:"نسخ",cp2:"نسخ",fLiv:"كن موصّلًا",trkH:"تتبّع طرد",trkHelp:"الرقم مكتوب على وصل الطرد. عدة طرود: افصل بين الأرقام بمسافة (25 كحد أقصى).",svP:"من التسجيل إلى استلام أموالك، في أربع خطوات.",st1:"التسجيل",st1s:"املأ استمارة المرسِل، ونتصل بك لتنظيم أول استلام.",st2:"الاستلام من عندك",st2s:"نمر لأخذ طرودك، ولكل طرد رقم تتبع.",st3:"التوصيل والدفع",st3s:"يُسلَّم الطرد إلى المنزل أو إلى المكتب، ويدفع الزبون عند الاستلام (COD). الطرد المرفوض: إرجاع مجاني.",st4:"أموالك",st4s:"تم توصيل طرودك؟ اطلب أموالك: نؤكد لك المبلغ، وتستلمه نقدًا من مكتبنا في مفتاح.",zH:"مناطق التوصيل",z1:"مفتاح وضواحيها: توصيل محلي من طرف MT Delivery (مفتاح وسط، خارج مفتاح، الضواحي).",z2:"الولايات الـ69: التوصيل مع شركائنا، انطلاقًا من البليدة (الولاية 09).",z3:"إلى المنزل، أو إلى المكتب: يستلم الزبون طرده من المكتب.",dH:"مدة التوصيل",dP:"تختلف المدة حسب الوجهة وطريقة التوصيل. لمعرفة المدة التقريبية قبل الإرسال، اسألنا عبر واتساب.",dBtn:"اسأل عن المدة",ti5:"الدفع عند الاستلام (COD): يدفع زبونك عند استلام الطرد",ti6:"الطرود التي يتجاوز وزنها 5 كغ: زيادة 50 دج عن كل كيلوغرام",tPdf:"📄 تحميل جدول الأسعار (PDF)",tClr:"مسح",tWa:"اسأل عن السعر",lPieceWhy:"<b>لماذا؟</b> بطاقة التعريف إلزامية لفتح حساب مرسِل: تسمح بالتحقق من هوية صاحب الحساب. لا يطّلع عليها إلا فريق MT Delivery. تُحذف من الموقع بمجرد معالجة تسجيلك، وفي أقصى تقدير بعد 30 يومًا، وتُحفظ نسخة ورقية في ملفك بالمكتب.",c0:"تأكد أن طرودك تم توصيلها، عبر التتبع في أعلى الصفحة.",cBox:"<b>الدفع نقدًا فقط، في المكتب.</b> سؤال حول تحويل أموالك؟ راسلنا عبر واتساب.",cWa:"سؤال حول التحويل",aP:"الآراء أدناه أرسلها زبائننا عبر هذه الاستمارة، ثم نشرها فريقنا.",callBtn:'اتصل بـ <bdi dir="ltr">05 60 78 84 97</bdi>',callBtn2:"اتصل",fAdr:"حي النصر (Les HLM)، مفتاح، البليدة",fAl:"روابط",hTrk:"تتبّع",hTrkAl:"تتبّع طرد",heroShop:"إضافة: <b>متجر إلكتروني مجاني</b> لتجّارنا",svH2:"شريكك اللوجستي",svP2:"من استلام الطرود إلى تحويل أموالك، تتكفل MT Delivery بكل مراحل توصيل طلبيات متجرك.",sv1:"استلام الطرود",sv1p:"نمر لأخذ طرودك من عندك، دون أن تتنقل.",sv1a:"شاهد الأسعار ←",sv2:"تحويل الأموال",sv2p:"يدفع الزبون عند الاستلام، وتُحوَّل أموالك خلال 48 ساعة، نقدًا في مكتبنا بمفتاح.",sv2a:"استلم أموالي ←",sv3t:"هدية للمرسِلين",sv3:"متجر إلكتروني مجاني",sv3p:"منتجاتك على الإنترنت بالعربية والفرنسية. يطلب زبائنك من رابطك وتوصل MT Delivery.",sv3a:"اكتشف المتجر ←",simH:"احسب سعر التوصيل",simL:"وجهة الطرد",simModeAl:"طريقة التوصيل",simTxt0:"اختر وجهة.",sv4:"تتبّع الشحنات",sv4p:"رقم تتبع لكل طرد، وتتبّع حتى 25 طردًا في آن واحد، وبحث برقم الهاتف.",sv5:"تسيير المرتجعات",sv5p:"الطرد الذي يرفضه الزبون يعود إليك مجانًا.",sv6:"أسعار حسب الولاية",sv6p:"جدول واضح، إلى المنزل أو إلى المكتب، مع حساب على الإنترنت وملف PDF للتحميل.",sv7:"مكاتب الشركاء",sv7p:"مكاتب استلام في عدد كبير من الولايات للتوصيل إلى المكتب.",sv8:"المساعدة",sv8p:"شكوى، طلب معاودة الاتصال، واتساب أو هاتف: فريق في متناولك بمفتاح.",pq7:"متاحون دائمًا",pq7p:"هاتف، واتساب، طلب معاودة الاتصال أو شكوى: تتحدث مع الفريق الذي يتكفل بطرودك."}};
 const M={fr:{
 doneSend:"Formulaire prêt. Appuyez sur le bouton pour l'envoyer sur WhatsApp :",saved:"✅ Demande enregistrée. Nous vous recontactons rapidement. Vous pouvez aussi nous l'envoyer sur WhatsApp :",avisSaved:"✅ Merci ! Votre avis a bien été transmis : il apparaîtra sur le site après vérification par notre équipe.",sending:"Envoi…",waSend:"Envoyer sur WhatsApp",copyMsg:"Copier le message",copied:"Copié",
 fill:"Merci de remplir les champs en rouge.",starsReq:"Choisissez une note de 1 à 5 étoiles.",
 avisOk:"Merci ! Votre avis est publié.",avisWa:"Votre avis n'a pas pu être publié ici. Envoyez-le-nous sur WhatsApp :",
-count:n=>n+" avis",grille:"Bonjour MT Delivery, je voudrais connaître le tarif de livraison vers ma wilaya : ",delai:"Bonjour MT Delivery, je voudrais connaître le délai de livraison vers : ",cod:"Bonjour MT Delivery, j'ai une question sur le versement de mon argent COD.",wCount:n=>n+" wilayas dans le tableau.",multiN:n=>n+" colis :",multiMax:"(25 numéros maximum à la fois)",multiInc:"Pas encore dans notre liste : ouvrez le suivi",bxCount:(n,w)=>n+" bureaux dans "+w+" wilayas. Choisissez une wilaya pour les voir.",bxRes:n=>n+(n>1?" bureaux trouvés.":" bureau trouvé."),bxNone:"Aucun bureau trouvé. Contactez-nous sur WhatsApp.",bxSee:n=>"📍 Voir "+(n>1?"les "+n+" bureaux":"le bureau")+" de cette wilaya",na:"Non disponible",simNa:"Livraison non disponible pour cette wilaya pour le moment. Contactez-nous sur WhatsApp.",sdNa:"Stop desk non disponible pour cette wilaya.",simLoc:"Meftah et environs",simWil:"Wilayas",simTxt0:"Choisissez une destination.",simLocTxt:"Livraison locale, prix par colis. Retour d'un colis refusé : gratuit. Au-delà de 5 kg : +50 DA par kilogramme.",simDom:"Livraison à domicile, prix par colis au départ de Blida. Retour d'un colis refusé : gratuit. Au-delà de 5 kg : +50 DA par kilogramme.",simSd:"Stop desk : le client récupère au bureau. Prix par colis au départ de Blida. Retour d'un colis refusé : gratuit. Au-delà de 5 kg : +50 DA par kilogramme.",hello:"Bonjour MT Delivery",trkGo:"Ouvrir le suivi du colis →",trkErr:"Entrez votre numéro de suivi.",telPh:"Votre numéro de téléphone (05 / 06 / 07)",pieceType:"Format non accepté : la pièce d'identité doit être un fichier PDF.",pieceTaille:"Fichier trop lourd (5 Mo maximum).",pieceLire:"Impossible de lire ce fichier PDF. Essayez un autre fichier.",pieceManque:"Ajoutez votre pièce d'identité en PDF.",telErr:"Entrez un numéro de téléphone valide, par exemple 0555 12 34 56.",telNone:"Aucun colis trouvé pour ce numéro. Vérifiez le numéro ou utilisez votre numéro de suivi.",telFail:"Recherche impossible pour le moment. Réessayez dans un instant.",telTrop:"Trop de recherches. Réessayez dans quelques minutes.",telSee:"Suivre →",telUpd:"Liste mise à jour le ",telWait:"Recherche…",
+count:n=>n+" avis",grille:"Bonjour MT Delivery, je voudrais connaître le tarif de livraison vers ma wilaya : ",delai:"Bonjour MT Delivery, je voudrais connaître le délai de livraison vers : ",cod:"Bonjour MT Delivery, j'ai une question sur le versement de mon argent COD.",wCount:n=>n+" wilayas dans le tableau.",multiN:n=>n+" colis :",multiMax:"(25 numéros maximum à la fois)",multiInc:"Pas encore dans notre liste : ouvrez le suivi",multiBad:n=>n+(n>1?" numéros ignorés":" numéro ignoré")+" : format non valide.",multiFail:"État indisponible pour le moment : ouvrez le suivi de chaque colis ci-dessous.",trkBad:"Numéro de suivi non valide : lettres et chiffres uniquement, 4 caractères minimum.",bxCount:(n,w)=>n+" bureaux dans "+w+" wilayas. Choisissez une wilaya pour les voir.",bxRes:n=>n+(n>1?" bureaux trouvés.":" bureau trouvé."),bxNone:"Aucun bureau trouvé. Contactez-nous sur WhatsApp.",bxSee:n=>"📍 Voir "+(n>1?"les "+n+" bureaux":"le bureau")+" de cette wilaya",na:"Non disponible",simNa:"Livraison non disponible pour cette wilaya pour le moment. Contactez-nous sur WhatsApp.",sdNa:"Stop desk non disponible pour cette wilaya.",simLoc:"Meftah et environs",simWil:"Wilayas",simTxt0:"Choisissez une destination.",simLocTxt:"Livraison locale, prix par colis. Retour d'un colis refusé : gratuit. Au-delà de 5 kg : +50 DA par kilogramme.",simDom:"Livraison à domicile, prix par colis au départ de Blida. Retour d'un colis refusé : gratuit. Au-delà de 5 kg : +50 DA par kilogramme.",simSd:"Stop desk : le client récupère au bureau. Prix par colis au départ de Blida. Retour d'un colis refusé : gratuit. Au-delà de 5 kg : +50 DA par kilogramme.",hello:"Bonjour MT Delivery",trkGo:"Ouvrir le suivi du colis →",trkErr:"Entrez votre numéro de suivi.",telPh:"Votre numéro de téléphone (05 / 06 / 07)",pieceType:"Format non accepté : la pièce d'identité doit être un fichier PDF.",pieceTaille:"Fichier trop lourd (5 Mo maximum).",pieceLire:"Impossible de lire ce fichier PDF. Essayez un autre fichier.",pieceManque:"Ajoutez votre pièce d'identité en PDF.",telErr:"Entrez un numéro de téléphone valide, par exemple 0555 12 34 56.",telNone:"Aucun colis trouvé pour ce numéro. Vérifiez le numéro ou utilisez votre numéro de suivi.",telFail:"Recherche impossible pour le moment. Réessayez dans un instant.",telTrop:"Trop de recherches. Réessayez dans quelques minutes.",telSee:"Suivre →",telUpd:"Liste mise à jour le ",telWait:"Recherche…",
 tExp:"Nouvelle inscription expéditeur",tCod:"Demande de versement COD",tRec:"Réclamation",tLiv:"Candidature livreur",tRap:"Demande de rappel",tAv:"Avis client",onDemand:"Selon la wilaya",free:"Gratuit"},
 ar:{doneSend:"الاستمارة جاهزة. اضغط على الزر لإرسالها عبر واتساب:",saved:"✅ تم تسجيل طلبك. سنتصل بك قريبًا. يمكنك أيضًا إرساله لنا عبر واتساب:",avisSaved:"✅ شكرًا! تم إرسال رأيك، وسيظهر على الموقع بعد مراجعته من طرف فريقنا.",sending:"جارٍ الإرسال…",waSend:"أرسل عبر واتساب",copyMsg:"انسخ الرسالة",copied:"تم النسخ",
 fill:"يرجى ملء الخانات باللون الأحمر.",starsReq:"اختر تقييمًا من 1 إلى 5 نجوم.",
 avisOk:"شكرًا! تم نشر رأيك.",avisWa:"تعذر نشر رأيك هنا. أرسله لنا عبر واتساب:",
-count:n=>n+" رأي",grille:"السلام عليكم، أريد معرفة سعر التوصيل إلى ولايتي: ",delai:"السلام عليكم، أريد معرفة مدة التوصيل إلى: ",cod:"السلام عليكم، لدي سؤال حول تحويل أموالي COD.",wCount:n=>n+" ولاية في الجدول.",multiN:n=>"عدد الطرود: "+n,multiMax:"(25 رقمًا كحد أقصى في كل مرة)",multiInc:"غير موجود في قائمتنا بعد: افتح التتبع",bxCount:(n,w)=>n+" مكتبًا في "+w+" ولاية. اختر ولاية لعرضها.",bxRes:n=>"عدد المكاتب: "+n+".",bxNone:"لا يوجد مكتب. اتصل بنا عبر واتساب.",bxSee:n=>"📍 شاهد مكاتب هذه الولاية ("+n+")",na:"غير متوفر",simNa:"التوصيل غير متوفر لهذه الولاية حاليًا. اتصل بنا عبر واتساب.",sdNa:"التوصيل إلى المكتب غير متوفر لهذه الولاية.",simLoc:"مفتاح وضواحيها",simWil:"الولايات",simTxt0:"اختر وجهة.",simLocTxt:"توصيل محلي، السعر لكل طرد. إرجاع الطرد المرفوض: مجاني. فوق 5 كغ: زيادة 50 دج عن كل كيلوغرام.",simDom:"توصيل إلى المنزل، السعر لكل طرد انطلاقًا من البليدة. إرجاع الطرد المرفوض: مجاني. فوق 5 كغ: زيادة 50 دج عن كل كيلوغرام.",simSd:"إلى المكتب: يستلم الزبون طرده من المكتب. السعر لكل طرد انطلاقًا من البليدة. إرجاع الطرد المرفوض: مجاني. فوق 5 كغ: زيادة 50 دج عن كل كيلوغرام.",hello:"السلام عليكم",trkGo:"افتح تتبّع الطرد ←",trkErr:"أدخل رقم التتبع.",telPh:"رقم هاتفك (05 / 06 / 07)",pieceType:"صيغة غير مقبولة: يجب أن تكون بطاقة التعريف ملف PDF.",pieceTaille:"الملف كبير جدًا (5 ميغابايت كحد أقصى).",pieceLire:"تعذرت قراءة ملف PDF هذا. جرّب ملفًا آخر.",pieceManque:"أضف بطاقة التعريف بصيغة PDF.",telErr:"أدخل رقم هاتف صحيح، مثلًا 0555 12 34 56.",telNone:"لا يوجد طرد بهذا الرقم. تحقق من الرقم أو استعمل رقم التتبع.",telFail:"تعذر البحث حاليًا. أعد المحاولة بعد قليل.",telTrop:"عدد كبير من عمليات البحث. أعد المحاولة بعد بضع دقائق.",telSee:"تتبّع ←",telUpd:"آخر تحديث للقائمة: ",telWait:"جارٍ البحث…",
+count:n=>n+" رأي",grille:"السلام عليكم، أريد معرفة سعر التوصيل إلى ولايتي: ",delai:"السلام عليكم، أريد معرفة مدة التوصيل إلى: ",cod:"السلام عليكم، لدي سؤال حول تحويل أموالي COD.",wCount:n=>n+" ولاية في الجدول.",multiN:n=>"عدد الطرود: "+n,multiMax:"(25 رقمًا كحد أقصى في كل مرة)",multiInc:"غير موجود في قائمتنا بعد: افتح التتبع",multiBad:n=>"تم تجاهل "+n+" رقم: صيغة غير صالحة.",multiFail:"الحالة غير متوفرة حاليًا: افتح تتبّع كل طرد أدناه.",trkBad:"رقم تتبع غير صالح: حروف وأرقام فقط، 4 رموز على الأقل.",bxCount:(n,w)=>n+" مكتبًا في "+w+" ولاية. اختر ولاية لعرضها.",bxRes:n=>"عدد المكاتب: "+n+".",bxNone:"لا يوجد مكتب. اتصل بنا عبر واتساب.",bxSee:n=>"📍 شاهد مكاتب هذه الولاية ("+n+")",na:"غير متوفر",simNa:"التوصيل غير متوفر لهذه الولاية حاليًا. اتصل بنا عبر واتساب.",sdNa:"التوصيل إلى المكتب غير متوفر لهذه الولاية.",simLoc:"مفتاح وضواحيها",simWil:"الولايات",simTxt0:"اختر وجهة.",simLocTxt:"توصيل محلي، السعر لكل طرد. إرجاع الطرد المرفوض: مجاني. فوق 5 كغ: زيادة 50 دج عن كل كيلوغرام.",simDom:"توصيل إلى المنزل، السعر لكل طرد انطلاقًا من البليدة. إرجاع الطرد المرفوض: مجاني. فوق 5 كغ: زيادة 50 دج عن كل كيلوغرام.",simSd:"إلى المكتب: يستلم الزبون طرده من المكتب. السعر لكل طرد انطلاقًا من البليدة. إرجاع الطرد المرفوض: مجاني. فوق 5 كغ: زيادة 50 دج عن كل كيلوغرام.",hello:"السلام عليكم",trkGo:"افتح تتبّع الطرد ←",trkErr:"أدخل رقم التتبع.",telPh:"رقم هاتفك (05 / 06 / 07)",pieceType:"صيغة غير مقبولة: يجب أن تكون بطاقة التعريف ملف PDF.",pieceTaille:"الملف كبير جدًا (5 ميغابايت كحد أقصى).",pieceLire:"تعذرت قراءة ملف PDF هذا. جرّب ملفًا آخر.",pieceManque:"أضف بطاقة التعريف بصيغة PDF.",telErr:"أدخل رقم هاتف صحيح، مثلًا 0555 12 34 56.",telNone:"لا يوجد طرد بهذا الرقم. تحقق من الرقم أو استعمل رقم التتبع.",telFail:"تعذر البحث حاليًا. أعد المحاولة بعد قليل.",telTrop:"عدد كبير من عمليات البحث. أعد المحاولة بعد بضع دقائق.",telSee:"تتبّع ←",telUpd:"آخر تحديث للقائمة: ",telWait:"جارٍ البحث…",
 tExp:"تسجيل مرسِل جديد",tCod:"طلب تحويل أموال COD",tRec:"شكوى",tLiv:"طلب عمل موصّل",tRap:"طلب معاودة الاتصال",tAv:"رأي زبون",onDemand:"حسب الولاية",free:"مجاني"}};
 
 const FR={},FRH={},FRPH={},FRAL={};
@@ -1077,46 +1055,51 @@ function setMode(m){
 document.getElementById("mNum").onclick=()=>setMode("num");
 document.getElementById("mTel").onclick=()=>setMode("tel");
 const clsEtat=s=>/livr[ée]/i.test(s)&&!/en livraison/i.test(s)?"ok":/retour/i.test(s)?"ret":"";
+const trkInp=document.getElementById("trkNum"),trkBtn=document.querySelector("#fTrack button[type=submit]");
+const trkMsg=(t,err,champ=err)=>{const res=document.getElementById("trkRes");res.hidden=false;res.innerHTML=`<p${err?' class="err"':""}>${esc(t)}</p>`;trkInp.setAttribute("aria-invalid",champ?"true":"false");if(champ)trkInp.focus()};
+const trkBusy=on=>{trkBtn.disabled=on;document.getElementById("fTrack").setAttribute("aria-busy",on)};
+trkInp.addEventListener("input",()=>trkInp.removeAttribute("aria-invalid"));
+const dateMaj=d=>new Date(d).toLocaleString(lang==="ar"?"ar-DZ":"fr-DZ",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",hourCycle:"h23"});
+const carteColis=(c,m,sansEtat)=>`<div class="pc"><div><b>${esc(c.id)}</b>${c.inconnu?(sansEtat?"":`<small>${esc(m.multiInc)}</small>`):`<small>${esc(c.wilaya||"")}${c.date?" · "+esc(String(c.date).slice(0,10)):""}</small><span class="st ${clsEtat(c.etat)}">${esc(c.etat||"")}</span>`}</div><a href="${TRACK_URL+encodeURIComponent(c.id)}" target="_blank" rel="noopener">${esc(m.telSee)}</a></div>`;
 async function suiviMulti(nums){
-  const res=document.getElementById("trkRes"),m=M[lang];res.hidden=false;
-  const bons=nums.filter(n=>/^[A-Z0-9-]{4,40}$/.test(n));
-  if(!bons.length){res.innerHTML=`<p>${esc(m.trkErr)}</p>`;return}
-  const trop=bons.length>25;res.innerHTML=`<p>${esc(m.telWait)}</p>`;
-  let liste=bons.slice(0,25).map(id=>({id,inconnu:true})),upd=null;
+  const m=M[lang];
+  const bons=nums.filter(n=>/^[A-Z0-9-]{4,40}$/.test(n)),ignores=nums.length-bons.length;
+  if(!bons.length){trkMsg(m.trkBad,1);return}
+  const trop=bons.length>25;trkMsg(m.telWait);trkBusy(true);
+  let liste=bons.slice(0,25).map(id=>({id,inconnu:true})),upd=null,echec=false;
   try{const r=await fetch("/api/suivi",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({nums:bons.slice(0,25)})});
-    if(r.status===429){res.innerHTML=`<p>${esc(m.telTrop)}</p>`;return}
-    const j=await r.json();if(j.ok){liste=j.colis;upd=j.updatedAt}}catch(err){}
-  res.innerHTML=`<p>${esc(m.multiN(liste.length))}${trop?" "+esc(m.multiMax):""}</p>`+liste.map(c=>`<div class="pc"><div><b>${esc(c.id)}</b>${c.inconnu?`<small>${esc(m.multiInc)}</small>`:`<small>${esc(c.wilaya||"")}${c.date?" · "+esc(String(c.date).slice(0,10)):""}</small><span class="st ${clsEtat(c.etat)}">${esc(c.etat||"")}</span>`}</div><a href="${TRACK_URL+encodeURIComponent(c.id)}" target="_blank" rel="noopener">${esc(m.telSee)}</a></div>`).join("")
-    +(upd?`<p>${esc(m.telUpd)}${new Date(upd).toLocaleString(lang==="ar"?"ar-DZ":"fr-DZ",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</p>`:"");
+    if(r.status===429){trkMsg(m.telTrop,1,0);return}
+    const j=await r.json();if(j.ok){liste=j.colis;upd=j.updatedAt}else echec=true}catch(err){echec=true}finally{trkBusy(false)}
+  const notes=[m.multiN(liste.length)+(trop?" "+m.multiMax:""),ignores?m.multiBad(ignores):"",echec?m.multiFail:""].filter(Boolean);
+  document.getElementById("trkRes").innerHTML=notes.map(t=>`<p>${esc(t)}</p>`).join("")+liste.map(c=>carteColis(c,m,echec)).join("")
+    +(upd?`<p>${esc(m.telUpd)}${dateMaj(upd)}</p>`:"");
 }
 document.getElementById("fTrack").addEventListener("submit",async e=>{
-  e.preventDefault();
+  e.preventDefault();if(trkBtn.disabled)return;
   const a=document.getElementById("trkGo"),res=document.getElementById("trkRes"),m=M[lang];
-  const raw=document.getElementById("trkNum").value;
+  const raw=trkInp.value;a.hidden=true;
+  if(!raw.trim()){trkMsg(trkMode==="tel"?m.telErr:m.trkErr,1);return}
   if(trkMode==="num"){
-    res.hidden=true;
     // Plusieurs numéros (séparés par des espaces, virgules ou retours à la ligne) : liste avec l'état connu de chacun.
     const nums=[...new Set(raw.toUpperCase().split(/[\s,;]+/).filter(Boolean))];
-    if(nums.length>1){a.hidden=true;await suiviMulti(nums);return}
-    const n=raw.trim().replace(/\s+/g,"").toUpperCase();a.hidden=false;
-    if(!/^[A-Z0-9-]{4,40}$/.test(n)){a.removeAttribute("href");a.textContent=m.trkErr;return}
-    a.href=TRACK_URL+encodeURIComponent(n);a.textContent=m.trkGo;try{window.open(a.href,"_blank","noopener")}catch(err){}
+    if(nums.length>1){await suiviMulti(nums);return}
+    const n=nums[0];
+    if(!/^[A-Z0-9-]{4,40}$/.test(n)){trkMsg(m.trkBad,1);return}
+    res.hidden=true;trkInp.setAttribute("aria-invalid","false");
+    a.hidden=false;a.href=TRACK_URL+encodeURIComponent(n);a.textContent=m.trkGo;try{window.open(a.href,"_blank","noopener")}catch(err){}
     return;
   }
-  a.hidden=true;res.hidden=false;
   let t=raw.replace(/\D/g,"");if(t.startsWith("213"))t=t.slice(3);if(t.length===9)t="0"+t;
-  if(!/^0[5-7]\d{8}$/.test(t)){res.innerHTML=`<p>${esc(m.telErr)}</p>`;return}
-  res.innerHTML=`<p>${esc(m.telWait)}</p>`;
+  if(!/^0[5-7]\d{8}$/.test(t)){trkMsg(m.telErr,1);return}
+  trkMsg(m.telWait);trkBusy(true);
   try{
     const r=await fetch("/api/suivi",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({tel:t})});
+    if(r.status===429){trkMsg(m.telTrop,1,0);return}
     const j=await r.json();
-    if(r.status===429){res.innerHTML=`<p>${esc(m.telTrop)}</p>`;return}
     if(!j.ok)throw 0;
-    if(!j.colis.length){res.innerHTML=`<p>${esc(m.telNone)}</p>`;return}
-    const cls=s=>/livr[ée]/i.test(s)&&!/en livraison/i.test(s)?"ok":/retour/i.test(s)?"ret":"";
-    const upd=j.updatedAt?`<p>${esc(m.telUpd)}${new Date(j.updatedAt).toLocaleString(lang==="ar"?"ar-DZ":"fr-DZ",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</p>`:"";
-    res.innerHTML=j.colis.map(c=>`<div class="pc"><div><b>${esc(c.id)}</b><small>${esc(c.wilaya)}${c.date?" · "+esc(c.date.slice(0,10)):""}</small><span class="st ${cls(c.etat)}">${esc(c.etat)}</span></div><a href="${TRACK_URL+encodeURIComponent(c.id)}" target="_blank" rel="noopener">${esc(m.telSee)}</a></div>`).join("")+upd;
-  }catch(err){res.innerHTML=`<p>${esc(m.telFail)}</p>`}
+    if(!j.colis.length){trkMsg(m.telNone);return}
+    res.innerHTML=j.colis.map(c=>carteColis(c,m)).join("")+(j.updatedAt?`<p>${esc(m.telUpd)}${dateMaj(j.updatedAt)}</p>`:"");
+  }catch(err){trkMsg(m.telFail,1,0)}finally{trkBusy(false)}
 });
 /* Menu mobile */
 (function(){
