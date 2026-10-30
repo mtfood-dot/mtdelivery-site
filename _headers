@@ -10,3 +10,11 @@
   X-Robots-Tag: noindex, nofollow
 /admin.html
   X-Robots-Tag: noindex, nofollow
+/logo-mt.png
+  Cache-Control: public, max-age=604800
+/icons/*
+  Cache-Control: public, max-age=604800
+/favicon.png
+  Cache-Control: public, max-age=604800
+/antirobot.js
+  Cache-Control: public, max-age=3600

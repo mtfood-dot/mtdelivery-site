@@ -102,10 +102,11 @@ function render(){
     const cls=d.statut==="réglé"?"regle":d.statut==="en cours"?"encours":"nouveau";
     const fields=Object.entries(d.data||{}).map(([k,v])=>`<dt>${esc(LABELS[k]||k)}</dt><dd>${k==="note"?"★".repeat(+v||0):esc(v)}</dd>`).join("");
     const tel=d.data&&d.data.tel;
+    const pubBtn=d.type==="avis"?`<button type="button" data-pub="${esc(d.id)}" data-on="${d.publie?1:0}">${d.publie?"✓ Publié sur le site · retirer":"Publier sur le site"}</button>`:"";
     const pieceBtn=d.data&&d.data.piece==="oui"?`<button type="button" data-piece="${esc(d.id)}" aria-expanded="false">Voir la pièce d'identité</button>`:"";
     return `<article class="card ${cls}"><div class="top"><span class="type">${esc(TYPES[d.type]||d.type)}</span><span class="date">${fmt.format(new Date(d.date))}</span><span class="sp"></span>
       <label class="date" for="s-${esc(d.id)}">Statut</label><select id="s-${esc(d.id)}" data-id="${esc(d.id)}">${["nouveau","en cours","réglé"].map(s=>`<option${s===d.statut?" selected":""}>${s}</option>`).join("")}</select></div>
-      <dl>${fields}</dl>${tel?`<div class="acts"><a href="${waLink(tel)}" target="_blank" rel="noopener">WhatsApp</a><a href="tel:${esc(tel)}">Appeler ${esc(tel)}</a>${pieceBtn}</div>`:(pieceBtn?`<div class="acts">${pieceBtn}</div>`:"")}<div class="piece" hidden></div></article>`;
+      <dl>${fields}</dl>${tel?`<div class="acts"><a href="${waLink(tel)}" target="_blank" rel="noopener">WhatsApp</a><a href="tel:${esc(tel)}">Appeler ${esc(tel)}</a>${pieceBtn}</div>`:(pieceBtn||pubBtn?`<div class="acts">${pieceBtn}${pubBtn}</div>`:"")}<div class="piece" hidden></div></article>`;
   }).join("");
   $("list").querySelectorAll("button[data-piece]").forEach(b=>b.onclick=async()=>{
     const box=b.closest(".card").querySelector(".piece");
@@ -121,6 +122,10 @@ function render(){
     }
     else{const p=document.createElement("p");p.className="msg err";p.textContent=j.error||"Pièce introuvable.";box.appendChild(p)}
     box.hidden=false;b.setAttribute("aria-expanded","true");b.textContent="Masquer la pièce d'identité";
+  });
+  $("list").querySelectorAll("button[data-pub]").forEach(b=>b.onclick=async()=>{
+    b.disabled=true;const j=await api({action:"publierAvis",id:b.dataset.pub,publier:b.dataset.on!=="1"});b.disabled=false;
+    if(j.ok){const d=ALL.find(x=>x.id===b.dataset.pub);d.publie=j.publie;render()}else alert(j.error||"Échec.");
   });
   $("list").querySelectorAll("select[data-id]").forEach(sel=>sel.onchange=async()=>{
     sel.disabled=true;const j=await api({action:"statut",id:sel.dataset.id,statut:sel.value});sel.disabled=false;

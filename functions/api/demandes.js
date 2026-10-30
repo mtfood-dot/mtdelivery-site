@@ -60,6 +60,13 @@ async function toSheet(env, demande) {
   }
 }
 
+// Avis publiés (lecture publique, sans données personnelles autres que le prénom choisi par le client).
+export async function onRequestGet({ env }) {
+  if (!env.COLIS) return json({ ok: true, avis: [] });
+  const avis = ((await env.COLIS.get("avis_publies", { type: "json" })) || []).map(({ prenom, texte, note, date }) => ({ prenom, texte, note, date }));
+  return new Response(JSON.stringify({ ok: true, avis }), { headers: { "content-type": "application/json; charset=utf-8", "cache-control": "public, max-age=300" } });
+}
+
 export async function onRequestPost(context) {
   const { request, env } = context;
   if (!env.COLIS) return json({ ok: false, error: "stockage" }, 503);
@@ -99,6 +106,24 @@ export async function onRequestPost(context) {
       }
       await env.COLIS.put(b.id, JSON.stringify(d));
       return json({ ok: true });
+    }
+
+    // Avis clients : seuls les avis publiés par l'équipe s'affichent sur le site (clé « avis_publies », 50 au plus).
+    if (b.action === "publierAvis") {
+      if (!/^dem:\d+-[a-z0-9]+$/.test(String(b.id))) return json({ ok: false, error: "Demande invalide." }, 400);
+      const d = await env.COLIS.get(b.id, { type: "json" });
+      if (!d || d.type !== "avis") return json({ ok: false, error: "Avis introuvable." }, 404);
+      const liste = ((await env.COLIS.get("avis_publies", { type: "json" })) || []).filter((x) => x.id !== b.id);
+      const publier = b.publier !== false;
+      if (publier) {
+        const note = Math.round(+d.data.note);
+        if (!(note >= 1 && note <= 5) || !d.data.prenom || !d.data.texte) return json({ ok: false, error: "Avis incomplet." }, 400);
+        liste.unshift({ id: b.id, prenom: String(d.data.prenom).slice(0, 40), texte: String(d.data.texte).slice(0, 500), note, date: d.date || Date.now() });
+      }
+      await env.COLIS.put("avis_publies", JSON.stringify(liste.slice(0, 50)));
+      d.publie = publier;
+      await env.COLIS.put(b.id, JSON.stringify(d));
+      return json({ ok: true, publie: publier });
     }
 
     if (b.action === "piece") {
