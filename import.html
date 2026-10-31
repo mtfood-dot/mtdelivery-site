@@ -10,7 +10,7 @@
 <title>Import Ecotrack – MT Delivery</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap">
 <style>
-:root{--navy:#0a2647;--gold:#f2b51c;--bg:#f5f7fb;--surface:#fff;--fg:#0d1b30;--muted:#5a6a82;--line:#d9e0eb;--ok:#1d8a4e;--err:#b02a2a}
+:root{--navy:#263238;--gold:#F7B500;--bg:#f5f7fb;--surface:#fff;--fg:#263238;--muted:#5a6a82;--line:#d9e0eb;--ok:#1d8a4e;--err:#b02a2a}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 "Readex Pro",system-ui,sans-serif}
 header{background:var(--navy);color:#fff;padding:16px 20px}
@@ -135,7 +135,7 @@ $("f").onsubmit=async e=>{
 <script>
 /* Code du favori : tourne sur la page « Colis en traitements » d'Ecotrack (station). */
 function bookmarkletSource(api,pw){
-  return `(async()=>{const API=${JSON.stringify(api)},PW=${JSON.stringify(pw)};const say=(m,k)=>{let b=document.getElementById("mtd-bar");if(!b){b=document.createElement("div");b.id="mtd-bar";document.body.appendChild(b)}b.style.cssText="position:fixed;z-index:2147483647;top:16px;left:50%;transform:translateX(-50%);max-width:92vw;padding:14px 20px;border-radius:12px;font:600 16px/1.4 system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.3);color:#fff;background:"+(k==="ok"?"#1d8a4e":k==="wait"?"#0a2647":"#b02a2a");b.textContent="MT Delivery : "+m;clearTimeout(b._t);if(k!=="wait")b._t=setTimeout(()=>b.remove(),9000)};
+  return `(async()=>{const API=${JSON.stringify(api)},PW=${JSON.stringify(pw)};const say=(m,k)=>{let b=document.getElementById("mtd-bar");if(!b){b=document.createElement("div");b.id="mtd-bar";document.body.appendChild(b)}b.style.cssText="position:fixed;z-index:2147483647;top:16px;left:50%;transform:translateX(-50%);max-width:92vw;padding:14px 20px;border-radius:12px;font:600 16px/1.4 system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.3);color:#fff;background:"+(k==="ok"?"#1d8a4e":k==="wait"?"#263238":"#b02a2a");b.textContent="MT Delivery : "+m;clearTimeout(b._t);if(k!=="wait")b._t=setTimeout(()=>b.remove(),9000)};
 if(!/ecotrack\\.dz$/.test(location.hostname)||!window.jQuery||!jQuery.fn.dataTable||!jQuery("#myTable").length){say("ouvrez d'abord la page « Colis en traitements » d'Ecotrack (station), puis recliquez sur ce favori.");return}
 say("envoi des colis en cours…","wait");try{const dt=jQuery("#myTable").DataTable(),s=dt.settings()[0],url=(s.ajax&&s.ajax.url)||s.ajax,type=(s.ajax&&s.ajax.type)||"GET";
 const base=Object.assign({},dt.ajax.params(),{search:{value:"",regex:false}});let all=[],start=0,total=1;

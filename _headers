@@ -12,6 +12,8 @@
   X-Robots-Tag: noindex, nofollow
 /logo-mt.png
   Cache-Control: public, max-age=604800
+/logo-mt.svg
+  Cache-Control: public, max-age=604800
 /icons/*
   Cache-Control: public, max-age=604800
 /favicon.png
