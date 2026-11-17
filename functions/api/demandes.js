@@ -5,7 +5,7 @@
 // Chaque demande est une clé KV « dem:<horodatage>-<aléa> », sans risque d'écrasement entre deux envois.
 // Copie dans Google Sheet : variable Cloudflare SHEET_URL (adresse de l'Apps Script), SHEET_TOKEN facultatif.
 import { json, verifierSecret } from "./_lib.js";
-import { notifierDemande } from "./_notif.js";
+import { toSheet, enregistrer, nouvelId } from "./_enregistrer.js";
 
 const FIELDS = {
   expediteur: ["nom", "prenom", "adresse", "email", "tel", "boutique", "secteur", "volume"],
@@ -32,33 +32,6 @@ function lirePiece(v) {
   return "data:application/pdf;base64," + m[1];
 }
 
-
-// Envoie la demande à l'Apps Script de la Google Sheet. Ne bloque jamais l'enregistrement.
-// Copie destinée à la Google Sheet : les valeurs qui commencent par = + - @ (formules) sont préfixées d'une apostrophe
-// pour rester du texte (audit V8, protection doublée dans le script Google). Les données gardées sur Cloudflare ne changent pas.
-const sansFormule = (v) => (typeof v === "string" && /^[=+\-@\t\r]/.test(v) ? "'" + v : v);
-function pourFeuille(demande) {
-  const data = {};
-  for (const [k, v] of Object.entries(demande.data || {})) data[k] = sansFormule(v);
-  return { ...demande, data };
-}
-
-async function toSheet(env, demande) {
-  if (!env.SHEET_URL) return "non configurée";
-  demande = pourFeuille(demande);
-  try {
-    const r = await fetch(env.SHEET_URL, {
-      method: "POST",
-      headers: { "content-type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ token: env.SHEET_TOKEN || "", demande }),
-      redirect: "follow",
-    });
-    const j = await r.json().catch(() => ({}));
-    return j.ok ? "ok" : "erreur: " + (j.error || r.status);
-  } catch (e) {
-    return "erreur: " + (e && e.message || e);
-  }
-}
 
 // Avis publiés (lecture publique, sans données personnelles autres que le prénom choisi par le client).
 export async function onRequestGet({ env }) {
@@ -183,16 +156,11 @@ export async function onRequestPost(context) {
     data.piece = "oui";
   }
 
-  const now = Date.now();
-  const id = `dem:${now}-${Math.random().toString(36).slice(2, 8)}`;
-  const demande = { id, type: cat, data, date: now, statut: "nouveau" };
+  const id = nouvelId();
+  const demande = { id, type: cat, data, date: Date.now(), statut: "nouveau" };
   if (piece) await env.COLIS.put("piece:" + id, piece, { expirationTtl: PIECE_TTL });
-  await env.COLIS.put(id, JSON.stringify(demande));
-
-  // Copie dans la Google Sheet en arrière-plan (le client n'attend pas).
-  // et e-mail à l'équipe (Brevo), lui aussi en arrière-plan.
-  const job = Promise.all([toSheet(env, demande), notifierDemande(env, request, demande).catch(() => false)]);
-  if (context.waitUntil) context.waitUntil(job); else await job;
+  // Enregistrement, copie Google Sheet et e-mail à l'équipe (ces deux derniers en arrière-plan).
+  await enregistrer(context, demande);
 
   return json({ ok: true, id });
 }

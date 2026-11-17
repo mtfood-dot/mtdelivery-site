@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" href="/favicon.png">
-<title>Demandes – MT Delivery</title>
+<title>Administration – MT Delivery</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap">
 <style>
 :root{--navy:#263238;--gold:#F7B500;--bg:#f5f7fb;--surface:#fff;--fg:#263238;--muted:#5a6a82;--line:#d9e0eb;--ok:#1d8a4e;--err:#b02a2a;--warn:#a86400}
+[hidden]{display:none!important}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 "Readex Pro",system-ui,sans-serif}
 header{background:var(--navy);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
@@ -47,10 +48,21 @@ dd{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
 .acts button{font-size:.88rem;padding:5px 12px;border-radius:999px}
 .empty{color:var(--muted);text-align:center;border:1.5px dashed var(--line);border-radius:14px;padding:30px}
 @media (max-width:520px){dl{grid-template-columns:1fr}dt{margin-top:4px}}
+.views{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.cform{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:end;margin-bottom:16px}
+.cform .full{grid-column:1/-1}
+.cform div{display:grid;gap:4px}
+@media (max-width:640px){.cform{grid-template-columns:1fr}}
+.secret{background:#fff8e1;border:1.5px solid var(--gold);border-radius:14px;padding:14px 16px;display:grid;gap:8px;margin-bottom:16px}
+.secret code{font:700 1.25rem ui-monospace,Menlo,Consolas,monospace;letter-spacing:.06em;background:#fff;border-radius:8px;padding:4px 10px;justify-self:start;user-select:all}
+.secret p{margin:0}
+.off{opacity:.6}
+.tag{font-size:.78rem;font-weight:700;border-radius:999px;padding:2px 10px;background:#eef2f8}
+.tag.warn{background:#fff4d6;color:var(--warn)}.tag.err{background:#fbeaea;color:var(--err)}
 </style>
 </head>
 <body>
-<header><span><b>MT Delivery</b> · Demandes reçues sur le site</span><a href="/import.html">Import des colis</a></header>
+<header><span><b>MT Delivery</b> · Administration</span><span style="display:flex;gap:14px"><a href="/espace.html" target="_blank" rel="noopener">Espace expéditeur</a><a href="/import.html">Import des colis</a></span></header>
 <main>
   <form class="login" id="login">
     <label for="pw">Mot de passe admin</label>
@@ -58,6 +70,22 @@ dd{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
     <button type="submit">Voir les demandes</button>
     <div class="msg err" id="lerr" hidden></div>
   </form>
+
+  <div class="views" id="views" hidden><button type="button" class="tab" data-v="app" aria-pressed="true">Demandes reçues</button><button type="button" class="tab" data-v="comptes" aria-pressed="false">Comptes expéditeurs</button></div>
+
+  <section id="comptes" hidden>
+    <form class="cform" id="cForm" autocomplete="off">
+      <div class="full"><b>Créer un compte expéditeur</b><span class="date">L'expéditeur se connecte sur mtdelivery.dz/espace.html avec son numéro et le mot de passe provisoire, puis choisit le sien.</span></div>
+      <div><label for="cTel">Téléphone (identifiant)</label><input id="cTel" type="tel" inputmode="tel" required placeholder="05 XX XX XX XX"></div>
+      <div><label for="cNom">Nom et prénom</label><input id="cNom" maxlength="80"></div>
+      <div><label for="cBout">Boutique</label><input id="cBout" maxlength="80"></div>
+      <input type="hidden" id="cDem">
+      <div class="full" style="display:flex;gap:8px;flex-wrap:wrap"><button type="submit">Créer le compte</button><span class="msg err" id="cErr" hidden></span></div>
+    </form>
+    <div class="secret" id="cSecret" hidden></div>
+    <div class="bar"><input id="cFind" type="search" aria-label="Rechercher un compte" placeholder="Rechercher (téléphone, nom, boutique)" style="max-width:340px"><span class="sp"></span><button type="button" id="cRefresh">Actualiser</button></div>
+    <div class="list" id="cList"></div>
+  </section>
 
   <section id="app" hidden>
     <div class="bar" id="tabs"></div>
@@ -83,9 +111,9 @@ async function api(body){
 }
 async function load(){
   const j=await api({action:"list"});
-  if(!j.ok){$("app").hidden=true;$("login").hidden=false;$("lerr").textContent=j.error||"Erreur.";$("lerr").hidden=false;try{sessionStorage.removeItem("mtd_admin")}catch(e){}return}
+  if(!j.ok){$("app").hidden=true;$("login").hidden=false;$("views").hidden=true;$("comptes").hidden=true;$("lerr").textContent=j.error||"Erreur.";$("lerr").hidden=false;try{sessionStorage.removeItem("mtd_admin")}catch(e){}return}
   try{sessionStorage.setItem("mtd_admin",PW)}catch(e){}
-  ALL=j.demandes;$("login").hidden=true;$("app").hidden=false;render();
+  ALL=j.demandes;$("login").hidden=true;$("views").hidden=false;setView(VIEW);render();
 }
 function waLink(t){let d=String(t).replace(/\D/g,"");if(d.startsWith("0"))d="213"+d.slice(1);return "https://wa.me/"+d}
 function render(){
@@ -103,10 +131,11 @@ function render(){
     const fields=Object.entries(d.data||{}).map(([k,v])=>`<dt>${esc(LABELS[k]||k)}</dt><dd>${k==="note"?"★".repeat(+v||0):esc(v)}</dd>`).join("");
     const tel=d.data&&d.data.tel;
     const pubBtn=d.type==="avis"?`<button type="button" data-pub="${esc(d.id)}" data-on="${d.publie?1:0}">${d.publie?"✓ Publié sur le site · retirer":"Publier sur le site"}</button>`:"";
+    const cptBtn=d.type==="expediteur"&&tel?`<button type="button" data-cpt="${esc(d.id)}">Créer son compte</button>`:"";
     const pieceBtn=d.data&&d.data.piece==="oui"?`<button type="button" data-piece="${esc(d.id)}" aria-expanded="false">Voir la pièce d'identité</button>`:"";
     return `<article class="card ${cls}"><div class="top"><span class="type">${esc(TYPES[d.type]||d.type)}</span><span class="date">${fmt.format(new Date(d.date))}</span><span class="sp"></span>
       <label class="date" for="s-${esc(d.id)}">Statut</label><select id="s-${esc(d.id)}" data-id="${esc(d.id)}">${["nouveau","en cours","réglé"].map(s=>`<option${s===d.statut?" selected":""}>${s}</option>`).join("")}</select></div>
-      <dl>${fields}</dl>${tel?`<div class="acts"><a href="${waLink(tel)}" target="_blank" rel="noopener">WhatsApp</a><a href="tel:${esc(tel)}">Appeler ${esc(tel)}</a>${pieceBtn}</div>`:(pieceBtn||pubBtn?`<div class="acts">${pieceBtn}${pubBtn}</div>`:"")}<div class="piece" hidden></div></article>`;
+      <dl>${fields}</dl>${tel?`<div class="acts"><a href="${waLink(tel)}" target="_blank" rel="noopener">WhatsApp</a><a href="tel:${esc(tel)}">Appeler ${esc(tel)}</a>${pieceBtn}${cptBtn}</div>`:(pieceBtn||pubBtn?`<div class="acts">${pieceBtn}${pubBtn}</div>`:"")}<div class="piece" hidden></div></article>`;
   }).join("");
   $("list").querySelectorAll("button[data-piece]").forEach(b=>b.onclick=async()=>{
     const box=b.closest(".card").querySelector(".piece");
@@ -123,6 +152,11 @@ function render(){
     else{const p=document.createElement("p");p.className="msg err";p.textContent=j.error||"Pièce introuvable.";box.appendChild(p)}
     box.hidden=false;b.setAttribute("aria-expanded","true");b.textContent="Masquer la pièce d'identité";
   });
+  $("list").querySelectorAll("button[data-cpt]").forEach(b=>b.onclick=()=>{
+    const d=ALL.find(x=>x.id===b.dataset.cpt);if(!d)return;
+    $("cTel").value=d.data.tel||"";$("cNom").value=[d.data.prenom,d.data.nom].filter(Boolean).join(" ");$("cBout").value=d.data.boutique||"";$("cDem").value=d.id;
+    setView("comptes");$("cTel").focus();
+  });
   $("list").querySelectorAll("button[data-pub]").forEach(b=>b.onclick=async()=>{
     b.disabled=true;const j=await api({action:"publierAvis",id:b.dataset.pub,publier:b.dataset.on!=="1"});b.disabled=false;
     if(j.ok){const d=ALL.find(x=>x.id===b.dataset.pub);d.publie=j.publie;render()}else alert(j.error||"Échec.");
@@ -132,6 +166,50 @@ function render(){
     if(j.ok){const d=ALL.find(x=>x.id===sel.dataset.id);d.statut=sel.value;render()}else alert(j.error||"Échec.");
   });
 }
+// ---------- Comptes expéditeurs ----------
+let VIEW="app",COMPTES=[];
+function setView(v){VIEW=v;$("app").hidden=v!=="app";$("comptes").hidden=v!=="comptes";document.querySelectorAll("#views .tab").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===v));if(v==="comptes")loadComptes()}
+document.querySelectorAll("#views .tab").forEach(b=>b.onclick=()=>setView(b.dataset.v));
+async function capi(body){const r=await fetch("/api/comptes",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(Object.assign({password:PW},body))});return r.json().catch(()=>({ok:false,error:"Erreur réseau."}))}
+async function loadComptes(){const j=await capi({action:"list"});if(j.ok){COMPTES=j.comptes;renderComptes()}else $("cList").innerHTML=`<div class="empty">${esc(j.error||"Erreur.")}</div>`}
+const fmtD=t=>t?new Intl.DateTimeFormat("fr-DZ",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}).format(new Date(t)):"jamais";
+function renderComptes(){
+  const q=$("cFind").value.trim().toLowerCase().replace(/\s/g,"");
+  const rows=COMPTES.filter(c=>!q||[c.tel,c.nom,c.boutique].join(" ").toLowerCase().replace(/\s/g,"").includes(q));
+  if(!rows.length){$("cList").innerHTML=`<div class="empty">${COMPTES.length?"Aucun compte ne correspond.":"Aucun compte expéditeur pour l'instant."}</div>`;return}
+  $("cList").innerHTML=rows.map(c=>`<article class="card ${c.actif?"":"off"}"><div class="top"><span class="type">${esc(c.boutique||c.nom||c.tel)}</span>${c.actif?"":`<span class="tag err">Désactivé</span>`}${c.doitChanger?`<span class="tag warn">Mot de passe provisoire</span>`:""}<span class="sp"></span><span class="date">Créé le ${esc(fmtD(c.cree))}</span></div>
+    <dl><dt>Téléphone</dt><dd>${esc(c.tel)}</dd>${c.nom?`<dt>Nom</dt><dd>${esc(c.nom)}</dd>`:""}${c.boutique?`<dt>Boutique</dt><dd>${esc(c.boutique)}</dd>`:""}<dt>Dernière connexion</dt><dd>${esc(fmtD(c.derniere))}</dd></dl>
+    <div class="acts"><button type="button" data-reinit="${esc(c.tel)}">Nouveau mot de passe provisoire</button><button type="button" data-actif="${esc(c.tel)}" data-on="${c.actif?1:0}">${c.actif?"Désactiver":"Réactiver"}</button><a href="${waLink(c.tel)}" target="_blank" rel="noopener">WhatsApp</a></div></article>`).join("");
+  $("cList").querySelectorAll("button[data-reinit]").forEach(b=>b.onclick=async()=>{
+    if(!confirm("Créer un nouveau mot de passe provisoire pour "+b.dataset.reinit+" ? L'ancien ne marchera plus."))return;
+    b.disabled=true;const j=await capi({action:"reinit",tel:b.dataset.reinit});b.disabled=false;
+    if(j.ok){montrerMdp(j.compte,j.mdp,false);loadComptes()}else alert(j.error||"Échec.");
+  });
+  $("cList").querySelectorAll("button[data-actif]").forEach(b=>b.onclick=async()=>{
+    b.disabled=true;const j=await capi({action:"actif",tel:b.dataset.actif,actif:b.dataset.on!=="1"});b.disabled=false;
+    if(j.ok)loadComptes();else alert(j.error||"Échec.");
+  });
+}
+function montrerMdp(c,mdp,nouveau){
+  const box=$("cSecret");box.innerHTML="";
+  const msg=`Bonjour, votre espace expéditeur MT Delivery est prêt.\nAdresse : https://www.mtdelivery.dz/espace.html\nIdentifiant : ${c.tel}\nMot de passe provisoire : ${mdp}\nVous choisirez votre propre mot de passe à la première connexion.`;
+  const t=document.createElement("p");t.innerHTML=`<b>${nouveau?"Compte créé":"Nouveau mot de passe provisoire"}</b> pour ${esc(c.boutique||c.nom||"")} (${esc(c.tel)}). Notez-le maintenant, il ne sera plus affiché :`;
+  const code=document.createElement("code");code.textContent=mdp;
+  const acts=document.createElement("div");acts.className="acts";
+  const wa=document.createElement("a");wa.href=waLink(c.tel)+"?text="+encodeURIComponent(msg);wa.target="_blank";wa.rel="noopener";wa.textContent="Envoyer les identifiants par WhatsApp";
+  const cp=document.createElement("button");cp.type="button";cp.textContent="Copier le message";cp.onclick=async()=>{try{await navigator.clipboard.writeText(msg);cp.textContent="Copié ✓"}catch(e){cp.textContent="Copie impossible"}};
+  const ok=document.createElement("button");ok.type="button";ok.textContent="J'ai noté, masquer";ok.onclick=()=>{box.hidden=true;box.innerHTML=""};
+  acts.append(wa,cp,ok);box.append(t,code,acts);box.hidden=false;box.scrollIntoView({block:"center"});
+}
+$("cForm").onsubmit=async e=>{
+  e.preventDefault();$("cErr").hidden=true;
+  const btn=e.target.querySelector("button[type=submit]");btn.disabled=true;
+  const j=await capi({action:"creer",tel:$("cTel").value,nom:$("cNom").value,boutique:$("cBout").value,demandeId:$("cDem").value});btn.disabled=false;
+  if(!j.ok){$("cErr").textContent=j.error||"Échec.";$("cErr").hidden=false;return}
+  e.target.reset();$("cDem").value="";montrerMdp(j.compte,j.mdp,true);loadComptes();
+};
+$("cFind").oninput=renderComptes;$("cRefresh").onclick=loadComptes;
+
 $("login").onsubmit=e=>{e.preventDefault();PW=$("pw").value;$("lerr").hidden=true;load()};
 $("fStat").onchange=render;$("refresh").onclick=load;
 if(PW)load();

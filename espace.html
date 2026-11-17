@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Espace expéditeur – MT Delivery</title>
+<meta name="description" content="Espace expéditeur MT Delivery : demandes de versement, réclamations et suivi de vos demandes.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta name="theme-color" content="#263238">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Readex+Pro:wght@300;400;500;600;700&display=swap">
+<style>
+:root{--navy:#263238;--blue:#1553A4;--gold:#F7B500;--gold-ink:#8a5f00;--bg:#f5f7fb;--surface:#fff;--fg:#263238;--muted:#5a6a82;--line:#d9e0eb;--field:#f8fafd;--ok:#1d8a4e;--err:#b02a2a;--wa:#1f9d55;
+  --display:"Archivo","Readex Pro",system-ui,sans-serif;--body:"Readex Pro","Segoe UI",Tahoma,system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151c20;--surface:#1f292e;--fg:#eef2f4;--muted:#a6b4bc;--line:#34444c;--field:#192226;--gold-ink:#F7B500;--ok:#4cc985;--err:#ff8a8a;color-scheme:dark}}
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--fg);font:16px/1.55 var(--body)}
+a{color:inherit}
+header{background:var(--navy);color:#fff;position:sticky;top:0;z-index:5}
+header .wrap{display:flex;align-items:center;gap:12px;padding-block:10px}
+.wrap{max-width:980px;margin:0 auto;padding-inline:16px;width:100%}
+.logo{display:flex;align-items:center;background:#fff;border-radius:10px;padding:4px 10px;height:44px;flex:none}
+.logo img{height:38px;width:auto;display:block}
+header .tt{font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hb{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:10px;padding:8px 12px;font:600 .9rem var(--body);cursor:pointer;min-height:40px}
+main{flex:1;padding-block:24px 48px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0}
+[dir="rtl"] h1,[dir="rtl"] h2,[dir="rtl"] h3{font-family:var(--body);line-height:1.35}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:14px}
+.narrow{max-width:440px;margin:0 auto}
+.eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--gold-ink)}
+[dir="rtl"] .eyebrow{letter-spacing:0;font-size:.9rem}
+h1{font-size:clamp(1.6rem,4vw,2.1rem);font-weight:800}
+h2{font-size:1.3rem;font-weight:800}
+.muted{color:var(--muted);margin:0}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld label{font-size:.9rem;font-weight:600}
+.fld .opt{font-weight:400;color:var(--muted)}
+.fld input,.fld select,.fld textarea{font:inherit;font-size:1rem;color:var(--fg);background:var(--field);border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;width:100%;min-height:46px}
+.fld textarea{min-height:96px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--gold);outline:none}
+.num{direction:ltr;text-align:start}
+[dir="rtl"] .num{text-align:right}
+.pw{position:relative}
+.pw input{padding-inline-end:84px}
+.pw button{position:absolute;inset-inline-end:6px;top:50%;transform:translateY(-50%);background:transparent;border:0;color:var(--blue);font:600 .85rem var(--body);cursor:pointer;padding:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 1rem var(--body);text-decoration:none;border-radius:12px;padding:12px 18px;border:2px solid transparent;cursor:pointer;min-height:48px}
+.btn.gold{background:var(--gold);color:var(--navy)}
+.btn.line{border-color:var(--line);color:var(--fg);background:var(--surface)}
+.btn.wa{background:var(--wa);color:#fff}
+.btn:disabled{opacity:.6;cursor:wait}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.msg{border-radius:10px;padding:10px 12px;font-weight:600;margin:0}
+.msg.err{background:#fbeaea;color:#b02a2a}
+.msg.ok{background:#e6f5ec;color:#1d6b40}
+.links{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.92rem}
+.links a{color:var(--blue);font-weight:600}
+.hello{background:var(--navy);color:#fff;border-radius:16px;padding:20px;display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center}
+.hello h1{color:#fff}
+.hello .eyebrow{color:var(--gold)}
+.hello .who{flex:1;min-width:220px;display:grid;gap:6px}
+.hello .meta{color:#c9d6ea}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:16px}
+.grid .full{grid-column:1/-1}
+@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+form.f{display:grid;gap:12px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.tile{display:flex;flex-direction:column;gap:2px;text-decoration:none;background:var(--bg);border:1px solid var(--line);border-inline-start:4px solid var(--gold);border-radius:12px;padding:12px 14px}
+.tile b{font-size:1rem}.tile span{color:var(--muted);font-size:.88rem}
+@media (max-width:640px){.tiles{grid-template-columns:minmax(0,1fr)}}
+.dl{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.dl li{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:4px;border-inline-start:4px solid var(--line)}
+.dl li.s-nouveau{border-inline-start-color:var(--gold)}.dl li.s-cours{border-inline-start-color:var(--blue)}.dl li.s-regle{border-inline-start-color:var(--ok)}
+.dl .top{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.dl .top b{flex:1;min-width:0}
+.badge{font-size:.8rem;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--bg);border:1px solid var(--line)}
+.dl .d{color:var(--muted);font-size:.85rem}
+.dl .x{font-size:.9rem;white-space:pre-wrap;overflow-wrap:anywhere;margin:0;text-align:start}
+.empty{color:var(--muted);text-align:center;border:1.5px dashed var(--line);border-radius:12px;padding:22px;margin:0}
+.rowb{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:520px){.rowb .btn{flex:1 1 100%}}
+footer{color:var(--muted);font-size:.85rem;text-align:center;padding:16px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="/" aria-label="MT Delivery – accueil" data-al="aHome"><img src="/logo-mt.svg" alt="MT Delivery – البريد السريع" width="1430" height="908"></a>
+  <span class="tt" data-i="tt">Espace expéditeur</span>
+  <button class="hb" id="lang" type="button">العربية</button>
+</div></header>
+
+<main><div class="wrap">
+
+  <!-- Connexion -->
+  <section class="card narrow" id="vLogin" hidden>
+    <div class="eyebrow" data-i="lEy">Espace expéditeur</div>
+    <h1 data-i="lH">Connexion</h1>
+    <p class="muted" data-i="lP">Connectez-vous avec le numéro de téléphone de votre compte expéditeur et votre mot de passe.</p>
+    <form class="f" id="fLogin" novalidate>
+      <div class="fld"><label for="lgTel" data-i="fTel">Numéro de téléphone</label><input id="lgTel" name="tel" type="tel" inputmode="tel" autocomplete="username" required placeholder="05 XX XX XX XX" class="num"></div>
+      <div class="fld"><label for="lgMdp" data-i="fMdp">Mot de passe</label><div class="pw"><input id="lgMdp" name="mdp" type="password" autocomplete="current-password" required><button type="button" class="eye" data-i="voir" aria-controls="lgMdp">Afficher</button></div></div>
+      <p class="msg err" id="lgErr" role="alert" hidden></p>
+      <button class="btn gold" type="submit" data-i="lBtn">Se connecter</button>
+    </form>
+    <div class="links">
+      <a href="#" class="waLink" data-wa="oubli" target="_blank" rel="noopener" data-i="lOubli">Mot de passe oublié ?</a>
+      <a href="/#expediteur" data-i="lPas">Pas encore de compte ? Inscrivez-vous</a>
+    </div>
+  </section>
+
+  <!-- Changement de mot de passe -->
+  <section class="card narrow" id="vMdp" hidden>
+    <div class="eyebrow" data-i="mEy">Sécurité</div>
+    <h1 data-i="mH">Choisissez votre mot de passe</h1>
+    <p class="muted" id="mP"></p>
+    <form class="f" id="fMdp" novalidate>
+      <div class="fld" id="mAncBox"><label for="mAnc" data-i="mAnc">Mot de passe actuel</label><div class="pw"><input id="mAnc" type="password" autocomplete="current-password"><button type="button" class="eye" data-i="voir" aria-controls="mAnc">Afficher</button></div></div>
+      <div class="fld"><label for="mNew" data-i="mNew">Nouveau mot de passe</label><div class="pw"><input id="mNew" type="password" autocomplete="new-password" minlength="8" required aria-describedby="mAide"><button type="button" class="eye" data-i="voir" aria-controls="mNew">Afficher</button></div><span class="muted" id="mAide" data-i="mAide" style="font-size:.85rem">8 caractères au moins, pas uniquement des chiffres.</span></div>
+      <div class="fld"><label for="mConf" data-i="mConf">Confirmez le nouveau mot de passe</label><input id="mConf" type="password" autocomplete="new-password" required></div>
+      <p class="msg err" id="mErr" role="alert" hidden></p>
+      <button class="btn gold" type="submit" data-i="mBtn">Enregistrer le mot de passe</button>
+      <button class="btn line" type="button" id="mCancel" data-i="annuler" hidden>Annuler</button>
+    </form>
+  </section>
+
+  <!-- Espace -->
+  <div id="vApp" hidden>
+    <section class="hello">
+      <div class="who">
+        <div class="eyebrow" data-i="aEy">Espace expéditeur</div>
+        <h1 id="aNom"></h1>
+        <span class="meta" id="aMeta"></span>
+      </div>
+      <button class="hb" type="button" id="btnOut" data-i="out">Se déconnecter</button>
+    </section>
+
+    <p class="msg ok" id="aOk" role="status" hidden style="margin-top:16px"></p>
+
+    <div class="grid">
+      <section class="card" id="cod" aria-labelledby="hCod">
+        <h2 id="hCod" data-i="cH">Demander mon argent</h2>
+        <p class="muted" data-i="cP">Après la livraison, vos fonds vous sont remis en espèces à notre bureau de Meftah.</p>
+        <form class="f" id="fCod" novalidate>
+          <div class="fld"><label for="cdSuivis" data-i="cSuivis">Numéros de suivi des colis livrés</label><textarea id="cdSuivis" name="suivis" required class="num" data-ph="ph1" placeholder="Un numéro par ligne"></textarea></div>
+          <div class="fld"><label for="cdMont" data-i-html="cMont">Montant attendu (DA) <span class="opt">facultatif</span></label><input id="cdMont" name="montant" type="number" inputmode="numeric" min="0" step="10" class="num"></div>
+          <p class="msg err" role="alert" hidden></p>
+          <button class="btn gold" type="submit" data-i="cBtn">Envoyer ma demande</button>
+        </form>
+      </section>
+
+      <section class="card" id="rec" aria-labelledby="hRec">
+        <h2 id="hRec" data-i="rH">Faire une réclamation</h2>
+        <form class="f" id="fRec" novalidate>
+          <div class="fld"><label for="rcSuivi" data-i-html="rSuivi">Numéro de suivi <span class="opt">si concerné</span></label><input id="rcSuivi" name="suivi" class="num"></div>
+          <div class="fld"><label for="rcType" data-i="rType">Motif</label>
+            <select id="rcType" name="type" required>
+              <option value="" data-i="o0">Choisir…</option>
+              <option value="Retard de livraison" data-i="r1">Retard de livraison</option>
+              <option value="Colis endommagé" data-i="r2">Colis endommagé</option>
+              <option value="Colis perdu" data-i="r3">Colis perdu</option>
+              <option value="Paiement COD" data-i="r4">Paiement COD</option>
+              <option value="Comportement du livreur" data-i="r5">Comportement du livreur</option>
+              <option value="Autre" data-i="o8">Autre</option>
+            </select></div>
+          <div class="fld"><label for="rcDesc" data-i="rDesc">Description du problème</label><textarea id="rcDesc" name="desc" required></textarea></div>
+          <p class="msg err" role="alert" hidden></p>
+          <button class="btn gold" type="submit" data-i="rBtn">Envoyer la réclamation</button>
+        </form>
+      </section>
+
+      <section class="card full" aria-labelledby="hDem">
+        <div class="rowb" style="align-items:center"><h2 id="hDem" data-i="dH" style="flex:1">Mes demandes</h2><button class="btn line" type="button" id="btnRef" data-i="dRef" style="min-height:40px;padding:8px 14px">Actualiser</button></div>
+        <ul class="dl" id="dList" aria-live="polite"></ul>
+      </section>
+
+      <section class="card full" aria-labelledby="hInf">
+        <h2 id="hInf" data-i="iH">Infos utiles</h2>
+        <div class="tiles">
+          <a class="tile" href="/#cashback"><b>MT Cashback</b><span data-i="i1">Dès 100 colis envoyés dans le mois, une récompense en espèces.</span></a>
+          <a class="tile" href="/#tarifs"><b data-i="i2">Tarifs</b><span data-i="i2s">Domicile et stop desk, par wilaya.</span></a>
+          <a class="tile" href="/tarifs-mt-delivery.pdf" target="_blank" rel="noopener"><b data-i="i3">Grille PDF</b><span data-i="i3s">À télécharger ou imprimer.</span></a>
+        </div>
+        <div class="rowb">
+          <a class="btn wa waLink" href="#" target="_blank" rel="noopener" data-wa="hello" data-i="iWa">Nous écrire sur WhatsApp</a>
+          <button class="btn line" type="button" id="btnMdp" data-i="iMdp">Changer mon mot de passe</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <p class="msg err narrow" id="gErr" role="alert" hidden style="margin-top:16px"></p>
+</div></main>
+<footer>MT Delivery – البريد السريع · <a href="/" data-i="fHome">Retour au site</a></footer>
+
+<script>
+const WA="213560788497";
+const T={fr:{},ar:{
+  tt:"فضاء المرسِل",aHome:"MT Delivery – الصفحة الرئيسية",lEy:"فضاء المرسِل",lH:"تسجيل الدخول",lP:"سجّل دخولك برقم هاتف حسابك كمرسِل وكلمة المرور.",
+  fTel:"رقم الهاتف",fMdp:"كلمة المرور",voir:"إظهار",cacher:"إخفاء",lBtn:"دخول",lOubli:"نسيت كلمة المرور؟",lPas:"ليس لديك حساب؟ سجّل الآن",
+  mEy:"الأمان",mH:"اختر كلمة مرورك",
+  mAnc:"كلمة المرور الحالية",mNew:"كلمة المرور الجديدة",mAide:"⁦8⁩ أحرف على الأقل، وليست أرقامًا فقط.",mConf:"أكّد كلمة المرور الجديدة",mBtn:"حفظ كلمة المرور",annuler:"إلغاء",
+  aEy:"فضاء المرسِل",out:"تسجيل الخروج",cH:"طلب أموالي",cP:"بعد التسليم، تُسلَّم لك أموالك نقدًا في مكتبنا بمفتاح.",
+  cSuivis:"أرقام تتبّع الطرود المُسلَّمة",ph1:"رقم في كل سطر",cMont:"المبلغ المنتظر (دج) <span class=\"opt\">اختياري</span>",cBtn:"أرسل طلبي",
+  rH:"تقديم شكوى",rSuivi:"رقم التتبّع <span class=\"opt\">إن وُجد</span>",rType:"السبب",o0:"اختر…",r1:"تأخر التوصيل",r2:"طرد متضرر",r3:"طرد ضائع",r4:"دفع COD",r5:"سلوك الموصّل",o8:"أخرى",
+  rDesc:"وصف المشكلة",rBtn:"أرسل الشكوى",dH:"طلباتي",dRef:"تحديث",iH:"معلومات مفيدة",i1:"ابتداءً من ⁦100⁩ طرد مُرسَل خلال الشهر، مكافأة نقدية.",
+  i2:"الأسعار",i2s:"إلى المنزل أو مكتب الاستلام، حسب الولاية.",i3:"جدول الأسعار PDF",i3s:"للتحميل أو الطباعة.",iWa:"راسلنا على واتساب",iMdp:"تغيير كلمة المرور",fHome:"العودة إلى الموقع",
+  title:"فضاء المرسِل – MT Delivery"
+}};
+const MSG={
+  fr:{identifiants:"Numéro ou mot de passe incorrect.",trop:"Trop d'essais. Réessayez dans 15 minutes.",desactive:"Ce compte est désactivé. Contactez MT Delivery.",
+    connexion:"Votre session a expiré. Reconnectez-vous.",ancien:"Le mot de passe actuel est incorrect.",faible:"8 caractères au moins, pas uniquement des chiffres, et pas un seul caractère répété.",
+    identique:"Choisissez un mot de passe différent du mot de passe provisoire.",diff:"Les deux mots de passe ne sont pas identiques.",incomplet:"Remplissez les champs obligatoires.",
+    montant:"Montant invalide.",changer:"Choisissez d'abord votre mot de passe.",reseau:"Connexion impossible. Vérifiez votre internet et réessayez.",tel:"Numéro de téléphone invalide.",
+    vide:"Indiquez votre numéro et votre mot de passe.",stockage:"Service momentanément indisponible. Réessayez plus tard.",erreur:"La demande n'a pas pu être envoyée. Réessayez ou écrivez-nous sur WhatsApp.",okCod:"Demande envoyée. Notre équipe vous recontacte.",okRec:"Réclamation envoyée. Notre équipe vous recontacte.",okMdp:"Mot de passe enregistré.",
+    aucune:"Aucune demande pour l'instant.",cod:"Demande d'argent",reclamation:"Réclamation",nouveau:"Reçue","en cours":"En cours de traitement","réglé":"Traitée",
+    montantL:"Montant",suiviL:"N° de suivi",cacher:"Masquer",voir:"Afficher",mP:"Pour votre sécurité, remplacez le mot de passe provisoire par un mot de passe personnel.",mP2:"Choisissez un nouveau mot de passe.",title:"Espace expéditeur – MT Delivery",
+    oubli:"Bonjour MT Delivery, j'ai oublié le mot de passe de mon espace expéditeur.",hello:"Bonjour MT Delivery"},
+  ar:{identifiants:"رقم الهاتف أو كلمة المرور غير صحيحة.",trop:"محاولات كثيرة. أعد المحاولة بعد ⁦15⁩ دقيقة.",desactive:"هذا الحساب موقوف. تواصل مع MT Delivery.",
+    connexion:"انتهت جلستك. سجّل الدخول من جديد.",ancien:"كلمة المرور الحالية غير صحيحة.",faible:"⁦8⁩ أحرف على الأقل، وليست أرقامًا فقط ولا حرفًا واحدًا مكررًا.",
+    identique:"اختر كلمة مرور مختلفة عن كلمة المرور المؤقتة.",diff:"كلمتا المرور غير متطابقتين.",incomplet:"املأ الخانات الإلزامية.",
+    montant:"المبلغ غير صالح.",changer:"اختر كلمة مرورك أولًا.",reseau:"تعذّر الاتصال. تحقّق من الإنترنت وأعد المحاولة.",tel:"رقم الهاتف غير صالح.",
+    vide:"أدخل رقم هاتفك وكلمة المرور.",stockage:"الخدمة غير متاحة مؤقتًا. أعد المحاولة لاحقًا.",erreur:"تعذّر إرسال الطلب. أعد المحاولة أو راسلنا على واتساب.",okCod:"تم إرسال الطلب. سيتواصل معك فريقنا.",okRec:"تم إرسال الشكوى. سيتواصل معك فريقنا.",okMdp:"تم حفظ كلمة المرور.",
+    aucune:"لا توجد طلبات حاليًا.",cod:"طلب أموال",reclamation:"شكوى",nouveau:"تم الاستلام","en cours":"قيد المعالجة","réglé":"تمت المعالجة",
+    montantL:"المبلغ",suiviL:"رقم التتبّع",cacher:"إخفاء",voir:"إظهار",mP:"من أجل أمانك، استبدل كلمة المرور المؤقتة بكلمة مرور شخصية.",mP2:"اختر كلمة مرور جديدة.",title:"فضاء المرسِل – MT Delivery",
+    oubli:"السلام عليكم، نسيت كلمة مرور فضاء المرسِل الخاص بي.",hello:"السلام عليكم"}
+};
+const $=id=>document.getElementById(id);
+let lang="fr",ME=null,ANCIEN="",FORCE=false;
+const MOTIF={"Retard de livraison":"r1","Colis endommagé":"r2","Colis perdu":"r3","Paiement COD":"r4","Comportement du livreur":"r5","Autre":"o8"};
+const motif=v=>lang==="ar"&&MOTIF[v]?T.ar[MOTIF[v]]:v;
+try{if(localStorage.getItem("mtd_lang")==="ar")lang="ar"}catch(e){}
+const m=k=>MSG[lang][k]||MSG.fr[k]||k;
+const FR={};
+function apply(){
+  const ar=lang==="ar";
+  document.documentElement.lang=lang;document.documentElement.dir=ar?"rtl":"ltr";
+  document.querySelectorAll("[data-i]").forEach(e=>{const k=e.dataset.i;if(!(k in FR))FR[k]=e.textContent;e.textContent=ar?(T.ar[k]||FR[k]):FR[k]});
+  document.querySelectorAll("[data-i-html]").forEach(e=>{const k="h:"+e.dataset.iHtml;if(!(k in FR))FR[k]=e.innerHTML;e.innerHTML=ar?(T.ar[e.dataset.iHtml]||FR[k]):FR[k]});
+  document.querySelectorAll("[data-ph]").forEach(e=>{const k="p:"+e.dataset.ph;if(!(k in FR))FR[k]=e.placeholder;e.placeholder=ar?(T.ar[e.dataset.ph]||FR[k]):FR[k]});
+  document.querySelectorAll("[data-al]").forEach(e=>{const k="a:"+e.dataset.al;if(!(k in FR))FR[k]=e.getAttribute("aria-label");e.setAttribute("aria-label",ar?(T.ar[e.dataset.al]||FR[k]):FR[k])});
+  document.querySelectorAll(".eye").forEach(b=>b.textContent=m(document.getElementById(b.getAttribute("aria-controls")).type==="password"?"voir":"cacher"));
+  document.querySelectorAll(".waLink").forEach(a=>a.href="https://wa.me/"+WA+"?text="+encodeURIComponent(m(a.dataset.wa)));
+  $("lang").textContent=ar?"Français":"العربية";
+  document.title=m("title");
+  $("mP").textContent=m(FORCE?"mP":"mP2");
+  if(ME)renderMe();
+  if(LAST)renderDem(LAST);
+}
+$("lang").onclick=()=>{lang=lang==="fr"?"ar":"fr";try{localStorage.setItem("mtd_lang",lang)}catch(e){}apply()};
+document.querySelectorAll(".eye").forEach(b=>b.onclick=()=>{const i=document.getElementById(b.getAttribute("aria-controls"));i.type=i.type==="password"?"text":"password";b.textContent=m(i.type==="password"?"voir":"cacher")});
+
+async function api(body){
+  try{
+    const r=body?await fetch("/api/espace",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body),credentials:"same-origin"})
+               :await fetch("/api/espace",{credentials:"same-origin",cache:"no-store"});
+    const j=await r.json().catch(()=>({ok:false,error:"reseau"}));
+    if(r.status===401&&body&&body.action!=="connexion"&&body.action!=="deconnexion"){ME=null;show("vLogin");showErr($("lgErr"),"connexion")}
+    return j;
+  }catch(e){return {ok:false,error:"reseau"}}
+}
+function show(v){["vLogin","vMdp","vApp"].forEach(x=>$(x).hidden=x!==v);$("gErr").hidden=true;window.scrollTo(0,0)}
+function showErr(el,code){el.textContent=m(code);el.hidden=false}
+const normTel=v=>{let d=String(v||"").replace(/\D/g,"");if(d.startsWith("213"))d=d.slice(3);if(d.length===9)d="0"+d;return d};
+const fmtTel=t=>t.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})$/,"$1 $2 $3 $4");
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function renderMe(){
+  $("aNom").textContent=ME.boutique||ME.nom||fmtTel(ME.tel);
+  const meta=[ME.boutique&&ME.nom?ME.nom:"",fmtTel(ME.tel)].filter(Boolean).join(" · ");
+  $("aMeta").innerHTML="";const b=document.createElement("bdi");b.dir="ltr";b.textContent=meta;$("aMeta").append(b);
+}
+function entrer(c){
+  ME=c;
+  if(c.doitChanger){openMdp(true);return}
+  renderMe();show("vApp");loadDem();
+}
+function openMdp(force){
+  $("fMdp").reset();$("mErr").hidden=true;
+  $("mAncBox").hidden=!!(force&&ANCIEN);$("mAnc").required=!$("mAncBox").hidden;
+  $("mCancel").hidden=!!force;
+  FORCE=!!force;$("mP").textContent=m(FORCE?"mP":"mP2");
+  show("vMdp");(force&&ANCIEN?$("mNew"):$("mAnc")).focus();
+}
+
+$("fLogin").onsubmit=async e=>{
+  e.preventDefault();const err=$("lgErr");err.hidden=true;
+  const tel=normTel($("lgTel").value),mdp=$("lgMdp").value;
+  if(!tel||!mdp)return showErr(err,"vide");
+  if(!/^0[2-7]\d{8}$/.test(tel))return showErr(err,"tel");
+  const btn=e.submitter||e.target.querySelector("button[type=submit]");btn.disabled=true;
+  const j=await api({action:"connexion",tel,mdp});btn.disabled=false;
+  if(!j.ok)return showErr(err,MSG.fr[j.error]?j.error:"reseau");
+  ANCIEN=mdp;$("lgMdp").value="";entrer(j.compte);
+};
+$("fMdp").onsubmit=async e=>{
+  e.preventDefault();const err=$("mErr");err.hidden=true;
+  const ancien=$("mAncBox").hidden?ANCIEN:$("mAnc").value,nouveau=$("mNew").value;
+  if(nouveau.length<8||/^\d+$/.test(nouveau)||new Set(nouveau).size<4)return showErr(err,"faible");
+  if(nouveau!==$("mConf").value)return showErr(err,"diff");
+  const btn=e.target.querySelector("button[type=submit]");btn.disabled=true;
+  const j=await api({action:"mdp",ancien,nouveau});btn.disabled=false;
+  if(!j.ok){if(j.error==="ancien"&&$("mAncBox").hidden){$("mAncBox").hidden=false;$("mAnc").required=true}return showErr(err,j.error||"reseau")}
+  ANCIEN="";ME=j.compte;renderMe();show("vApp");okMsg("okMdp");loadDem();
+};
+$("mCancel").onclick=()=>show("vApp");
+$("btnMdp").onclick=()=>{ANCIEN="";openMdp(false)};
+$("btnOut").onclick=async()=>{await api({action:"deconnexion"});ME=null;LAST=null;$("dList").innerHTML="";show("vLogin");$("lgTel").focus()};
+function okMsg(k){const o=$("aOk");o.textContent=m(k);o.hidden=false;clearTimeout(okMsg.t);okMsg.t=setTimeout(()=>o.hidden=true,8000)}
+
+function bindForm(id,categorie,ok){
+  const f=$(id);
+  f.onsubmit=async e=>{
+    e.preventDefault();const err=f.querySelector(".msg");err.hidden=true;
+    const data={action:"demande",categorie};
+    new FormData(f).forEach((v,k)=>data[k]=String(v).trim());
+    if([...f.querySelectorAll("[required]")].some(x=>!x.value.trim()))return showErr(err,"incomplet");
+    const btn=f.querySelector("button[type=submit]");btn.disabled=true;
+    const j=await api(data);btn.disabled=false;
+    if(!j.ok)return showErr(err,MSG.fr[j.error]?j.error:"erreur");
+    f.reset();okMsg(ok);loadDem();$("aOk").scrollIntoView({block:"center"});
+  };
+}
+bindForm("fCod","cod","okCod");bindForm("fRec","reclamation","okRec");
+
+let LAST=null;
+async function loadDem(){const j=await api({action:"demandes"});if(j.ok)renderDem(j.demandes)}
+function renderDem(list){
+  LAST=list;
+  if(!list.length){$("dList").innerHTML=`<li class="empty" style="border-style:dashed">${esc(m("aucune"))}</li>`;return}
+  const fmt=new Intl.DateTimeFormat(lang==="ar"?"ar-DZ-u-nu-latn":"fr-DZ",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+  $("dList").innerHTML=list.map(d=>{
+    const cls=d.statut==="réglé"?"s-regle":d.statut==="en cours"?"s-cours":"s-nouveau";
+    const det=d.type==="cod"?[d.data.montant?(lang==="ar"?`${m("montantL")}: \u2066${d.data.montant}\u2069 دج`:`${m("montantL")} : ${d.data.montant} DA`):"",d.data.suivis]:[motif(d.data.type),d.data.suivi?`${m("suiviL")} : ${d.data.suivi}`:"",d.data.desc];
+    return `<li class="${cls}"><div class="top"><b>${esc(m(d.type))}</b><span class="badge">${esc(m(d.statut))}</span></div><span class="d">${esc(fmt.format(new Date(d.date)))}</span>${det.filter(Boolean).map(x=>`<p class="x" dir="auto">${esc(x)}</p>`).join("")}</li>`;
+  }).join("");
+}
+$("btnRef").onclick=loadDem;
+
+(async()=>{
+  apply();
+  const j=await api(null);
+  if(j.ok)entrer(j.compte);
+  else if(j.error==="reseau"||j.error==="stockage"){show("vLogin");showErr($("lgErr"),"reseau")}
+  else show("vLogin");
+})();
+</script>
+</body>
+</html>

@@ -22,3 +22,6 @@
   Cache-Control: public, max-age=3600
 /promo/*
   Cache-Control: public, max-age=3600
+/espace.html
+  X-Robots-Tag: noindex
+  Cache-Control: no-cache
